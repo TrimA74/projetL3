@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="Style.css" />
+        <title>Visu-thermique</title>
+
+        <h1><br/><br/>Visualisation thermique<br/><br/></h1>
+
+    </head>
+
+		
+
+
+    <body>
+
+    	<script src="./js/index.js"></script>
+
+    	<div id="BlockPrincipal">
+    		<div class="element">
+		    	<h2>Set de Donnée<h2/>
+
+		    	<!--<tt><SELECT multiple size="3">
+		    		<option value="Set1">Set1</option>
+		    		<option value="Set2">Set2</option>
+		    		<option value="Set3">Set3</option>
+		    	</SELECT></tt> -->
+
+		    	<form>
+		    		<p>
+		    			<select>
+			    			<optgroup label="Europe">
+			    				<option value="Set1">Set1</option>
+			    				<option value="Set2">Set2</option>
+			    				<option value="Set3">Set3</option>
+			    			</optgroup>
+			    			<optgroup label="Amérique">
+			    				<option value="Set1a">Set1a</option>
+			    				<option value="Set2a">Set2a</option>
+			    				<option value="Set3a">Set3a</option>
+			    			</optgroup>
+			    			<optgroup label="Asie">
+			    				<option value="Set1q">Set1q</option>
+			    				<option value="Set2q">Set2q</option>
+			    				<option value="Set3q">Set3q</option>
+			    			</optgroup>
+		    			</select>
+		    		</p>
+		    	</form>
+	    	</div>
+
+	    	<div class="element">
+		    	<div id="Block2">
+		    		<div class="element2">
+					    <h2>Matrice en abssice<h2/>
+
+					    	<input type="submit" value="X" id="BoutonX" />
+					    	<input type="submit" value="T" id="BoutonT" />
+					    	<input type="submit" value="A" id="BoutonA" />
+					    	<input type="submit" value="B" id="BoutonB" />
+
+					    	<!--<input type="radio" name="abssice" value="ChBX" id="ChBX" /> <label for="ChBX">X</label><br/>
+					    	<input type="radio" name="abssice" value="ChBT" id="ChBT" /> <label for="ChBT">T</label><br/>
+					    	<input type="radio" name="abssice" value="ChBA" id="ChBA" /> <label for="ChBA">A</label><br/>
+					    	<input type="radio" name="abssice" value="ChBB" id="ChBB" /> <label for="ChBB">B</label><br/> -->
+				    </div>
+				    
+				    <div class="element2">
+				    	<h2>Graphe <h2/>
+				    	<img src="./img/Chart.jpg" alt="The Chart" />
+				    </div>	
+
+				    <div class="element2">
+					    <h2>Autres paramètre <h2/>
+					    	
+					    	<from>
+					    		<p>
+					    			<label for="parametre1">X</label><input type="range" name="parametre1" min="0" max="80" step="1"/>
+					    			<input type="number" min="0" max="80" step="1"/><br/>
+					    			<label for="parametre2">T</label><input type="range" name="parametre2" min="0" max="80" step="1"/>
+					    			<input type="number" min="0" max="80" step="1"/><br/>
+					    			<label for="parametre3">A</label><input type="range" name="parametre3" min="0" max="80" step="1"/>
+					    			<input type="number" min="0" max="80" step="1"/><br/>
+					    			<label for="parametre4">B</label><input type="range" name="parametre4" min="0" max="80" step="1"/>
+					    			<input type="number" min="0" max="80" step="1"/><br/>
+					    		</p>
+					    	</from>
+					</div>
+
+					<div class="element">
+						<input type="submit" value="Modifier" />
+					</div>	
+
+			    </div> <!--end block2 -->
+		    </div>
+
+			
+		</div> <!-- end block principal -->
+
+	    	
+	    	
+    </body>
+
+</html>
