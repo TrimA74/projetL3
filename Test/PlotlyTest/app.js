@@ -1,4 +1,9 @@
-Plotly.d3.csv('https://github.com/TrimA74/projetL3/blob/master/PlotlyTest/jeuTestPlotLy.csv', function(rows){
+Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/PlotlyTest/jeuTestPlotLy.csv', function(rows){
+  console.log(rows);
+  var test = rows.map(function(row){          // set the x-data
+        return row['Time'];
+      });
+      console.log(test);
     var trace = {
       type: 'scatter',                    // set the chart type
       mode: 'lines',                      // connect points with lines
@@ -7,12 +12,9 @@ Plotly.d3.csv('https://github.com/TrimA74/projetL3/blob/master/PlotlyTest/jeuTes
       }),
       y: rows.map(function(row){          // set the x-data
         return row['T'];
-      }),
-      line: {                             // set the width of the line.
-        width: 1
-      }
+      })
     };
-
+    console.log(trace);
     var layout = {
       yaxis: {title: "temperature temps"},       // set the y axis title
       xaxis: {
