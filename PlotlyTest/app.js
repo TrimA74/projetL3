@@ -1,67 +1,28 @@
-var rawDataURL = 'https://raw.githubusercontent.com/plotly/datasets/master/2016-weather-data-seattle.csv';
-var xField = 'Date';
-var yField = 'Mean_TemperatureC';
-
-var selectorOptions = {
-    buttons: [{
-        step: 'month',
-        stepmode: 'backward',
-        count: 1,
-        label: '1m'
-    }, {
-        step: 'month',
-        stepmode: 'backward',
-        count: 6,
-        label: '6m'
-    }, {
-        step: 'year',
-        stepmode: 'todate',
-        count: 1,
-        label: 'YTD'
-    }, {
-        step: 'year',
-        stepmode: 'backward',
-        count: 1,
-        label: '1y'
-    }, {
-        step: 'all',
-    }],
-};
-
-Plotly.d3.csv(rawDataURL, function(err, rawData) {
-    if(err) throw err;
-
-    var data = prepData(rawData);
-    var layout = {
-        title: 'Time series with range slider and selectors',
-        xaxis: {
-            rangeselector: selectorOptions,
-            rangeslider: {}
-        },
-        yaxis: {
-            fixedrange: true
-        }
+Plotly.d3.csv('jeuTestPlotLy.csv', function(rows){
+    var trace = {
+      type: 'scatter',                    // set the chart type
+      mode: 'lines',                      // connect points with lines
+      x: rows.map(function(row){          // set the x-data
+        return row['Time'];
+      }),
+      y: rows.map(function(row){          // set the x-data
+        return row['T'];
+      }),
+      line: {                             // set the width of the line.
+        width: 1
+      }
     };
 
-    Plotly.plot('graph', data, layout);
+    var layout = {
+      yaxis: {title: "temperature temps"},       // set the y axis title
+      xaxis: {
+        showgrid: false,                  // remove the x-axis grid lines
+        tickformat: "%B, %Y"              // customize the date format to "month, day"
+      },
+      margin: {                           // update the left, bottom, right, top margin
+        l: 40, b: 10, r: 10, t: 20
+      }
+    };
+
+    Plotly.plot(document.getElementById('test'), [trace], layout, {showLink: false});
 });
-
-function prepData(rawData) {
-    var x = [];
-    var y = [];
-
-    console.log(rawData.length)
-
-    rawData.forEach(function(datum, i) {
-        if(i % 100) return;
-
-        x.push(new Date(datum[xField]));
-        y.push(datum[yField]);
-    });
-
-    return [{
-        mode: 'lines',
-        x: x,
-        y: y
-    }];
-}
