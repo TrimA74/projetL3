@@ -1,4 +1,4 @@
-Plotly.d3.csv('jeuTestPlotLy.csv', function(rows){
+Plotly.d3.csv('https://github.com/TrimA74/projetL3/blob/master/PlotlyTest/jeuTestPlotLy.csv', function(rows){
     var trace = {
       type: 'scatter',                    // set the chart type
       mode: 'lines',                      // connect points with lines
