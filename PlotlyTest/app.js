@@ -1,40 +1,67 @@
-(function() {
-var d3 = Plotly.d3;
+var rawDataURL = 'https://raw.githubusercontent.com/plotly/datasets/master/2016-weather-data-seattle.csv';
+var xField = 'Date';
+var yField = 'Mean_TemperatureC';
 
-var WIDTH_IN_PERCENT_OF_PARENT = 60,
-    HEIGHT_IN_PERCENT_OF_PARENT = 80;
-
-var gd3 = d3.select('body')
-    .append('div')
-    .style({
-        width: WIDTH_IN_PERCENT_OF_PARENT + '%',
-        'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
-
-        height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
-        'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
-    });
-
-var gd = gd3.node();
-
-Plotly.plot(gd, [{
-    type: 'bar',
-    x: [1, 2, 3, 4],
-    y: [5, 10, 2, 8],
-    marker: {
-        color: '#C8A2C8',
-        line: {
-            width: 2.5
-        }
-    }
-}], {
-    title: 'Auto-Resize',
-    font: {
-        size: 16
-    }
-});
-
-window.onresize = function() {
-    Plotly.Plots.resize(gd);
+var selectorOptions = {
+    buttons: [{
+        step: 'month',
+        stepmode: 'backward',
+        count: 1,
+        label: '1m'
+    }, {
+        step: 'month',
+        stepmode: 'backward',
+        count: 6,
+        label: '6m'
+    }, {
+        step: 'year',
+        stepmode: 'todate',
+        count: 1,
+        label: 'YTD'
+    }, {
+        step: 'year',
+        stepmode: 'backward',
+        count: 1,
+        label: '1y'
+    }, {
+        step: 'all',
+    }],
 };
 
-})();
+Plotly.d3.csv(rawDataURL, function(err, rawData) {
+    if(err) throw err;
+
+    var data = prepData(rawData);
+    var layout = {
+        title: 'Time series with range slider and selectors',
+        xaxis: {
+            rangeselector: selectorOptions,
+            rangeslider: {}
+        },
+        yaxis: {
+            fixedrange: true
+        }
+    };
+
+    Plotly.plot('graph', data, layout);
+});
+
+function prepData(rawData) {
+    var x = [];
+    var y = [];
+
+    console.log(rawData.length)
+
+    rawData.forEach(function(datum, i) {
+        if(i % 100) return;
+
+        x.push(new Date(datum[xField]));
+        y.push(datum[yField]);
+    });
+
+    return [{
+        mode: 'lines',
+        x: x,
+        y: y
+    }];
+}
