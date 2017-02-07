@@ -23,8 +23,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Pl
       },
       margin: {                           // update the left, bottom, right, top margin
         l: 40, b: 10, r: 10, t: 20
-      }
+      },
+      showlegend : false
     };
 
-    Plotly.plot(document.getElementById('test'), [trace], layout, {showLink: false});
+    Plotly.plot(document.getElementById('graph'), [trace], layout, {showLink: false});
 });
+
+// test
+  
+
+console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376
