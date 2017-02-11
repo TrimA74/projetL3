@@ -8,28 +8,42 @@
 	  <meta name="author" content="John Doe">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
 		<meta charset="utf-8" />
 		<title>Visu-thermique</title>
 
 	</head>
 
 	<body>
-		<header class="container centered">
+		<header class="container">
 			<div class="row">
-				<h1>Visu Thermique</h1>
+				<h1 class="text-center">Visu Thermique</h1>
 			</div>
 		</header>
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3">
-					<ul class="list-group">
-						<li class="list-group-item">Set1</li>
-						<li class="list-group-item">Set2</li>
-						<li class="list-group-item">Set3</li>
-						<li class="list-group-item">Set4</li>
-					</ul>
+				<h3>Choix dataset</h3>
+					<select multiple class="form-control" style="max-height: 100px;max-width: 100px;">
+						<option href="#" class=" active">Set1</option>
+						<option href="#" class=" active">Set2</option>
+						<option href="#" class=" active">Set3</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+						<option href="#" class=" active">Set4</option>
+					</select>
 
 				</div>
 				<div class="col-md-9">
@@ -43,8 +57,51 @@
 						<div id="graph"></div>
 
 					 <h2>Autres paramètres <h2/>
+						<div class="form-horizontal">
+							<!-- Param X -->
+				    		<div class="form-group">
+				    			<label for="amountInputX" class="col-sm-1 control-label">X</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeX').slider('setValue',this.value);"
+					    			name="amountInputX" value="40" min="0" max="80" step="1" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeX" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputX')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="80" 
+					    			step="1" 
+					    			data-slider-value="40" />
+				    			</div>
+				    		</div>
+				    		<!-- Param Y -->
+								<!-- 
+				    		<div id="parametreT">
+			    				<label for="parametre2">T</label>
+			    				<input id="NumberT" type="number" value="40" min="0" max="80" step="1"/>
+			    				<input type="range" name="parametre2" min="0" max="80" step="1" onchange="changeT(this.value);"/>
+			    				<br/>
+			    			</div>
 
+			    			<div id="parametreA">
+			    				<label for="parametre3">A</label>
+			    				<input id="NumberA" type="number" value="40" min="0" max="80" step="1"/>
+			    				<input type="range" name="parametre3" min="0" max="80" step="1" onchange="changeA(this.value);"/>
+			    				<br/>
+			    			</div>
 
+			    			<div id="parametreB">
+			    				<label for="parametre4">B</label>
+			    				<input id="NumberB" type="number" value="40" min="0" max="80" step="1"/>
+			    				<input type="range" name="parametre4" min="0" max="80" step="1" onchange="changeB(this.value);"/>
+			    				<br/>
+			    			</div>
+			    			 -->
+
+			    		</div>	
+	
 				</div>
 				
 			</div>
@@ -55,6 +112,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity=""></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
     
 <script type="text/javascript" src="plotly.js" integrity=""></script>
 <script type="text/javascript" src="app.js" integrety=""></script>

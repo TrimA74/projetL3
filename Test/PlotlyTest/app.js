@@ -7,10 +7,8 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
     datasY.push(Number(value)*2);
     }
   });
-  console.log(datasY);
 });
 Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/X.txt', function(rows){
-  console.log(rows);
   var datasX = [];
   rows.forEach(function(e) {
     for(var key in e) {
@@ -18,18 +16,15 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
     datasX.push(Number(value));
     }
   });
-  console.log(datasX);
   var test = rows.map(function(row){          // set the x-data
         return row['Time'];
       });
-      //console.log(test);
     var trace = {
       type: 'scatter',                    // set the chart type
       mode: 'lines',                      // connect points with lines
       x: datasX,
       y: datasY
     };
-    //console.log(trace);
     var layout = {
       yaxis: {title: "temperature temps"},       // set the y axis title
       xaxis: {
@@ -46,5 +41,9 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
 
 // test
   
+$("#rangeX").slider({ 
+  tooltip: 'always'
+});
 
-console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376
+/*
+console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/
