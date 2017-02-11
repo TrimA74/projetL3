@@ -3,7 +3,8 @@
 	<head>
  
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+		<link rel="stylesheet" href="Style.css" />
+		<link rel="stylesheet" href="bootstrap-formhelpers.min.css"/>
 		<meta charset="utf-8" />
 		<title>Visu-thermique</title>
 
@@ -20,35 +21,70 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3">
-					<ul class="list-group">
-						<li class="list-group-item">Set1</li>
-						<li class="list-group-item">Set2</li>
-						<li class="list-group-item">Set3</li>
-						<li class="list-group-item">Set4</li>
-					</ul>
+				
+				
+					<select id="SelectSet" multiple class="from-control">
+						<option>Set1</option>
+						<option>Set2</option>
+						<option>Set3</option>
+						<option>Set4</option>
+						<option>Set5</option>
+					</select>
+
+
 				</div>
 				<div class="col-md-9">
 					 <h2>Matrice en abssice<h2/>
-						 	<button class="btn btn-primary btn-lg active">X</button>
+						 	<button class="btn btn-primary btn-lg acive">X</button>
 						 	<button class="btn btn-primary btn-lg active">T</button>
 						 	<button class="btn btn-primary btn-lg active">A</button>
-					 	<button class="btn btn-primary btn-lg active">B</button>
+					 		<button class="btn btn-primary btn-lg active">B</button>
 
 					 <h2>Graphic <h2/>
 
-
 					 <h2>Autres paramètre <h2/>
+					    	
+					    		<div id="GroupeParametre">
+						    		<div id="parametreX">
+						    			<label for="parametre1">X</label>
+						    			<input id="NumberX" type="number" value="40" min="0" max="80" step="1"/>
+						    			<input type="range" name="parametre1" min="0" max="80" step="1" onchange="changeX(this.value);" />
+						    			<br/>
+						    		</div>
 
+						    		<div id="parametreT">
+					    				<label for="parametre2">T</label>
+					    				<input id="NumberT" type="number" value="40" min="0" max="80" step="1"/>
+					    				<input type="range" name="parametre2" min="0" max="80" step="1" onchange="changeT(this.value);"/>
+					    				<br/>
+					    			</div>
+
+					    			<div id="parametreA">
+					    				<label for="parametre3">A</label>
+					    				<input id="NumberA" type="number" value="40" min="0" max="80" step="1"/>
+					    				<input type="range" name="parametre3" min="0" max="80" step="1" onchange="changeA(this.value);"/>
+					    				<br/>
+					    			</div>
+
+					    			<div id="parametreB">
+					    				<label for="parametre4">B</label>
+					    				<input id="NumberB" type="number" value="40" min="0" max="80" step="1"/>
+					    				<input type="range" name="parametre4" min="0" max="80" step="1" onchange="changeB(this.value);"/>
+					    				<br/>
+					    			</div>
+
+					    		</div>
 
 				</div>
 				
 			</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		    
 		<script type="text/javascript" src="plotly.js"></script>
 		<script type="text/javascript" src="app.js"></script>
+
+				<script src="./index.js"></script>
 	</body>
 </html> 
