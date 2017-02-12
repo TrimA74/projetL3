@@ -63,7 +63,7 @@
 				    			<label for="amountInputX" class="col-sm-1 control-label">X</label>
 				    			<div class="col-sm-2">
 					    			<input type="number" 
-									onchange="$('#rangeX').slider('setValue',this.value);"
+									onchange="$('#rangeX').slider('setValue',this.value);updateSlider();"
 					    			name="amountInputX" value="40" min="0" max="80" step="1" class="form-control"/>
 				    			</div>
 				    			<div class="col-sm-4">
