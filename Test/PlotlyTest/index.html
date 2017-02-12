@@ -64,18 +64,41 @@
 				    			<div class="col-sm-2">
 					    			<input type="number" 
 									onchange="$('#rangeX').slider('setValue',this.value);updateSlider();"
-					    			name="amountInputX" value="40" min="0" max="80" step="1" class="form-control"/>
+					    			name="amountInputX" value="50" min="0" max="100" step="1" class="form-control"/>
 				    			</div>
 				    			<div class="col-sm-4">
 					    			<input  id="rangeX" 
 					    			type="text"  name="amountRange" 
 					    			onchange="document.getElementsByName('amountInputX')[0].value=this.value;" 
 					    			data-slider-min="0" 
-					    			data-slider-max="80" 
+					    			data-slider-max="100" 
 					    			step="1" 
-					    			data-slider-value="40" />
+					    			data-slider-value="50" />
 				    			</div>
 				    		</div>
+				    		<div class="form-horizontal">
+							<!-- Param X -->
+				    		
+							<!-- Param T -->
+				    		<div class="form-group">
+				    			<label for="amountInputT" class="col-sm-1 control-label">T</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeT').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputT" value="4000" min="0" max="8000" step="100" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeT" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputT')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="8000" 
+					    			step="1" 
+					    			data-slider-value="4000" />
+				    			</div>
+				    		</div>
+				    		<!-- Param T -->
+
 				    		<!-- Param Y -->
 								<!-- 
 				    		<div id="parametreT">
