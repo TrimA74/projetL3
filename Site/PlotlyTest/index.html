@@ -14,45 +14,53 @@
 
 	</head>
 
-	<body>
+	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
 		<header class="container">
 			<div class="row">
-				<h1 class="text-center">Visu Thermique</h1>
+				<h1 class="text-center"> Visu Thermique </h1>
 			</div>
 		</header>
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
-				<h3>Choix dataset</h3>
-					<select multiple class="form-control" style="max-height: 100px;max-width: 100px;">
-						<option href="#" class=" active">Set1</option>
-						<option href="#" class=" active">Set2</option>
-						<option href="#" class=" active">Set3</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-						<option href="#" class=" active">Set4</option>
-					</select>
+					<div class="col-md-3">
+
+						<h2>Matrice en abscisse<h2/>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);">X</button>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to top right, #3366ff 0%, #66ff33 100%);">T</button>
+						 <button class="btn btn-primary btn-lg"
+						 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">A</button>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>
+
+					  <label for="selectset"><h3>Choix dataset</h3></label>
+				      <select multiple class="form-control" id="selectset" 
+				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 300px;">
+				        <optgroup label="Goupe1">
+				        <option>Set1</option>
+				        <option>Set2</option>
+				        <option>Set3</option>
+				        <option>Set4</option>
+				        <option>Set5</option>
+				        <optgroup label="Goupe2">
+				        <option>Set1</option>
+				        <option>Set2</option>
+				        <option>Set3</option>
+				        <option>Set4</option>
+				        <option>Set5</option>
+				        <optgroup label="Goupe3">
+				        <option>Set1</option>
+				        <option>Set2</option>
+				        <option>Set3</option>
+				        <option>Set4</option>
+				        <option>Set5</option>
+				      </select>
 
 				</div>
 				<div class="col-md-9">
-					 <h2>Matrice en abscisse<h2/>
-						 	<button class="btn btn-primary btn-lg active">X</button>
-						 	<button class="btn btn-primary btn-lg active">T</button>
-						 	<button class="btn btn-primary btn-lg active">A</button>
-						 	<button class="btn btn-primary btn-lg active">B</button>
-
+		
 					 <h2>Graphique <h2/>
 						<div id="graph"></div>
 
