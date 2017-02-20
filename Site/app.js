@@ -46,6 +46,17 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
 var slider = $("#rangeX").slider({ 
   tooltip: 'always'
 });
+var slider = $("#rangeT").slider({ 
+  tooltip: 'always'
+});
+slider.on('slideStop',updateSlider);
+var slider = $("#rangeA").slider({ 
+  tooltip: 'always'
+});
+slider.on('slideStop',updateSlider);
+var slider = $("#rangeB").slider({ 
+  tooltip: 'always'
+});
 slider.on('slideStop',updateSlider);
 
 

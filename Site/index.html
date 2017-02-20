@@ -1,90 +1,68 @@
 <!DOCTYPE html>
 
-	<head>
- 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link rel="stylesheet" href="Style.css" />
-		<link rel="stylesheet" href="bootstrap-formhelpers.min.css"/>
-		<meta charset="utf-8" />
+<html>
+<head>
+	  <meta charset="UTF-8">
+	  <meta name="description" content="Free Web tutorials">
+	  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	  <meta name="author" content="John Doe">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  	<link rel="stylesheet" href="bootstrap.min.css">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-slider.min.css">
+	  	<meta charset="utf-8" />	
 		<title>Visu-thermique</title>
 
 	</head>
 
-	<body>
+	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
 
-		<header class="container centered">
+		<header class="container">
 			<div class="row">
-				<h1>Visu Thermique</h1>
+				<h1 class="text-center"> <strong>Visu Thermique </strong></h1>
 			</div>
 		</header>
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
-				
-				
-					<select id="SelectSet" multiple class="from-control">
-						<option>Set1</option>
-						<option>Set2</option>
-						<option>Set3</option>
-						<option>Set4</option>
-						<option>Set5</option>
-					</select>
 
-
-				</div>
-				<div class="col-md-9">
-					 <h2>Matrice en abssice<h2/>
-						 	<button class="btn btn-primary btn-lg acive">X</button>
-						 	<button class="btn btn-primary btn-lg active">T</button>
-						 	<button class="btn btn-primary btn-lg active">A</button>
-					 		<button class="btn btn-primary btn-lg active">B</button>
-
-					 <h2>Graphic <h2/>
-
-					 <h2>Autres paramètre <h2/>
-					    	
-					    		<div id="GroupeParametre">
-						    		<div id="parametreX">
-						    			<label for="parametre1">X</label>
-						    			<input id="NumberX" type="number" value="40" min="0" max="80" step="1"/>
-						    			<input type="range" name="parametre1" min="0" max="80" step="1" onchange="changeX(this.value);" />
-						    			<br/>
-						    		</div>
-
-						    		<div id="parametreT">
-					    				<label for="parametre2">T</label>
-					    				<input id="NumberT" type="number" value="40" min="0" max="80" step="1"/>
-					    				<input type="range" name="parametre2" min="0" max="80" step="1" onchange="changeT(this.value);"/>
-					    				<br/>
-					    			</div>
-
-					    			<div id="parametreA">
-					    				<label for="parametre3">A</label>
-					    				<input id="NumberA" type="number" value="40" min="0" max="80" step="1"/>
-					    				<input type="range" name="parametre3" min="0" max="80" step="1" onchange="changeA(this.value);"/>
-					    				<br/>
-					    			</div>
-
-					    			<div id="parametreB">
-					    				<label for="parametre4">B</label>
-					    				<input id="NumberB" type="number" value="40" min="0" max="80" step="1"/>
-					    				<input type="range" name="parametre4" min="0" max="80" step="1" onchange="changeB(this.value);"/>
-					    				<br/>
-					    			</div>
-
-					    		</div>
-
-				</div>
-				
+			<div class="col-md-1">
 			</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		    
-		<script type="text/javascript" src="plotly.js"></script>
-		<script type="text/javascript" src="app.js"></script>
+			<div class="col-md-10">
+				
+					<div style="background: rgb(250,250,200);">
+						<h2 class="text-center"><a href="thePage.html"><br/><span class="glyphicon glyphicon-tint"></span><strong>Hydrique</strong></a><h2/>
+					</div>
+					<div>
+						<blockquote>
+						<p class="text-justify">
+							Le modèle physique prend en compte la diffusion d'humidité à travers un mur. Les conditions de bords sont fixes d'un côté et oscillantes d'un autre. La solution est calculée en fonction de l'espace, du temps et de la diffusion du matériau.
+						</p>
+						</blockquote>
+					</div>
 
-				<script src="./index.js"></script>
+
+					<div style="background: rgb(250,250,200);">
+						<h2 class="text-center"><a href="thePage.html"><br/><span class="glyphicon glyphicon-fire"></span><strong>Thermique
+						</strong></a><h2/>
+					</div>
+					<div>
+						<p class="text-justify">
+						<blockquote>
+							Le modèle physique prend en compte la diffusion d'thérmique à travers un mur. Les conditions de bords sont fixes d'un côté et oscillantes d'un autre. La solution est calculée en fonction de l'espace, du temps et de A et de B.
+						</blockquote>
+						</p>
+					</div>
+
+			</div>
+
+		</div>
+		
+		<script src="bootstrap.min.js"></script>
+		
+
+
 	</body>
-</html> 
+
+</html>

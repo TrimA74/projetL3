@@ -9,6 +9,7 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<meta charset="utf-8" />
 		<title>Visu-thermique</title>
 
@@ -17,7 +18,7 @@
 	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
 		<header class="container">
 			<div class="row">
-				<h1 class="text-center"> Visu Thermique </h1>
+				<h1 class="text-center"> <strong>Visu Thermique </strong> </h1>
 			</div>
 		</header>
 
@@ -25,17 +26,17 @@
 			<div class="row">
 					<div class="col-md-3">
 
-						<h2>Matrice en abscisse<h2/>
-						 <button class="btn btn-primary btn-lg" 
-						 style="background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);">X</button>
-						 <button class="btn btn-primary btn-lg" 
-						 style="background: linear-gradient(to top right, #3366ff 0%, #66ff33 100%);">T</button>
-						 <button class="btn btn-primary btn-lg"
-						 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">A</button>
-						 <button class="btn btn-primary btn-lg" 
-						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>
+					 <!--<button type="button" class="btn btn-primary btn-block btn-lg" 
+					 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">
+					 Revenir au choix de groupe
+					 </button>-->
+					 <div>
+					 	<a href="index.html" class="btn btn-info btn-lg" style="background: linear-gradient(to left, #99ccff 0%, #99ccaa 89%);">
+          					<span class="glyphicon glyphicon-circle-arrow-left"></span> Revenir au choix de groupe
+        				</a>
+        			</div>
 
-					  <label for="selectset"><h3>Choix dataset</h3></label>
+					  <label for="selectset"><h3> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h3></label>
 				      <select multiple class="form-control" id="selectset" 
 				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 300px;">
 				        <optgroup label="Goupe1">
@@ -61,10 +62,20 @@
 				</div>
 				<div class="col-md-9">
 		
-					 <h2>Graphique <h2/>
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique <h2/>
 						<div id="graph"></div>
 
-					 <h2>Autres paramètres <h2/>
+					<h2> <span class="glyphicon glyphicon-option-horizontal"></span>  Matrice en abscisse<h2/>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);">X</button>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to top right, #3366ff 0%, #66ff33 100%);">T</button>
+						 <button class="btn btn-primary btn-lg"
+						 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">A</button>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>
+
+					 <h2><span class="glyphicon glyphicon-option-vertical"></span>  Autres paramètres <h2/>
 						<div class="form-horizontal">
 							<!-- Param X -->
 				    		<div class="form-group">
@@ -107,30 +118,46 @@
 				    		</div>
 				    		<!-- Param T -->
 
-				    		<!-- Param Y -->
-								<!-- 
-				    		<div id="parametreT">
-			    				<label for="parametre2">T</label>
-			    				<input id="NumberT" type="number" value="40" min="0" max="80" step="1"/>
-			    				<input type="range" name="parametre2" min="0" max="80" step="1" onchange="changeT(this.value);"/>
-			    				<br/>
-			    			</div>
+				    		<!-- Param A -->
+				    		<div class="form-group">
+				    			<label for="amountInputT" class="col-sm-1 control-label">A</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeA').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputA" value="40" min="0" max="80" step="1" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeA" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputA')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="80" 
+					    			step="1" 
+					    			data-slider-value="40" />
+				    			</div>
+				    		</div>
+				    		<!-- Param A -->
 
-			    			<div id="parametreA">
-			    				<label for="parametre3">A</label>
-			    				<input id="NumberA" type="number" value="40" min="0" max="80" step="1"/>
-			    				<input type="range" name="parametre3" min="0" max="80" step="1" onchange="changeA(this.value);"/>
-			    				<br/>
-			    			</div>
-
-			    			<div id="parametreB">
-			    				<label for="parametre4">B</label>
-			    				<input id="NumberB" type="number" value="40" min="0" max="80" step="1"/>
-			    				<input type="range" name="parametre4" min="0" max="80" step="1" onchange="changeB(this.value);"/>
-			    				<br/>
-			    			</div>
-			    			 -->
-
+				    		<!-- Param B -->
+				    		<div class="form-group">
+				    			<label for="amountInputT" class="col-sm-1 control-label">B</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeB').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputB" value="50" min="0" max="100" step="1" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeB" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputB')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="100" 
+					    			step="1" 
+					    			data-slider-value="50" />
+				    			</div>
+				    		</div>
+				    		<!-- Param B -->
+							
 			    		</div>	
 	
 				</div>
