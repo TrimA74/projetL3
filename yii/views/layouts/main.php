@@ -33,26 +33,15 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+    $url = Yii::$app->request->getBaseUrl();
+    ?>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="active"><a href="<?php echo $url;?>/site">Home</a></li>
+      <li><a href="<?php echo $url;?>/site/about">About</a></li>
+      <li><a href="<?php echo $url;?>/site/contact">Contact</a></li>
+      <li><a href="<?php echo $url;?>/site/login">Login</a></li>
+    </ul>
+    <?php
     NavBar::end();
     ?>
 
@@ -66,7 +55,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Visu Thermique <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

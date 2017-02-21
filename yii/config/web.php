@@ -43,6 +43,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'dataset-category/<id:\d+>' => 'dataset-category/view',
             ],
         ],
         

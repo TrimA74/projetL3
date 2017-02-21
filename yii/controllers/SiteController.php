@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\DatasetCategory;
+
 
 class SiteController extends Controller
 {
@@ -60,7 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $categories = DatasetCategory::find()->all();
+        return $this->render('index',[
+            'categories' => $categories,
+            ]);
     }
 
     /**

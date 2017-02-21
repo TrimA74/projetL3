@@ -19,8 +19,12 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/bootstrap-slider.min.css'
     ];
     public $js = [
+        'js/plotly.js',
+        'js/bootstrap-slider.min.js',
+        'js/app.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
