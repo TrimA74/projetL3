@@ -14,7 +14,7 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
-/config/db.local.php
+
 # composer itself is not needed
 composer.phar
 
@@ -28,3 +28,7 @@ phpunit.phar
 
 tests/_output/*
 tests/_support/_generated
+
+# config local
+/config/db.local.php
+/config/web.local.php
