@@ -43,21 +43,22 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
 });
 
 
-var slider = $("#rangeX").slider({ 
+var sliderX = $("#rangeX").slider({ 
   tooltip: 'always'
 });
-var slider = $("#rangeT").slider({ 
+sliderX.on('slideStop',updateSlider);
+var sliderT = $("#rangeT").slider({ 
   tooltip: 'always'
 });
-slider.on('slideStop',updateSlider);
-var slider = $("#rangeA").slider({ 
+sliderT.on('slideStop',updateSlider);
+var sliderA = $("#rangeA").slider({ 
   tooltip: 'always'
 });
-slider.on('slideStop',updateSlider);
-var slider = $("#rangeB").slider({ 
+sliderA.on('slideStop',updateSlider);
+var sliderB = $("#rangeB").slider({ 
   tooltip: 'always'
 });
-slider.on('slideStop',updateSlider);
+sliderB.on('slideStop',updateSlider);
 
 
 function updateSlider () {
