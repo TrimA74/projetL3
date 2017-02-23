@@ -16,7 +16,8 @@
 	</head>
 
 	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
-		<header class="container">
+
+		<header class="container" style="margin-top: 30px;">
 			<div style="border: 3px solid rgb(50,150,180); padding: 20px; background-color: rgb(250,250,190); -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;">
 				<h1 class="text-center"><strong>Visu Thermique</strong></h1>
 			</div>
@@ -40,7 +41,7 @@
 
 					  <label for="selectset"><h3> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h3></label>
 				      <select multiple class="form-control" id="selectset" 
-				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 300px;">
+				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 460px;">
 				        <optgroup label="Thermique">
 				        <option>Set1</option>
 				        <option>Set2</option>
@@ -52,7 +53,7 @@
 				</div>
 				<div class="col-md-9">
 		
-					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique <h2/>
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : Température en fonction de ... <h2/>
 						<div id="graph"></div>
 				</div>
 			</div> <!-- end row -->
@@ -75,6 +76,16 @@
 			</div>
 			<div class="col-md-12"><!-- les selecteurs -->
 					<div class="col-md-4">
+					<blockquote>
+						<label width="100%">Abscisse :</label>
+						<p>- Température [°c] = t</p>
+						<label width="100%">ordonnée :</label>
+						<p>- Epaisseur  [m] = X </p>
+						<label width="100%">Constante :</label>
+						<p>- Temps [h] = T </strong></p>
+						<p>- Alpha [m^2/s] = A </p>
+						<p>- Beta [m^2/s] = B </p>
+					</blockquote>
 					</div>
 					<div class="col-md-8">
 					 	<h2><span class="glyphicon glyphicon-option-vertical"></span>  Autres paramètres <h2/>
@@ -165,12 +176,12 @@
 
 		</div> <!-- end conteneur traitement -->
 
-        <footer class="container-fluid">
+        <footer class="container-fluid" style="margin-bottom: 40px;">
   				<div>
   					<div class="col-md-5">
 					</div>
 					<div class="col-md-2">
-						<a href="index.html" class="btn btn-info btn-lg" style="background: linear-gradient(to left, #99ccff 0%, #99ccaa 89%);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+						<a href="index.html" class="btn btn-info btn-lg" style="background: linear-gradient(to left, #99ccff 0%, #99ccaa 89%);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
         				</a>
         			</div>
         			<div class="col-md-5">
