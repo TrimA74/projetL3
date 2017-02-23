@@ -1,0 +1,6 @@
+{{ set(this,'title',category.title)}}
+<h2>Catégorie  {{category.title}} </h2>
+
+		{% for dataset in datasets %}
+		<p>Dataset  {{dataset.name}}</p>
+	{% endfor %}

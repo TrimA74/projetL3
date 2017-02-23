@@ -63,7 +63,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $categories = DatasetCategory::find()->all();
-        return $this->render('index',[
+        return $this->render('index.twig',[
             'categories' => $categories,
             ]);
     }

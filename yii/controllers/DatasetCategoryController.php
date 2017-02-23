@@ -14,7 +14,7 @@ class DatasetCategoryController extends \yii\web\Controller
     {
         $category = DatasetCategory::findOne($id);
         $datasets = $category->datasets;
-        return $this->render('view',[
+        return $this->render('view.twig',[
         	'category' => $category,
         	'datasets' => $datasets
         	]);
