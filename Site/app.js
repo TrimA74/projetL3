@@ -43,10 +43,10 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
 });
 
 
-var sliderX = $("#rangeX").slider({ 
+var slider = $("#rangeX").slider({ 
   tooltip: 'always'
 });
-sliderX.on('slideStop',updateSlider);
+slider.on('slideStop',updateSlider);
 var sliderT = $("#rangeT").slider({ 
   tooltip: 'always'
 });
@@ -55,17 +55,23 @@ var sliderA = $("#rangeA").slider({
   tooltip: 'always'
 });
 sliderA.on('slideStop',updateSlider);
+
 var sliderB = $("#rangeB").slider({ 
   tooltip: 'always'
 });
 sliderB.on('slideStop',updateSlider);
+
+var sliderNu = $("#rangeNu").slider({ 
+  tooltip: 'always'
+});
+sliderNu.on('slideStop',updateSlider);
 
 
 function updateSlider () {
   Promise.all([plotDiv]).then(function () {
     plotDiv.data[0].y = datasYInit.slice();
     plotDiv.data[0].y.forEach(function (e,i) {
-      plotDiv.data[0].y[i] = e * slider.slider('getValue');
+    plotDiv.data[0].y[i] = e * slider.slider('getValue');
     });
     Plotly.redraw(plotDiv);
 });
