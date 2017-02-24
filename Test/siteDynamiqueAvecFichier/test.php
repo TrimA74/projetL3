@@ -12,7 +12,6 @@
         }
         closedir($dir);
     }
-    test
     */
 ?>
 
