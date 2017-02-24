@@ -1,16 +1,61 @@
 var datasY = [];
 var datasYInit = [];
+var datasHInit = [];
+var datasGInit = [];
+var datasFInit = [];
 
 var plotDiv = document.getElementById('graph');
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/Y.txt', function(rows){
-
+/*
+Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/H.csv', function(rows){
+  var tmp = [];
+  for(var key in rows[0]) {
+    tmp.push(Number(key));
+  }
+  datasHInit.push(tmp);
   rows.forEach(function(e) {
+    var tmp = [];
     for(var key in e) {
-    var value = e[key];
-    datasYInit.push(Number(value)*2);
+      var value = e[key];
+      tmp.push(Number(value));
     }
+      datasHInit.push(tmp);
   });
 });
+*/
+Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/G.csv', function(rows){
+  console.log(rows);
+  var tmp = [];
+  for(var key in rows[0]) {
+    tmp.push(Number(key));
+  }
+  datasGInit.push(tmp);
+  rows.forEach(function(e) {
+    var tmp = [];
+    for(var key in e) {
+      var value = e[key];
+      tmp.push(Number(value));
+    }
+      datasGInit.push(tmp);
+  });
+  //console.log(datasGInit);
+});
+/*
+Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/F.csv', function(rows){
+  var tmp = [];
+  for(var key in rows[0]) {
+    tmp.push(Number(key));
+  }
+  datasFInit.push(tmp);
+  rows.forEach(function(e) {
+    var tmp = [];
+    for(var key in e) {
+      var value = e[key];
+      tmp.push(Number(value));
+    }
+      datasFInit.push(tmp);
+  });
+});
+*/
 Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/X.txt', function(rows){
   var datasX = [];
   rows.forEach(function(e) {
@@ -19,7 +64,8 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
     datasX.push(Number(value));
     }
   });
-  datasY = datasYInit.slice();
+  datasY = datasHInit.slice();
+  console.log(datasY);
   var test = rows.map(function(row){          // set the x-data
         return row['Time'];
       });
