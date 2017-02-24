@@ -30,7 +30,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
       y: datasY
     };
     var layout = {
-      yaxis: {title: "temperature temps"},       // set the y axis title
+      yaxis: {title: "temperature"},       // set the y axis title
       xaxis: {
         showgrid: true,                  // remove the x-axis grid lines              // customize the date format to "month, day"
       },
