@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	 <meta charset="UTF-8">
+	  <meta name="description" content="Free Web tutorials">
+	  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	  <meta name="author" content="John Doe">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-slider.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta charset="utf-8" />
+		<title>Visu-thermique</title>
+
+	</head>
+
+	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
+
+		<header class="container" style="margin-top: 30px; margin-bottom: 25px;">
+			<div style="border: 3px solid rgb(50,150,180); padding: 20px; background-color: rgb(250,250,190); -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;">
+				<h1 class="text-center"><strong>Visu Thermique</strong></h1>
+			</div>
+		</header>
+
+		<div style="margin-bottom: 25px;"> <!-- gestion pdf -->
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
+					<iframe src="../Documentation/Etude_des_technologie.pdf"  width="100%" height="500px"></iframe>
+			</div>
+			<div class="col-md-2">
+			</div>
+		</div>
+        
+        <div class="container">
+        
+        <?php
+        $chemin = "./data/".$_GET["cat"];
+        if ($dir = opendir($chemin)) {
+            ?>
+           
+        
+            <div class="row">
+				<div class="col-md-3"><!--selecteur du set de donnée-->
+
+					  <label for="selectset"><h3> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h3></label>
+				      <select multiple class="form-control" id="selectset" 
+				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 460px; font-size: 16px;">
+				        <optgroup label="<?php echo $_GET["cat"]; ?>">
+                            <?php
+                            while($file = readdir($dir)) {
+                                if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
+                                {
+                                    echo "<option>".$file."</option>";
+                                }
+                            }
+                            ?>
+				      </select>
+<?php                 
+    closedir($dir);
+    }
+?>
+                
+
+				</div>
+				<div class="col-md-9">
+		
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : Température en fonction de ... <h2/>
+						<div id="graph"></div>
+				</div>
+			</div> <!-- end row -->
+            
+            
+            <div class="col-md-12"><!-- les boutons -->
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4">
+					<h2> <span class="glyphicon glyphicon-option-horizontal"></span>  Matrice en abscisse<h2/>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);">X</button>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to top right, #3366ff 0%, #66ff33 100%);">T</button>
+						 <button class="btn btn-primary btn-lg"
+						 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">A</button>
+						 <button class="btn btn-primary btn-lg" 
+						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>
+				</div>
+				<div class="col-md-4">
+				</div>
+			</div>
+			<div class="col-md-12"><!-- les selecteurs -->
+				<div class="col-md-4">
+					<div style="border-left : 5px solid rgb(250,250,250);  padding-left:20px;">
+					<div style="font-size: 18px;">
+						<label width="100%">Abscisse :</label>
+						<p>- Température [°c] = t</p>
+						<label width="100%">Ordonnée :</label>
+						<p>- Epaisseur  [m] = X </p>
+						<label width="100%">Constante :</label>
+						<p>- Temps [h] = T </strong></p>
+						<p>- Alpha [m^2/s] = A </p>
+						<p>- Beta [m^2/s] = B </p>
+					</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					 	<h2><span class="glyphicon glyphicon-option-vertical"></span>  Autres paramètres <h2/>
+						<div class="form-horizontal">
+							<!-- Param X -->
+				    		<div class="form-group">
+				    			<label for="amountInputX" class="col-sm-1 control-label">X</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeX').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputX" value="50" min="0" max="100" step="1" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeX" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputX')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="100" 
+					    			step="1" 
+					    			data-slider-value="50" />
+				    			</div>
+				    		</div>
+				    		<div class="form-horizontal">
+							<!-- Param X -->
+				    		
+							<!-- Param T -->
+				    		<div class="form-group">
+				    			<label for="amountInputT" class="col-sm-1 control-label">T</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeT').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputT" value="4000" min="0" max="8000" step="100" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeT" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputT')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="8000" 
+					    			step="1" 
+					    			data-slider-value="4000" />
+				    			</div>
+				    		</div>
+				    		<!-- Param T -->
+
+				    		<!-- Param A -->
+				    		<div class="form-group">
+				    			<label for="amountInputA" class="col-sm-1 control-label">A</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeA').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputA" value="40" min="0" max="80" step="1" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeA" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputA')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="80" 
+					    			step="1" 
+					    			data-slider-value="40" />
+				    			</div>
+				    		</div>
+				    		<!-- Param A -->
+
+				    		<!-- Param B -->
+				    		<div class="form-group">
+				    			<label for="amountInputB" class="col-sm-1 control-label">B</label>
+				    			<div class="col-sm-2">
+					    			<input type="number" 
+									onchange="$('#rangeB').slider('setValue',this.value);updateSlider();"
+					    			name="amountInputB" value="50" min="0" max="100" step="1" class="form-control"/>
+				    			</div>
+				    			<div class="col-sm-4">
+					    			<input  id="rangeB" 
+					    			type="text"  name="amountRange" 
+					    			onchange="document.getElementsByName('amountInputB')[0].value=this.value;" 
+					    			data-slider-min="0" 
+					    			data-slider-max="100" 
+					    			step="1" 
+					    			data-slider-value="50" />
+				    			</div>
+				    		</div>
+				    		<!-- Param B -->
+							
+			    		</div>
+			</div> <!--end selecteur -->
+            
+        </div> <!-- end conteneur traitement -->
+
+        <footer class="container-fluid" style="margin-bottom: 40px;">
+  				<div>
+  					<div class="col-md-5">
+					</div>
+					<div class="col-md-2">
+						<a href="index.php" class="btn btn-info btn-lg" style="background: linear-gradient(to left, #99ccff 0%, #99ccaa 89%);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+        				</a>
+        			</div>
+        			<div class="col-md-5">
+					</div>
+				</div>
+		</footer>
+        
+    <script src="jquery.min.js" integrity=""></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="bootstrap.min.js"></script>
+    <script src="bootstrap-slider.min.js"></script>
+        
+    <script type="text/javascript" src="plotly.js" integrity=""></script>
+    <script type="text/javascript" src="app.js" integrety=""></script>
+
+	</body>
+</html>
