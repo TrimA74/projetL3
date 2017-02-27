@@ -58,7 +58,7 @@ if ($dir = opendir("./data")) {
         { ?>
             
 				<div style="padding:1px; background-color: rgb(250,250,250); border:0px solid #656ab0; -moz-border-radius:9px; -khtml-border-radius:9px; -webkit-border-radius:9px; border-radius:9px;margin-bottom: 20px; margin-top: 50px;">
-					<h2 class="text-center"><a href="Page1.html"><strong><?php echo $file; ?></strong></a><h2/>
+					<h2 class="text-center"><a href="affichage.php?cat=<?php echo $file; ?>"><strong><?php echo $file; ?></strong></a><h2/>
 				</div>
                 
 <?php $chemintmp = $chemin."/".$file; ?>
