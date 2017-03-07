@@ -5,57 +5,54 @@ var datasGInit = [];
 var datasFInit = [];
 
 var plotDiv = document.getElementById('graph');
-/*
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/H.csv', function(rows){
-  var tmp = [];
-  for(var key in rows[0]) {
-    tmp.push(Number(key));
-  }
-  datasHInit.push(tmp);
-  rows.forEach(function(e) {
-    var tmp = [];
-    for(var key in e) {
-      var value = e[key];
-      tmp.push(Number(value));
+
+function processData(allText) {
+    var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(',');
+    var lines = [];
+
+    for (var i=0; i<allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        if (data.length == headers.length) {
+            var tarr = [];
+            for (var j=0; j<headers.length; j++) {
+                tarr.push(Number(data[j]));
+            }
+            lines.push(tarr);
+        }
     }
-      datasHInit.push(tmp);
-  });
+    return lines.slice();
+}
+
+
+
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/G.csv",
+        dataType: "text",
+        success: function(data) {datasGInit = processData(data);}
+     });
+    $.ajax({
+        type: "GET",
+        url: "https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/H.csv",
+        dataType: "text",
+        success: function(data) {datasHInit = processData(data);}
+     });
+     $.ajax({
+        type: "GET",
+        url: "https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/F.csv",
+        dataType: "text",
+        success: function(data) {datasFInit = processData(data);}
+     });
+
 });
-*/
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/G.csv', function(rows){
-  console.log(rows);
-  var tmp = [];
-  for(var key in rows[0]) {
-    tmp.push(Number(key));
-  }
-  datasGInit.push(tmp);
-  rows.forEach(function(e) {
-    var tmp = [];
-    for(var key in e) {
-      var value = e[key];
-      tmp.push(Number(value));
-    }
-      datasGInit.push(tmp);
-  });
-  //console.log(datasGInit);
+$(document).ajaxStop(function () { // Quand on a finit de récup les données
+  console.log(datasHInit[6][16]);
+  console.log(datasFInit[6][16]);
+  console.log(datasGInit[6][16]);
 });
-/*
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Site/data/hydrique/set1/F.csv', function(rows){
-  var tmp = [];
-  for(var key in rows[0]) {
-    tmp.push(Number(key));
-  }
-  datasFInit.push(tmp);
-  rows.forEach(function(e) {
-    var tmp = [];
-    for(var key in e) {
-      var value = e[key];
-      tmp.push(Number(value));
-    }
-      datasFInit.push(tmp);
-  });
-});
-*/
+
 Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/X.txt', function(rows){
   var datasX = [];
   rows.forEach(function(e) {
@@ -65,7 +62,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
     }
   });
   datasY = datasHInit.slice();
-  console.log(datasY);
   var test = rows.map(function(row){          // set the x-data
         return row['Time'];
       });
