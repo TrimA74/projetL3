@@ -17,18 +17,21 @@
 
 	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
 
+        
+        
+        
 		<header class="container" style="margin-top: 30px; margin-bottom: 25px;">
 			<div style="border: 3px solid rgb(50,150,180); padding: 20px; background-color: rgb(250,250,190); -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;">
 				<h1 class="text-center"><strong>Visu Thermique</strong></h1>
 			</div>
 		</header>
 
-		<div style="margin-bottom: 25px;"> <!-- gestion pdf -->
+		 <div style="margin-bottom: 25px;"> <!-- gestion pdf -->
 			<div class="col-md-2">
 			</div>
 			<div class="col-md-8">
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
-					<iframe src="../Documentation/Etude_des_technologie.pdf"  width="100%" height="500px"></iframe>
+					<iframe src="../../Documentation/Etude_des_technologie.pdf"  width="100%" height="500px"></iframe>
 			</div>
 			<div class="col-md-2">
 			</div>
@@ -46,7 +49,7 @@
 				<div class="col-md-3"><!--selecteur du set de donnée-->
 
 					  <label for="selectset"><h3> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h3></label>
-				      <select multiple class="form-control" id="selectset" 
+				      <select  multiple class="form-control" id="selectset" 
 				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 460px; font-size: 16px;">
 				        <optgroup label="<?php echo $_GET["cat"]; ?>">
                             <?php
@@ -67,28 +70,28 @@
 				</div>
 				<div class="col-md-9">
 		
-					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : Température en fonction de ... <h2/>
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : Température en fonction de ... (A dynamiser)<h2/>
 						<div id="graph"></div>
 				</div>
 			</div> <!-- end row -->
             
             
-            <div class="col-md-12"><!-- les boutons -->
-				<div class="col-md-4">
+            <div class="col-md-12" id="boutons"><!-- les boutons -->
+				<!--    <div class="col-md-4">
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" >
 					<h2> <span class="glyphicon glyphicon-option-horizontal"></span>  Matrice en abscisse<h2/>
-						 <button class="btn btn-primary btn-lg" 
+						    <button class="btn btn-primary btn-lg"  
 						 style="background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);">X</button>
 						 <button class="btn btn-primary btn-lg" 
 						 style="background: linear-gradient(to top right, #3366ff 0%, #66ff33 100%);">T</button>
 						 <button class="btn btn-primary btn-lg"
 						 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">A</button>
 						 <button class="btn btn-primary btn-lg" 
-						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>
+						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>     
 				</div>
 				<div class="col-md-4">
-				</div>
+				</div>      -->
 			</div>
 			<div class="col-md-12"><!-- les selecteurs -->
 				<div class="col-md-4">
@@ -105,11 +108,14 @@
 					</div>
 					</div>
 				</div>
-				<div class="col-md-8">
-					 	<h2><span class="glyphicon glyphicon-option-vertical"></span>  Autres paramètres <h2/>
-						<div class="form-horizontal">
-							<!-- Param X -->
-				    		<div class="form-group">
+                
+                
+                
+				<div class="col-md-8" id="parametres">
+					<!-- 	<h2><span class="glyphicon glyphicon-option-vertical"></span>  Autres paramètres <h2/>
+						<div class="form-horizontal" >
+							
+				    		<div class="form-group" id="paramX">
 				    			<label for="amountInputX" class="col-sm-1 control-label">X</label>
 				    			<div class="col-sm-2">
 					    			<input type="number" 
@@ -126,10 +132,11 @@
 					    			data-slider-value="50" />
 				    			</div>
 				    		</div>
-				    		<div class="form-horizontal">
-							<!-- Param X -->
 				    		
-							<!-- Param T -->
+							
+				    		
+							
+                        <div class="form-horizontal">
 				    		<div class="form-group">
 				    			<label for="amountInputT" class="col-sm-1 control-label">T</label>
 				    			<div class="col-sm-2">
@@ -147,9 +154,9 @@
 					    			data-slider-value="4000" />
 				    			</div>
 				    		</div>
-				    		<!-- Param T -->
+				    		
 
-				    		<!-- Param A -->
+				    		
 				    		<div class="form-group">
 				    			<label for="amountInputA" class="col-sm-1 control-label">A</label>
 				    			<div class="col-sm-2">
@@ -167,9 +174,9 @@
 					    			data-slider-value="40" />
 				    			</div>
 				    		</div>
-				    		<!-- Param A -->
+				    		
 
-				    		<!-- Param B -->
+				    		
 				    		<div class="form-group">
 				    			<label for="amountInputB" class="col-sm-1 control-label">B</label>
 				    			<div class="col-sm-2">
@@ -187,10 +194,10 @@
 					    			data-slider-value="50" />
 				    			</div>
 				    		</div>
-				    		<!-- Param B -->
+				    		
 							
-			    		</div>
-			</div> <!--end selecteur -->
+			    		</div>   -->
+			</div>   <!--end selecteur -->
             
         </div> <!-- end conteneur traitement -->
 
@@ -208,12 +215,15 @@
 		</footer>
         
     <script src="jquery.min.js" integrity=""></script>
+    
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap.min.js"></script>
     <script src="bootstrap-slider.min.js"></script>
         
-    <script type="text/javascript" src="plotly.js" integrity=""></script>
-    <script type="text/javascript" src="app.js" integrety=""></script>
+    
+    <script type="text/javascript" src="plotly.js" ></script>
+    <script type="text/javascript" src="app.js" ></script>
+    
 
 	</body>
 </html>

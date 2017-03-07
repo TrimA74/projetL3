@@ -1,1 +1,1 @@
-Le modèle physique prend en compte la diffusion de thérmique à travers un mur. Les conditions de bords sont fixes d'un côté et oscillantes d'un autre. La solution est calculée en fonction de l'espace, du temps et de A et de B.
+Le modèle physique prend en compte la diffusion de thermique à travers un mur. Les conditions de bords sont fixes d'un côté et oscillantes d'un autre. La solution est calculée en fonction de l'espace, du temps et de A et de B.

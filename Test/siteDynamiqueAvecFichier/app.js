@@ -42,7 +42,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
     Plotly.plot(plotDiv, [trace], layout, {showLink: false});
 });
 
-
+/*
 var slider = $("#rangeX").slider({ 
   tooltip: 'always'
 });
@@ -64,7 +64,7 @@ sliderB.on('slideStop',updateSlider);
 var sliderNu = $("#rangeNu").slider({ 
   tooltip: 'always'
 });
-sliderNu.on('slideStop',updateSlider);
+sliderNu.on('slideStop',updateSlider);*/
 
 
 function updateSlider () {
@@ -77,5 +77,94 @@ function updateSlider () {
 });
 }
 
+
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
+
+
+$('#selectset').on('change', function() {
+  alert( this.value );
+  //alert( $_GET("cat"));
+  $.ajax({
+                url: 'ajax.php',
+                type:'POST',
+                dataType : 'json', // On désire recevoir du HTML
+                data:
+                {
+                    myFunction:'chargeSet',
+                    myParams:{
+                        set:this.value,
+                        cat:$_GET("cat")
+                    }
+                },
+                success: function(result)
+                {
+                    majApresSet(result);
+                    console.log(result);
+                }
+            });
+            
+});
+
+
+function majApresSet(data)
+{
+    //gestion boutons
+    $("#boutons").children().remove();
+    
+    str = "<div class='col-md-4'></div>";
+    str += "<div class='col-md-4'>";
+    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Matrice en abscisse</h2>";
+    
+    for(i=1; i<data.length; i++)
+    {   if(data[i][1] == 1)
+            str += "<button class='btn btn-primary btn-lg' style='background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);'>"+ data[i][0] + "</button>";
+    }
+    str += "</div>";
+	str += "<div class='col-md-4'></div>";
+    
+    $("#boutons").append(str);
+    
+    
+    
+    //gestion parametres
+    $("#parametres").children().remove();
+    str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Autres paramètres <h2/>";
+    
+    for(i=1; i<data.length; i++)
+    {
+        if(data[i][1] == 1)
+        {
+            str += "<div class='form-horizontal' >";
+            str += "<div class='form-group' id='param" + data[i][0] + "'  style='visibility:hidden;'>";
+            str += "<label for='amountInput" + data[i][0] + "' class='col-sm-1 control-label'>" + data[i][0] + "</label>";
+            str += "<div class='col-sm-2'>";
+            str += "<input type='number' onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);updateSlider();\" name='amountInput'" + data[i][0] + "' value='50' min='0' max='100' step='1' class='form-control'/>";
+            str += "</div>";
+            str += "<div class='col-sm-4'>";
+            str += "<input  id='range" + data[i][0] + "' type='text'  name='amountRange' onchange=\"document.getElementsByName('amountInputX')[0].value=this.value;\" data-slider-min='0' data-slider-max='100' step='1' data-slider-value='50' />";
+            str += "</div>";
+            str += "</div>";
+        }
+    }
+    
+     str += "</div>";
+     $("#parametres").append(str);
+    
+    
+    console.log("fait");
+}
 /*
 console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/

@@ -9,7 +9,7 @@ do
 	echo "foldername = $filename"
  	unzip ./$param -d $filename
 	cd $filename/
-	sed -i -re 's/\t/;/g' *.txt | sed -i -re 's/( )//g' *.txt
+	sed -i -re 's/\t/,/g' *.txt | sed -i -re 's/( )//g' *.txt
 		for file in *.txt; do
     		mv "$file" "`basename "$file" .txt`.csv"
 		done
