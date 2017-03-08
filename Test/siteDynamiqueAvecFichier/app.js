@@ -42,36 +42,15 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
     Plotly.plot(plotDiv, [trace], layout, {showLink: false});
 });
 
-/*
-var slider = $("#rangeX").slider({ 
-  tooltip: 'always'
-});
-slider.on('slideStop',updateSlider);
-var sliderT = $("#rangeT").slider({ 
-  tooltip: 'always'
-});
-sliderT.on('slideStop',updateSlider);
-var sliderA = $("#rangeA").slider({ 
-  tooltip: 'always'
-});
-sliderA.on('slideStop',updateSlider);
-
-var sliderB = $("#rangeB").slider({ 
-  tooltip: 'always'
-});
-sliderB.on('slideStop',updateSlider);
-
-var sliderNu = $("#rangeNu").slider({ 
-  tooltip: 'always'
-});
-sliderNu.on('slideStop',updateSlider);*/
 
 
-function updateSlider () {
-  Promise.all([plotDiv]).then(function () {
+
+
+function updateSlider (elem) {
+    Promise.all([plotDiv]).then(function () {
     plotDiv.data[0].y = datasYInit.slice();
     plotDiv.data[0].y.forEach(function (e,i) {
-    plotDiv.data[0].y[i] = e * slider.slider('getValue');
+    plotDiv.data[0].y[i] = e * elem.value;//slider.slider('getValue');
     });
     Plotly.redraw(plotDiv);
 });
@@ -95,7 +74,6 @@ function $_GET(param) {
 
 
 $('#selectset').on('change', function() {
-  alert( this.value );
   //alert( $_GET("cat"));
   $.ajax({
                 url: 'ajax.php',
@@ -112,11 +90,18 @@ $('#selectset').on('change', function() {
                 success: function(result)
                 {
                     majApresSet(result);
-                    console.log(result);
                 }
             });
             
 });
+
+function changeParams(parametre)
+{
+    $("#parametres").find(".param").css('display', 'block');
+    $("#parametres").find("#param"+ parametre).css('display', 'none');
+    
+}
+
 
 
 function majApresSet(data)
@@ -130,7 +115,7 @@ function majApresSet(data)
     
     for(i=1; i<data.length; i++)
     {   if(data[i][1] == 1)
-            str += "<button class='btn btn-primary btn-lg' style='background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);'>"+ data[i][0] + "</button>";
+            str += "<button onclick=\"changeParams($( this ).text())\" class='btn btn-primary btn-lg' style='background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);'>"+ data[i][0] + "</button>";
     }
     str += "</div>";
 	str += "<div class='col-md-4'></div>";
@@ -143,18 +128,20 @@ function majApresSet(data)
     $("#parametres").children().remove();
     str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Autres paramètres <h2/>";
     
+    
+    
     for(i=1; i<data.length; i++)
     {
         if(data[i][1] == 1)
         {
             str += "<div class='form-horizontal' >";
-            str += "<div class='form-group' id='param" + data[i][0] + "'  style='visibility:hidden;'>";
+            str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
             str += "<label for='amountInput" + data[i][0] + "' class='col-sm-1 control-label'>" + data[i][0] + "</label>";
             str += "<div class='col-sm-2'>";
-            str += "<input type='number' onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);updateSlider();\" name='amountInput'" + data[i][0] + "' value='50' min='0' max='100' step='1' class='form-control'/>";
+            str += "<input type='number' onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);updateSlider($( this ));\" name='amountInput" + data[i][0] + "' value='50' min='0' max='100' step='1' class='form-control'/>";
             str += "</div>";
             str += "<div class='col-sm-4'>";
-            str += "<input  id='range" + data[i][0] + "' type='text'  name='amountRange' onchange=\"document.getElementsByName('amountInputX')[0].value=this.value;\" data-slider-min='0' data-slider-max='100' step='1' data-slider-value='50' />";
+            str += "<input  id='range" + data[i][0] + "' type='text'  name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" data-slider-min='0' data-slider-max='100' step='1' data-slider-value='50' />";
             str += "</div>";
             str += "</div>";
         }
@@ -163,8 +150,21 @@ function majApresSet(data)
      str += "</div>";
      $("#parametres").append(str);
     
+    var slider;
+    for(i=1; i<data.length; i++)
+    {
+        if(data[i][1] == 1)
+        {
     
-    console.log("fait");
+            slider = $("#range" + data[i][0]).slider({ 
+              tooltip: 'always'
+            });
+            slider.on('slideStop',updateSlider);
+        
+        }
+    }
+
+   
 }
 /*
 console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/

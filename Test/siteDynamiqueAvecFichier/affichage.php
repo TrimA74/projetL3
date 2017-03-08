@@ -223,7 +223,9 @@
     
     <script type="text/javascript" src="plotly.js" ></script>
     <script type="text/javascript" src="app.js" ></script>
-    
+    <script>
+    //pour des test
+    </script>
 
 	</body>
 </html>
