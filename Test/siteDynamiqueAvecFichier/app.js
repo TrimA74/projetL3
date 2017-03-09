@@ -183,7 +183,7 @@ function majApresSet(data, set)
             str += "<input type='number' onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);updateSlider($( this ));\" name='amountInput" + data[i][0] + "' value='50' min='0' max='100' step='1' class='form-control'/>";
             str += "</div>";
             str += "<div class='col-sm-4'>";
-            str += "<input  id='range" + data[i][0] + "' type='text'  name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" data-slider-min='0' data-slider-max='100' step='1' data-slider-value='50' />";
+            str += "<input  id='range" + data[i][0] + "' type='text'  name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" data-slider-min='0' data-slider-max='10' step='1' data-slider-value='5' />";
             str += "</div>";
             str += "</div>";
         }
@@ -206,20 +206,28 @@ function majApresSet(data, set)
         }
     }
     
-    var tableaux = new Object;//les lignes choisis
+    var tableaux = new Array();//les lignes choisis
     
-    for(i=1; i<data.length; i++)
+    var i = 1;
+    var j = 0;
+    
+    //a revoir
+    variableChoisi = data[2][0];
+    
+    while(i<data.length)
     {
-        if(data[i][1] == 1)
+        if(data[i][1] == 1 && variableChoisi!=data[i][0])
         {
-            tableaux[i-1] = matrix[data[i][0]][$("#range" + data[i][0]).slider('getValue')];
+            tableaux[j] = matrix[data[i][0]][$("#range" + data[i][0]).slider('getValue')];
+            j++;
         }
+        i++;
     }
     
     $(document).ajaxStop(function () { // Quand on a finit de récup les données
       
-      //a revoir
-      variableChoisi = data[2][0];
+      
+      
       
       
       var tabY = Calcul(matrix[variableChoisi],tableaux);
@@ -253,7 +261,7 @@ function Calcul(matriceAbscisse, tableaux) {
 	var nbLignes = matriceAbscisse.length;
 	
     tabPrecalcul = tableaux[0];
-    console.log(tableaux);
+
 	// On précalcule la multiplication des lignes des matrices fixés
     for(var j=1; j<tableaux.length; j++)
     {
@@ -262,8 +270,6 @@ function Calcul(matriceAbscisse, tableaux) {
         }
     }
     
-    console.log(tableaux);
-    console.log(tabPrecalcul);
 	// On initialise le tableau y avec des numbers (pour le +=)
 	for(var i=0;i<nbLignes;i++){
 		tabOrdonee[i]=0;
