@@ -47,43 +47,50 @@ $(document).ready(function() {
      });
 
 });
+
 $(document).ajaxStop(function () { // Quand on a finit de récup les données
-  console.log(datasHInit[6][16]);
-  console.log(datasFInit[6][16]);
-  console.log(datasGInit[6][16]);
+  var tabY = Calcul(datasFInit,datasGInit[15],datasHInit[5]);
+  var tabX = new Array();
+  for(var i=0;i<datasFInit.length;i++){
+	tabX[i] = i;
+  }
+	var trace = {
+		x : tabX,
+		y : tabY,
+		type : 'scatter'
+	};
+	Plotly.newPlot('graph',[trace]);
+  
 });
 
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/X.txt', function(rows){
-  var datasX = [];
-  rows.forEach(function(e) {
-    for(var key in e) {
-    var value = e[key];
-    datasX.push(Number(value));
-    }
-  });
-  datasY = datasHInit.slice();
-  var test = rows.map(function(row){          // set the x-data
-        return row['Time'];
-      });
-    var trace = {
-      type: 'scatter',                    // set the chart type
-      mode: 'lines',                      // connect points with lines
-      x: datasX,
-      y: datasY
-    };
-    var layout = {
-      yaxis: {title: "temperature temps"},       // set the y axis title
-      xaxis: {
-        showgrid: true,                  // remove the x-axis grid lines              // customize the date format to "month, day"
-      },
-      margin: {                           // update the left, bottom, right, top margin
-        l: 60, b: 60, r: 60, t: 60
-      },
-      showlegend : false
-    };    
-    Plotly.plot(plotDiv, [trace], layout, {showLink: false});
-});
+function Calcul(matriceAbscisse, matrice1, matrice2) {
+	var tabOrdonee = new Array(); 	// tableau résultat
+	var tabPrecalcul = new Array();
+	//var ligneM1 = matrice1[indiceM1];
+	//var ligneM2 = matrice2[indiceM2];
+	var nbColonnes = matriceAbscisse[0].length;
+	var nbLignes = matriceAbscisse.length;
+	
+	// On précalcule la multiplication des lignes des matrices fixés
+	for(var i=0;i<nbColonnes;i++){
+		tabPrecalcul[i] = Number(matrice1[i]) * Number(matrice2[i]);
+	}
+	// On initialise le tableau y avec des numbers (pour le +=)
+	for(var i=0;i<nbLignes;i++){
+		tabOrdonee[i]=0;
+	}
+	// 
+	for(var i=0;i<nbLignes;i++){
+		for(var j=0;j<nbColonnes;j++){
+			tabOrdonee[i] += Number(tabPrecalcul[j]) * Number(matriceAbscisse[i][j]); 
+		}
+	}	
+	return tabOrdonee;
+	
 
+
+
+}
 
 var slider = $("#rangeX").slider({ 
   tooltip: 'always'
@@ -100,6 +107,3 @@ function updateSlider () {
     Plotly.redraw(plotDiv);
 });
 }
-
-/*
-console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/
