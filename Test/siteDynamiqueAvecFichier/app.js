@@ -1,6 +1,8 @@
 var datasY = [];
 var datasYInit = [];
 
+var matrix = new Object();
+
 var plotDiv = document.getElementById('graph');
 Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/Y.txt', function(rows){
 
@@ -45,6 +47,24 @@ Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fi
 
 
 
+function processData(allText) {
+    var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(',');
+    var lines = [];
+
+    for (var i=0; i<allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        if (data.length == headers.length) {
+            var tarr = [];
+            for (var j=0; j<headers.length; j++) {
+                tarr.push(Number(data[j]));
+            }
+            lines.push(tarr);
+        }
+    }
+    return lines.slice();
+}
+
 
 function updateSlider (elem) {
     Promise.all([plotDiv]).then(function () {
@@ -75,6 +95,7 @@ function $_GET(param) {
 
 $('#selectset').on('change', function() {
   //alert( $_GET("cat"));
+  var set = this.value;
   $.ajax({
                 url: 'ajax.php',
                 type:'POST',
@@ -89,7 +110,7 @@ $('#selectset').on('change', function() {
                 },
                 success: function(result)
                 {
-                    majApresSet(result);
+                    majApresSet(result, set);
                 }
             });
             
@@ -102,10 +123,26 @@ function changeParams(parametre)
     
 }
 
+//https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/siteDynamiqueAvecFichier/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv
 
 
-function majApresSet(data)
+function majApresSet(data, set)
 {
+    for(i=1; i<data.length; i++)
+    {   
+        if(data[i][1] == 1)
+        {
+            $.ajax({
+                type: "GET",
+                url: "data/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv",
+                dataType: "text",
+                success: function(data) {matrix[data[i][0]] = processData(data);}
+             });
+        }
+    }
+    
+    
+    
     //gestion boutons
     $("#boutons").children().remove();
     
@@ -163,8 +200,69 @@ function majApresSet(data)
         
         }
     }
+    
+    var tableaux = new Object;//les lignes choisis
+    var variableChoisi;
+    for(i=1; i<data.length; i++)
+    {
+        if(data[i][1] == 1)
+        {
+            tableaux[i-1] = matrix[data[i][0]][2];
+        }else
+            variableChoisi = data[i][0];
+    }
+    
+    $(document).ajaxStop(function () { // Quand on a finit de récup les données
+      var tabY = Calcul(matrix[variableChoisi],tableaux);
+      var tabX = new Array();
+      for(var i=0;i<matrix[variableChoisi].length;i++){
+        tabX[i] = i;
+      }
+        var trace = {
+            x : tabX,
+            y : tabY,
+            type : 'scatter'
+        };
+        Plotly.newPlot('graph',[trace]);
+      
+    });
 
    
+}
+
+
+
+
+
+
+function Calcul(matriceAbscisse, tableaux) {
+	var tabOrdonee = new Array(); 	// tableau résultat
+	var tabPrecalcul = new Array();
+	//var ligneM1 = matrice1[indiceM1];
+	//var ligneM2 = matrice2[indiceM2];
+	var nbColonnes = matriceAbscisse[0].length;
+	var nbLignes = matriceAbscisse.length;
+	
+    tabPrecalcul = Number(tableaux[0]);
+	// On précalcule la multiplication des lignes des matrices fixés
+    for(var j=1; j<tableaux.length; j++)
+    {
+        for(var i=0;i<nbColonnes;i++){
+            tabPrecalcul[i] = Number(tableaux[j][i]);
+        }
+    }
+	// On initialise le tableau y avec des numbers (pour le +=)
+	for(var i=0;i<nbLignes;i++){
+		tabOrdonee[i]=0;
+	}
+	// 
+	for(var i=0;i<nbLignes;i++){
+		for(var j=0;j<nbColonnes;j++){
+			tabOrdonee[i] += Number(tabPrecalcul[j]) * Number(matriceAbscisse[i][j]); 
+		}
+	}	
+	return tabOrdonee;
+
 }
 /*
 console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/
