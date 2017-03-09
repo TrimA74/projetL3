@@ -2,6 +2,7 @@ var datasY = [];
 var datasYInit = [];
 
 var matrix = new Object();
+var variableChoisi;
 
 var plotDiv = document.getElementById('graph');
 Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/Y.txt', function(rows){
@@ -118,6 +119,7 @@ $('#selectset').on('change', function() {
 
 function changeParams(parametre)
 {
+    variableChoisi = parametre;
     $("#parametres").find(".param").css('display', 'block');
     $("#parametres").find("#param"+ parametre).css('display', 'none');
     
@@ -128,15 +130,18 @@ function changeParams(parametre)
 
 function majApresSet(data, set)
 {
-    for(i=1; i<data.length; i++)
+    for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
         {
             $.ajax({
                 type: "GET",
+                async: false,
                 url: "data/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv",
                 dataType: "text",
-                success: function(data) {matrix[data[i][0]] = processData(data);}
+                success: function(matrice) {
+                    matrix[data[i][0]] = processData(matrice);
+                }
              });
         }
     }
@@ -202,17 +207,21 @@ function majApresSet(data, set)
     }
     
     var tableaux = new Object;//les lignes choisis
-    var variableChoisi;
+    
     for(i=1; i<data.length; i++)
     {
         if(data[i][1] == 1)
         {
-            tableaux[i-1] = matrix[data[i][0]][2];
-        }else
-            variableChoisi = data[i][0];
+            tableaux[i-1] = matrix[data[i][0]][$("#range" + data[i][0]).slider('getValue')];
+        }
     }
     
     $(document).ajaxStop(function () { // Quand on a finit de récup les données
+      
+      //a revoir
+      variableChoisi = data[2][0];
+      
+      
       var tabY = Calcul(matrix[variableChoisi],tableaux);
       var tabX = new Array();
       for(var i=0;i<matrix[variableChoisi].length;i++){
@@ -243,14 +252,18 @@ function Calcul(matriceAbscisse, tableaux) {
 	var nbColonnes = matriceAbscisse[0].length;
 	var nbLignes = matriceAbscisse.length;
 	
-    tabPrecalcul = Number(tableaux[0]);
+    tabPrecalcul = tableaux[0];
+    console.log(tableaux);
 	// On précalcule la multiplication des lignes des matrices fixés
     for(var j=1; j<tableaux.length; j++)
     {
         for(var i=0;i<nbColonnes;i++){
-            tabPrecalcul[i] = Number(tableaux[j][i]);
+            tabPrecalcul[i] *= Number(tableaux[j][i]);
         }
     }
+    
+    console.log(tableaux);
+    console.log(tabPrecalcul);
 	// On initialise le tableau y avec des numbers (pour le +=)
 	for(var i=0;i<nbLignes;i++){
 		tabOrdonee[i]=0;
