@@ -2,52 +2,14 @@ var datasY = [];
 var datasYInit = [];
 
 var matrix = new Object();
-var variableChoisi;
+var variableChoisi=0;
 
 var plotDiv = document.getElementById('graph');
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/Y.txt', function(rows){
 
-  rows.forEach(function(e) {
-    for(var key in e) {
-    var value = e[key];
-    datasYInit.push(Number(value)*2);
-    }
-  });
-});
-Plotly.d3.csv('https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/Fichiers_txt/X.txt', function(rows){
-  var datasX = [];
-  rows.forEach(function(e) {
-    for(var key in e) {
-    var value = e[key];
-    datasX.push(Number(value));
-    }
-  });
-  datasY = datasYInit.slice();
-  var test = rows.map(function(row){          // set the x-data
-        return row['Time'];
-      });
-    var trace = {
-      type: 'scatter',                    // set the chart type
-      mode: 'lines',                      // connect points with lines
-      x: datasX,
-      y: datasY
-    };
-    var layout = {
-      yaxis: {title: "Température [°c] = t"},       // set the y axis title
-      xaxis: {title: "Epaisseur [m] = X",
-        showgrid: true,                  // remove the x-axis grid lines              // customize the date format to "month, day"
-      },
-      margin: {                           // update the left, bottom, right, top margin
-        l: 60, b: 60, r: 60, t: 60
-      },
-      showlegend : false
-    };    
-    Plotly.plot(plotDiv, [trace], layout, {showLink: false});
-});
-
-
-
-
+var data;
+/*
+* Fonction qui qui mets les données récup des csv dans des tableaux 2d
+*/
 function processData(allText) {
     var allTextLines = allText.split(/\r\n|\n/);
     var headers = allTextLines[0].split(',');
@@ -67,12 +29,26 @@ function processData(allText) {
 }
 
 
-function updateSlider (elem) {
+function updateSlider (elem,data) {
+    var val = $("#range"+elem).slider('getValue');
+
+    var tabLigne = [];//les lignes choisis
+    for(var i=1; i<data.length;i++){
+        if(data[i][1] == 0 || variableChoisi==i){
+            continue;
+        }
+        var ligne = $("#range" + data[i][0]).slider('getValue');
+        var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
+        tabLigne.push(datas);
+    }
+    var tableaux = JSON.parse(JSON.stringify(tabLigne));
+    var tabY = Calcul(matrix[data[2][0]],tableaux);
     Promise.all([plotDiv]).then(function () {
-    plotDiv.data[0].y = datasYInit.slice();
-    plotDiv.data[0].y.forEach(function (e,i) {
-    plotDiv.data[0].y[i] = e * elem.value;//slider.slider('getValue');
-    });
+    var update = {
+        autosize : 'false',
+    }
+    plotDiv.data[0].y = tabY.slice();
+    Plotly.relayout(plotDiv,update);
     Plotly.redraw(plotDiv);
 });
 }
@@ -117,19 +93,55 @@ $('#selectset').on('change', function() {
             
 });
 
-function changeParams(parametre)
+function changeParams(parametre,val)
 {
-    variableChoisi = parametre;
+    variableChoisi = val;
+
+    var tabLigne = [];//les lignes choisis
+    for(var i=1; i<data.length;i++){
+        if(data[i][1] == 0 || variableChoisi==i){
+            continue;
+        }
+        var ligne = $("#range" + data[i][0]).slider('getValue');
+        var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
+        tabLigne.push(datas);
+    }
+    var tableaux = JSON.parse(JSON.stringify(tabLigne));
+    var tabY = Calcul(matrix[data[2][0]],tableaux);
+    var layout = {
+      yaxis: {
+        title: ''+data[1][2]+' '+data[1][3]},
+        autorange : 'false',
+        range : [0,3],
+      xaxis: {
+        title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
+        showgrid: true,
+        range : [0,300],           // remove the x-axis grid lines              // customize the date format to "month, day"
+    },   margin: {                           // update the left, bottom, right, top margin
+        l: 60, b: 60, r: 10, t: 10
+      },
+      showlegend : false
+    };
+    Promise.all([plotDiv]).then(function () {
+        plotDiv.data[0].y = tabY.slice();
+        Plotly.relayout(plotDiv,layout);
+        Plotly.redraw(plotDiv);
+
+    });
+
     $("#parametres").find(".param").css('display', 'block');
     $("#parametres").find("#param"+ parametre).css('display', 'none');
     
 }
+function generate_handler( j,data ) {
+    return function(event) { 
+        updateSlider(j,data);
+    };
+}
 
-//https://raw.githubusercontent.com/TrimA74/projetL3/master/Test/siteDynamiqueAvecFichier/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv
-
-
-function majApresSet(data, set)
+function majApresSet(result, set)
 {
+    data = result;
     for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
@@ -157,7 +169,7 @@ function majApresSet(data, set)
     
     for(i=1; i<data.length; i++)
     {   if(data[i][1] == 1)
-            str += "<button onclick=\"changeParams($( this ).text())\" class='btn btn-primary btn-lg' style='background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);'>"+ data[i][0] + "</button>";
+            str += "<button onclick=\"changeParams($( this ).text(),$( this ).val())\"  value =\""+i+"\"class='btn btn-primary btn-lg' style='background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);'>"+ data[i][0] + "</button>";
     }
     str += "</div>";
 	str += "<div class='col-md-4'></div>";
@@ -180,10 +192,16 @@ function majApresSet(data, set)
             str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
             str += "<label for='amountInput" + data[i][0] + "' class='col-sm-1 control-label'>" + data[i][0] + "</label>";
             str += "<div class='col-sm-2'>";
-            str += "<input type='number' onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);updateSlider($( this ));\" name='amountInput" + data[i][0] + "' value='50' min='0' max='100' step='1' class='form-control'/>";
+            str += "<input id='rangeN" + data[i][0] + "'  \
+            onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);\"  \
+            type='number' name='amountInput" + data[i][0] + "' value='"+(data[i][5]/2)+"' \
+            min='"+data[i][4]+"' max='"+data[i][5]+"' step='1' class='form-control'/>";
             str += "</div>";
             str += "<div class='col-sm-4'>";
-            str += "<input  id='range" + data[i][0] + "' type='text'  name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" data-slider-min='0' data-slider-max='10' step='1' data-slider-value='5' />";
+            str += "<input  id='range" + data[i][0] + "' type='text'  \
+            name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" \
+            data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='1' \
+            data-slider-value='"+(data[i][5]/2)+"' />";
             str += "</div>";
             str += "</div>";
         }
@@ -201,38 +219,111 @@ function majApresSet(data, set)
             slider = $("#range" + data[i][0]).slider({ 
               tooltip: 'always'
             });
-            slider.on('slideStop',updateSlider);
+            slider.on('slideStop',generate_handler(data[i][0],data));
+            $("#rangeN" + data[i][0]).on('change',generate_handler(data[i][0],data));
         
         }
     }
     
-    var tableaux = new Array();//les lignes choisis
+    var tableaux = [];//les lignes choisis
     
-    var i = 1;
-    var j = 0;
+    //var i = 1;
+    //var j = 0;
     
     //a revoir
-    variableChoisi = data[2][0];
-    
+    //variableChoisi = 2;
+    for(var i =0;i<data.length;i++){
+        if(data[i][1]==1){
+            variableChoisi = i;
+            break;
+        }
+    }
+
+    /*
     while(i<data.length)
     {
-        if(data[i][1] == 1 && variableChoisi!=data[i][0])
+        if(data[i][1] == 1 && variableChoisi!=i)
         {
-            tableaux[j] = matrix[data[i][0]][$("#range" + data[i][0]).slider('getValue')];
+            var ligne = $("#range" + data[i][0]).slider('getValue');
+            console.log(matrix[data[i][0]][ligne]);
+            tableaux[j] = matrix[data[i][0]][ligne].slice();
+            console.log(tableaux[j]);
             j++;
+            console.log(tableaux[j-1]);
         }
+        console.log(tableaux);
         i++;
     }
+    */
+    for(var i=1; i<data.length;i++){
+        if(data[i][1] == 0 || variableChoisi==i){
+            continue;
+        }
+        var ligne = $("#range" + data[i][0]).slider('getValue');
+        tableaux.push(matrix[data[i][0]][ligne].slice());
+    }
+    i=2;
+    str='<label width="100%">Abscisse :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
+    str+='<label width="100%">Ordonnée :</label><p>'+data[1][2]+' '+data[1][3]+' = '+data[1][0]+'</p>';
+    str+='<label width="100%">Constante :</label>';
     
-    $(document).ajaxStop(function () { // Quand on a finit de récup les données
-      
-      
-      
-      
-      
-      var tabY = Calcul(matrix[variableChoisi],tableaux);
+    for(;i<data.length;i++){
+        if(i!=variableChoisi){
+            str+='<p>- '+data[i][2]+' '+data[i][3]+' = '+data[i][0]+' </strong></p>';
+        }
+    }
+    $("#descriptionDataset").html("");
+    $("#descriptionDataset").append(str);
+    
+    var tab = JSON.parse(JSON.stringify(tableaux));
+    var tabY = Calcul(matrix[data[variableChoisi][0]],tab);
+    var tabX = new Array();
+    for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
+    tabX[i] = i;
+    }
+    var trace = {
+        x : tabX,
+        y : tabY,
+        type : 'scatter'
+    };
+     var layout = {
+      yaxis: {
+        title: ''+data[1][2]+' '+data[1][3]},       // set the y axis title
+        type : 'linear',
+        autorange : 'false',
+        range : [0,3],
+      xaxis: {
+        title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
+        showgrid: true,  
+        type : 'linear',
+        range : [0,300],           // remove the x-axis grid lines              // customize the date format to "month, day"
+    },   margin: {                           // update the left, bottom, right, top margin
+        l: 40, b: 40, r: 10, t: 10
+      },
+      showlegend : false
+    };   
+    Plotly.newPlot(plotDiv,[trace],layout);
+   
+}
+/*
+$(document).ajaxStop(function () { // Quand on a finit de récup les données
+    var tableaux = [];//les lignes choisis
+    
+    //var i = 1;
+    var j = 0;
+    for(var i=1; i<data.length;i++){
+        if(data[i][1] == 0 || variableChoisi==i){
+            continue;
+        }
+        var ligne = $("#range" + data[i][0]).slider('getValue');
+        tableaux[j] = matrix[data[i][0]][ligne].slice();
+        j++;
+        console.log(tableaux);
+    }
+    var tab = tableaux.slice(0);
+      var tabY = Calcul(matrix[data[variableChoisi][0]],tab);
       var tabX = new Array();
-      for(var i=0;i<matrix[variableChoisi].length;i++){
+      for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
         tabX[i] = i;
       }
         var trace = {
@@ -240,13 +331,19 @@ function majApresSet(data, set)
             y : tabY,
             type : 'scatter'
         };
-        Plotly.newPlot('graph',[trace]);
+         var layout = {
+          yaxis: {title: ''+data[1][2]+' '+data[1][3]},       // set the y axis title
+          xaxis: {title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
+            showgrid: true,                  // remove the x-axis grid lines              // customize the date format to "month, day"
+        },   margin: {                           // update the left, bottom, right, top margin
+            l: 60, b: 60, r: 60, t: 60
+          },
+          showlegend : false
+        };   
+        Plotly.newPlot(plotDiv,[trace],layout);
       
     });
-
-   
-}
-
+*/
 
 
 
@@ -262,7 +359,9 @@ function Calcul(matriceAbscisse, tableaux) {
 	
     tabPrecalcul = tableaux[0];
 
-	// On précalcule la multiplication des lignes des matrices fixés
+
+    //console.log(tableaux);
+    // On précalcule la multiplication des lignes des matrices fixés
     for(var j=1; j<tableaux.length; j++)
     {
         for(var i=0;i<nbColonnes;i++){

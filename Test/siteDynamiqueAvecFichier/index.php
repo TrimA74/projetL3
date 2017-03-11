@@ -18,7 +18,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html style=" height: 100%;">
 <head>
 	  <meta charset="UTF-8">
 	  <meta name="description" content="Free Web tutorials">

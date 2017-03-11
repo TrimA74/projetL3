@@ -96,16 +96,16 @@
 			<div class="col-md-12"><!-- les selecteurs -->
 				<div class="col-md-4">
 					<div style="border-left : 5px solid rgb(250,250,250);  padding-left:20px;">
-					<div style="font-size: 18px;">
-						<label width="100%">Abscisse :</label>
-						<p>- Température [°c] = t</p>
-						<label width="100%">Ordonnée :</label>
-						<p>- Epaisseur  [m] = X </p>
-						<label width="100%">Constante :</label>
-						<p>- Temps [h] = T </strong></p>
-						<p>- Alpha [m^2/s] = A </p>
-						<p>- Beta [m^2/s] = B </p>
-					</div>
+						<div style="font-size: 18px;" id="descriptionDataset">
+							<!--  <label width="100%">Abscisse :</label>
+							<p>- Température [°c] = t</p>
+							<label width="100%">Ordonnée :</label>
+							<p>- Epaisseur  [m] = X </p>
+							<label width="100%">Constante :</label>
+							<p>- Temps [h] = T </strong></p>
+							<p>- Alpha [m^2/s] = A </p>
+							<p>- Beta [m^2/s] = B </p>  -->
+						</div>
 					</div>
 				</div>
                 
