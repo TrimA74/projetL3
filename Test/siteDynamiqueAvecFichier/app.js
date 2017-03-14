@@ -44,7 +44,9 @@ function updateSlider (elem,data) {
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
     var tabX = new Array();
-    for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
+    var minX = data[variableChoisi][4];
+    var maxX = data[variableChoisi][5];
+    for(var i=minX; i<maxX; i = i + ((maxX-minX)/matrix[data[variableChoisi][0]].length)){
         tabX[i] = i;
     }
     Promise.all([plotDiv]).then(function () {
