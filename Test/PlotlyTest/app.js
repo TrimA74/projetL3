@@ -53,7 +53,7 @@ $(document).ready(function() {
 
 });
 
-// s'exécute une fois toutes les requètes Ajax soient terminés
+// s'exécute une fois toutes les requètes Ajax terminées
 $(document).ajaxStop(function () { 
 	//On calcule les ordonnées
 	var tabY = Calcul(datasFInit,datasGInit,datasHInit, 15, 6);		// Array Calcul (MatriceAbscisse, Matrice1, Matrice2, indiceMatrice1, indiceMatrice2)
