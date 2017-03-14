@@ -198,8 +198,11 @@ function majApresSet(result, set)
     
     for(i=1; i<data.length; i++)
     {
+        
         if(data[i][1] == 1)
         {
+            var step = (data[i][5]-data[i][4])/matrix[data[i][0]].length;
+            
             str += "<div class='form-horizontal' >";
             str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
             str += "<label for='amountInput" + data[i][0] + "' class='col-sm-1 control-label'>" + data[i][0] + "</label>";
@@ -212,7 +215,7 @@ function majApresSet(result, set)
             str += "<div class='col-sm-4'>";
             str += "<input  id='range" + data[i][0] + "' type='text'  \
             name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" \
-            data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='1' \
+            data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='"+ step +"' \
             data-slider-value='"+(data[i][5]/2)+"' />";
             str += "</div>";
             str += "</div>";
@@ -270,7 +273,9 @@ function majApresSet(result, set)
         if(data[i][1] == 0 || variableChoisi==i){
             continue;
         }
+        //console.log($("#range" + data[i][0]).slider('getAttribute'));
         var ligne = $("#range" + data[i][0]).slider('getValue');
+        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;                                            //((data[i][5]-data[i][4])/matrix[data[i][0]].length);
         tableaux.push(matrix[data[i][0]][ligne].slice());
     }
     i=2;
