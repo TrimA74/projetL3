@@ -42,7 +42,7 @@ function updateSlider (elem,data) {
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
-    var tabY = Calcul(matrix[data[2][0]],tableaux);
+    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
     Promise.all([plotDiv]).then(function () {
     var update = {
         autosize : 'false',
@@ -107,7 +107,7 @@ function changeParams(parametre,val)
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
-    var tabY = Calcul(matrix[data[2][0]],tableaux);
+    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
     var layout = {
       yaxis: {
         title: ''+data[1][2]+' '+data[1][3]},
