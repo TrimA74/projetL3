@@ -43,11 +43,16 @@ function updateSlider (elem,data) {
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
+    var tabX = new Array();
+    for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
+        tabX[i] = i;
+    }
     Promise.all([plotDiv]).then(function () {
     var update = {
         autosize : 'false',
     }
     plotDiv.data[0].y = tabY.slice();
+    plotDiv.data[0].x = tabX.slice();
     Plotly.relayout(plotDiv,update);
     Plotly.redraw(plotDiv);
 });
@@ -108,15 +113,19 @@ function changeParams(parametre,val)
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
+    var tabX = new Array();
+    for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
+        tabX[i] = i;
+    }
     var layout = {
       yaxis: {
-        title: ''+data[1][2]+' '+data[1][3]},
+        title: ''+data[1][2]+' '+data[1][3],
         autorange : 'false',
         range : [0,3],
+    },
       xaxis: {
         title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
-        showgrid: true,
-        range : [0,300],           // remove the x-axis grid lines              // customize the date format to "month, day"
+        showgrid: true,        // remove the x-axis grid lines              // customize the date format to "month, day"
     },   margin: {                           // update the left, bottom, right, top margin
         l: 60, b: 60, r: 10, t: 10
       },
@@ -124,6 +133,7 @@ function changeParams(parametre,val)
     };
     Promise.all([plotDiv]).then(function () {
         plotDiv.data[0].y = tabY.slice();
+        plotDiv.data[0].x = tabX.slice();
         Plotly.relayout(plotDiv,layout);
         Plotly.redraw(plotDiv);
 
@@ -238,7 +248,6 @@ function majApresSet(result, set)
             break;
         }
     }
-
     /*
     while(i<data.length)
     {
@@ -279,7 +288,7 @@ function majApresSet(result, set)
     var tabY = Calcul(matrix[data[variableChoisi][0]],tab);
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
-    tabX[i] = i;
+        tabX[i] = i;
     }
     var trace = {
         x : tabX,
@@ -295,8 +304,7 @@ function majApresSet(result, set)
       xaxis: {
         title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
         showgrid: true,  
-        type : 'linear',
-        range : [0,300],           // remove the x-axis grid lines              // customize the date format to "month, day"
+        type : 'linear',        // remove the x-axis grid lines              // customize the date format to "month, day"
     },   margin: {                           // update the left, bottom, right, top margin
         l: 40, b: 40, r: 10, t: 10
       },
