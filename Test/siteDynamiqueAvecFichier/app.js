@@ -38,6 +38,7 @@ function updateSlider (elem,data) {
             continue;
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
+        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
     }
@@ -46,7 +47,7 @@ function updateSlider (elem,data) {
     var tabX = new Array();
     var minX = data[variableChoisi][4];
     var maxX = data[variableChoisi][5];
-    for(var i=minX; i<maxX; i = i + ((maxX-minX)/matrix[data[variableChoisi][0]].length)){
+    for(var i=0; i<matrix[data[variableChoisi][0]].length; i++){
         tabX[i] = i;
     }
     Promise.all([plotDiv]).then(function () {
@@ -110,6 +111,7 @@ function changeParams(parametre,val)
             continue;
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
+        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;   
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
     }
@@ -201,7 +203,8 @@ function majApresSet(result, set)
         
         if(data[i][1] == 1)
         {
-            var step = (data[i][5]-data[i][4])/matrix[data[i][0]].length;
+            var step = (data[i][5]-data[i][4]) / (matrix[data[i][0]].length-1);
+            
             
             str += "<div class='form-horizontal' >";
             str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
@@ -210,12 +213,12 @@ function majApresSet(result, set)
             str += "<input id='rangeN" + data[i][0] + "'  \
             onchange=\"$('#range" + data[i][0] + "').slider('setValue',this.value);\"  \
             type='number' name='amountInput" + data[i][0] + "' value='"+(data[i][5]/2)+"' \
-            min='"+data[i][4]+"' max='"+data[i][5]+"' step='1' class='form-control'/>";
+            min='"+data[i][4]+"' max='"+data[i][5]+"' step='"+ step +"' class='form-control'/>";
             str += "</div>";
             str += "<div class='col-sm-4'>";
             str += "<input  id='range" + data[i][0] + "' type='text'  \
             name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" \
-            data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='"+ step +"' \
+            data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='10' \
             data-slider-value='"+(data[i][5]/2)+"' />";
             str += "</div>";
             str += "</div>";
@@ -230,9 +233,12 @@ function majApresSet(result, set)
     {
         if(data[i][1] == 1)
         {
-    
+            
+            var pas = (data[i][5]-data[i][4])/(matrix[data[i][0]].length-1);
+            
             slider = $("#range" + data[i][0]).slider({ 
-              tooltip: 'always'
+              tooltip: 'always',
+              step : pas,
             });
             slider.on('slideStop',generate_handler(data[i][0],data));
             $("#rangeN" + data[i][0]).on('change',generate_handler(data[i][0],data));
@@ -275,7 +281,7 @@ function majApresSet(result, set)
         }
         //console.log($("#range" + data[i][0]).slider('getAttribute'));
         var ligne = $("#range" + data[i][0]).slider('getValue');
-        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;                                            //((data[i][5]-data[i][4])/matrix[data[i][0]].length);
+        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         tableaux.push(matrix[data[i][0]][ligne].slice());
     }
     i=2;
