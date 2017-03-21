@@ -51,9 +51,6 @@ function updateSlider (elem,data) {
     var maxX = data[variableChoisi][5];
     for(var i=0; i<matrix[data[variableChoisi][0]].length; i++){
         tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
-        //console.log((data[variableChoisi][5]-data[variableChoisi][4])/matrix[data[variableChoisi][0]].length);
-        //console.log(i*(data[variableChoisi][5]-data[variableChoisi][4])/matrix[data[variableChoisi][0]].length);
-        //console.log(tabX[i]);
     }
     Promise.all([plotDiv]).then(function () {
     var update = {
@@ -112,30 +109,21 @@ function changeParams(parametre,val)
 
     var tabLigne = [];//les lignes choisis
     for(var i=1; i<data.length;i++){
-        console.log("data[i][1]: "+data[i][1]);
-        console.log("data[i][0]: "+data[i][0]);
         if(data[i][1] == 0 || variableChoisi==i){
-            console.log("coucou");
             continue;
         }
-        console.log("hello, data[i][0]: "+data[i][0] + " data[i][1]: "+data[i][1]);
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
         ligne = Math.round(ligne);
-        console.log(ligne);
-        console.log(matrix[data[i][0]]);
         var datas = matrix[data[i][0]][ligne].slice();
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
-    console.log(tabY);
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
         tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
     }
-    console.log(data[variableChoisi][4]);
-    console.log(data[variableChoisi][5]);
     var layout = {
       yaxis: {
         title: ''+data[1][2]+' '+data[1][3],
