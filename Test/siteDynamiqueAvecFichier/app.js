@@ -39,6 +39,14 @@ function updateSlider (elem,data) {
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
+        ligne = Math.round(ligne);
+        console.log("val: " +$("#range" + data[i][0]).slider('getValue'));
+        console.log("ligne: " +ligne);
+        console.log("pas: " +$("#range" + data[i][0]).slider('getAttribute').step);
+        console.log("max: " +data[i][5]);
+        console.log("min: " +data[i][4]);
+        console.log("long: " +matrix[data[i][0]].length);
+        
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
     }
@@ -111,7 +119,8 @@ function changeParams(parametre,val)
             continue;
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
-        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;   
+        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
+           ligne = 0;
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
     }
@@ -204,7 +213,10 @@ function majApresSet(result, set)
         if(data[i][1] == 1)
         {
             var step = (data[i][5]-data[i][4]) / (matrix[data[i][0]].length-1);
-            
+            console.log("nb:"+ matrix[data[i][0]].length);
+            console.log("max:"+ data[i][5]);
+            console.log("min:"+ data[i][4]);
+            console.log("pas:"+ step);
             
             str += "<div class='form-horizontal' >";
             str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
@@ -282,6 +294,13 @@ function majApresSet(result, set)
         //console.log($("#range" + data[i][0]).slider('getAttribute'));
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
+        
+       /* console.log("val: " +$("#range" + data[i][0]).slider('getValue'));
+        console.log("ligne: " +ligne);
+        console.log("pas: " +$("#range" + data[i][0]).slider('getAttribute').step);
+        console.log("max: " +data[i][5]);
+        console.log("min: " +data[i][4]);
+        console.log("long: " +matrix[data[i][0]].length);*/
         tableaux.push(matrix[data[i][0]][ligne].slice());
     }
     i=2;
