@@ -39,6 +39,8 @@ function updateSlider (elem,data) {
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
+        ligne = Math.round(ligne);
+
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
     }
@@ -111,7 +113,8 @@ function changeParams(parametre,val)
             continue;
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
-        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;   
+        ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
+           ligne = 0;
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
     }
@@ -205,7 +208,6 @@ function majApresSet(result, set)
         {
             var step = (data[i][5]-data[i][4]) / (matrix[data[i][0]].length-1);
             
-            
             str += "<div class='form-horizontal' >";
             str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
             str += "<label for='amountInput" + data[i][0] + "' class='col-sm-1 control-label'>" + data[i][0] + "</label>";
@@ -245,41 +247,20 @@ function majApresSet(result, set)
         
         }
     }
-    
     var tableaux = [];//les lignes choisis
-    
-    //var i = 1;
-    //var j = 0;
-    
-    //a revoir
-    //variableChoisi = 2;
+
     for(var i =0;i<data.length;i++){
         if(data[i][1]==1){
             variableChoisi = i;
             break;
         }
     }
-    /*
-    while(i<data.length)
-    {
-        if(data[i][1] == 1 && variableChoisi!=i)
-        {
-            var ligne = $("#range" + data[i][0]).slider('getValue');
-            console.log(matrix[data[i][0]][ligne]);
-            tableaux[j] = matrix[data[i][0]][ligne].slice();
-            console.log(tableaux[j]);
-            j++;
-            console.log(tableaux[j-1]);
-        }
-        console.log(tableaux);
-        i++;
-    }
-    */
+
     for(var i=1; i<data.length;i++){
         if(data[i][1] == 0 || variableChoisi==i){
             continue;
         }
-        //console.log($("#range" + data[i][0]).slider('getAttribute'));
+
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         tableaux.push(matrix[data[i][0]][ligne].slice());
@@ -326,49 +307,6 @@ function majApresSet(result, set)
     Plotly.newPlot(plotDiv,[trace],layout);
    
 }
-/*
-$(document).ajaxStop(function () { // Quand on a finit de récup les données
-    var tableaux = [];//les lignes choisis
-    
-    //var i = 1;
-    var j = 0;
-    for(var i=1; i<data.length;i++){
-        if(data[i][1] == 0 || variableChoisi==i){
-            continue;
-        }
-        var ligne = $("#range" + data[i][0]).slider('getValue');
-        tableaux[j] = matrix[data[i][0]][ligne].slice();
-        j++;
-        console.log(tableaux);
-    }
-    var tab = tableaux.slice(0);
-      var tabY = Calcul(matrix[data[variableChoisi][0]],tab);
-      var tabX = new Array();
-      for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
-        tabX[i] = i;
-      }
-        var trace = {
-            x : tabX,
-            y : tabY,
-            type : 'scatter'
-        };
-         var layout = {
-          yaxis: {title: ''+data[1][2]+' '+data[1][3]},       // set the y axis title
-          xaxis: {title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
-            showgrid: true,                  // remove the x-axis grid lines              // customize the date format to "month, day"
-        },   margin: {                           // update the left, bottom, right, top margin
-            l: 60, b: 60, r: 60, t: 60
-          },
-          showlegend : false
-        };   
-        Plotly.newPlot(plotDiv,[trace],layout);
-      
-    });
-*/
-
-
-
-
 
 function Calcul(matriceAbscisse, tableaux) {
 	var tabOrdonee = new Array(); 	// tableau résultat
