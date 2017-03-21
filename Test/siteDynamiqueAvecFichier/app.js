@@ -40,12 +40,12 @@ function updateSlider (elem,data) {
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         ligne = Math.round(ligne);
-        console.log("val: " +$("#range" + data[i][0]).slider('getValue'));
+        /*console.log("val: " +$("#range" + data[i][0]).slider('getValue'));
         console.log("ligne: " +ligne);
         console.log("pas: " +$("#range" + data[i][0]).slider('getAttribute').step);
         console.log("max: " +data[i][5]);
         console.log("min: " +data[i][4]);
-        console.log("long: " +matrix[data[i][0]].length);
+        console.log("long: " +matrix[data[i][0]].length);*/
         
         var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
         tabLigne.push(datas);
@@ -56,7 +56,10 @@ function updateSlider (elem,data) {
     var minX = data[variableChoisi][4];
     var maxX = data[variableChoisi][5];
     for(var i=0; i<matrix[data[variableChoisi][0]].length; i++){
-        tabX[i] = i;
+        tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
+        //console.log((data[variableChoisi][5]-data[variableChoisi][4])/matrix[data[variableChoisi][0]].length);
+        //console.log(i*(data[variableChoisi][5]-data[variableChoisi][4])/matrix[data[variableChoisi][0]].length);
+        //console.log(tabX[i]);
     }
     Promise.all([plotDiv]).then(function () {
     var update = {
@@ -115,21 +118,30 @@ function changeParams(parametre,val)
 
     var tabLigne = [];//les lignes choisis
     for(var i=1; i<data.length;i++){
+        console.log("data[i][1]: "+data[i][1]);
+        console.log("data[i][0]: "+data[i][0]);
         if(data[i][1] == 0 || variableChoisi==i){
+            console.log("coucou");
             continue;
         }
+        console.log("hello, data[i][0]: "+data[i][0] + " data[i][1]: "+data[i][1]);
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
-           ligne = 0;
-        var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
+        ligne = Math.round(ligne);
+        console.log(ligne);
+        console.log(matrix[data[i][0]]);
+        var datas = matrix[data[i][0]][ligne].slice();
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
+    console.log(tabY);
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
-        tabX[i] = i;
+        tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
     }
+    console.log(data[variableChoisi][4]);
+    console.log(data[variableChoisi][5]);
     var layout = {
       yaxis: {
         title: ''+data[1][2]+' '+data[1][3],
@@ -137,6 +149,7 @@ function changeParams(parametre,val)
         range : [0,3],
     },
       xaxis: {
+          
         title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
         showgrid: true,        // remove the x-axis grid lines              // customize the date format to "month, day"
     },   margin: {                           // update the left, bottom, right, top margin
@@ -213,10 +226,10 @@ function majApresSet(result, set)
         if(data[i][1] == 1)
         {
             var step = (data[i][5]-data[i][4]) / (matrix[data[i][0]].length-1);
-            console.log("nb:"+ matrix[data[i][0]].length);
+            /*console.log("nb:"+ matrix[data[i][0]].length);
             console.log("max:"+ data[i][5]);
             console.log("min:"+ data[i][4]);
-            console.log("pas:"+ step);
+            console.log("pas:"+ step);*/
             
             str += "<div class='form-horizontal' >";
             str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
@@ -392,8 +405,6 @@ $(document).ajaxStop(function () { // Quand on a finit de récup les données
 function Calcul(matriceAbscisse, tableaux) {
 	var tabOrdonee = new Array(); 	// tableau résultat
 	var tabPrecalcul = new Array();
-	//var ligneM1 = matrice1[indiceM1];
-	//var ligneM2 = matrice2[indiceM2];
 	var nbColonnes = matriceAbscisse[0].length;
 	var nbLignes = matriceAbscisse.length;
 	
