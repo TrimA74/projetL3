@@ -10,20 +10,21 @@
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css" />
 		<meta charset="utf-8" />
 		<title>Visu-thermique</title>
 
 	</head>
 
-	<body style="background-color: rgb(225,225,225);">
+	<body class="body">
 
-		<header style="margin-top: 1%; margin-bottom: 2%;margin-right: 70%; margin-left: 2%;">	
-			<div style="border: 2px solid rgb(50,150,180); padding: 1px; background-color: rgb(230,235,235); -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;">
+		<header>	
+			<div class="encadrerDuTitre">
 				<h2 class="text-center"  style="font-size: 215%"><i>Visu Thermique</i></h2>
 			</div>
 		</header>
 
-		<div style="background-color: rgb(240,240,245);"> <!--font--> 
+		<div class="zonePrincipale">
 		<div class="container">
 			<h1 class="text-center" style="font-size: 260%"><strong><u>Hydrique</u></strong></h1>
 			<div class="col-md-12" style="margin-bottom: 1%;"> <!-- gestion pdf -->
@@ -146,8 +147,7 @@
 			    </div>	<!--ferme 8-->
 		
 				<div class="col-md-4">
-					<div style="border-left : 5px solid rgb(250,250,250);  padding-left:20px;">
-					<div style="font-size: 18px;">
+					<div class="descriptionADroite">
 						<label width="100%">Abscisse :</label>
 						<p>- Pression [Pa] = U</p>
 						<label width="100%">Ordonnée :</label>
@@ -155,7 +155,6 @@
 						<label width="100%">Constante :</label>
 						<p>- Temps [h] = T </strong></p>
 						<p>- Diffusivité [m^2/s] = Nu </p>
-					</div>
 					</div>
 				</div>
 			</div> <!--end selecteur -->
