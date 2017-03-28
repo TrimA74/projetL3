@@ -150,6 +150,30 @@ function changeParams(parametre,val)
     $("#parametres").find(".param").css('display', 'block');
     $("#parametres").find("#param"+ parametre).css('display', 'none');
     
+    var variableCalcul;
+    for(var i = 0; i<data.length; i++)
+    {
+        if(data[i][1] == 0)
+            variableCalcul = i;
+    }
+        
+    //modification du nom du graph
+    console.log("hello");
+    $("#nomGraph").text(data[variableCalcul][2] + " en fonction de " + data[variableChoisi][2]);
+    
+    
+    //modification description
+    str='<label width="100%">Abscisse :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
+    str+='<label width="100%">Ordonnée :</label><p>'+data[variableCalcul][2]+' '+data[variableCalcul][3]+' = '+data[variableCalcul][0]+'</p>';
+    str+='<label width="100%">Constante :</label>';
+    
+    for(var i = 1;i<data.length;i++){
+        if(i!=variableChoisi && data[i][1]!=0){
+            str+='<p>- '+data[i][2]+' '+data[i][3]+' = '+data[i][0]+' </strong></p>';
+        }
+    }
+    $("#descriptionDataset").html("");
+    $("#descriptionDataset").append(str);
 }
 function generate_handler( j,data ) {
     return function(event) { 
@@ -199,6 +223,7 @@ function majApresSet(result, set)
     //gestion parametres
     $("#parametres").children().remove();
     str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Autres paramètres <h2/>";
+    
     
     
     
