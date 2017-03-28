@@ -11,11 +11,20 @@
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script type="text/x-mathjax-config">
-  			MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-		</script>
-		<script type="text/javascript" async
-		  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
-		</script>
+  MathJax.Hub.Config({
+  tex2jax: 
+  {inlineMath: 
+  	[['$','$'], ['\\(','\\)']]
+  },
+   CommonHTML: {
+    scale: 70	
+  }
+
+  });
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
 		<title>Visu-thermique</title>
 
 	</head>
@@ -46,9 +55,7 @@
 					 u & = 1 \,,
 					& t & = 0\,, \,& x & \ \in \ \big[ \, 0, \, 1 \, \big] \,.
 					\end{align}
-					When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-					$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
-			</div>
+</div>
 			<div class="col-md-2">
 			</div>
 		</div>
@@ -99,14 +106,6 @@
 				<div class="col-md-4">
 					<div style="border-left : 5px solid rgb(250,250,250);  padding-left:20px;">
 						<div style="font-size: 18px;" id="descriptionDataset">
-							<!--  <label width="100%">Abscisse :</label>
-							<p>- Température [°c] = t</p>
-							<label width="100%">Ordonnée :</label>
-							<p>- Epaisseur  [m] = X </p>
-							<label width="100%">Constante :</label>
-							<p>- Temps [h] = T </strong></p>
-							<p>- Alpha [m^2/s] = A </p>
-							<p>- Beta [m^2/s] = B </p>  -->
 						</div>
 					</div>
 				</div>
@@ -114,91 +113,7 @@
                 
                 
 				<div class="col-md-8" id="parametres">
-					<!-- 	<h2><span class="glyphicon glyphicon-option-vertical"></span>  Autres paramètres <h2/>
-						<div class="form-horizontal" >
-							
-				    		<div class="form-group" id="paramX">
-				    			<label for="amountInputX" class="col-sm-1 control-label">X</label>
-				    			<div class="col-sm-2">
-					    			<input type="number" 
-									onchange="$('#rangeX').slider('setValue',this.value);updateSlider();"
-					    			name="amountInputX" value="50" min="0" max="100" step="1" class="form-control"/>
-				    			</div>
-				    			<div class="col-sm-4">
-					    			<input  id="rangeX" 
-					    			type="text"  name="amountRange" 
-					    			onchange="document.getElementsByName('amountInputX')[0].value=this.value;" 
-					    			data-slider-min="0" 
-					    			data-slider-max="100" 
-					    			step="1" 
-					    			data-slider-value="50" />
-				    			</div>
-				    		</div>
-				    		
-							
-				    		
-							
-                        <div class="form-horizontal">
-				    		<div class="form-group">
-				    			<label for="amountInputT" class="col-sm-1 control-label">T</label>
-				    			<div class="col-sm-2">
-					    			<input type="number" 
-									onchange="$('#rangeT').slider('setValue',this.value);updateSlider();"
-					    			name="amountInputT" value="4000" min="0" max="8000" step="100" class="form-control"/>
-				    			</div>
-				    			<div class="col-sm-4">
-					    			<input  id="rangeT" 
-					    			type="text"  name="amountRange" 
-					    			onchange="document.getElementsByName('amountInputT')[0].value=this.value;" 
-					    			data-slider-min="0" 
-					    			data-slider-max="8000" 
-					    			step="1" 
-					    			data-slider-value="4000" />
-				    			</div>
-				    		</div>
-				    		
 
-				    		
-				    		<div class="form-group">
-				    			<label for="amountInputA" class="col-sm-1 control-label">A</label>
-				    			<div class="col-sm-2">
-					    			<input type="number" 
-									onchange="$('#rangeA').slider('setValue',this.value);updateSlider();"
-					    			name="amountInputA" value="40" min="0" max="80" step="1" class="form-control"/>
-				    			</div>
-				    			<div class="col-sm-4">
-					    			<input  id="rangeA" 
-					    			type="text"  name="amountRange" 
-					    			onchange="document.getElementsByName('amountInputA')[0].value=this.value;" 
-					    			data-slider-min="0" 
-					    			data-slider-max="80" 
-					    			step="1" 
-					    			data-slider-value="40" />
-				    			</div>
-				    		</div>
-				    		
-
-				    		
-				    		<div class="form-group">
-				    			<label for="amountInputB" class="col-sm-1 control-label">B</label>
-				    			<div class="col-sm-2">
-					    			<input type="number" 
-									onchange="$('#rangeB').slider('setValue',this.value);updateSlider();"
-					    			name="amountInputB" value="50" min="0" max="100" step="1" class="form-control"/>
-				    			</div>
-				    			<div class="col-sm-4">
-					    			<input  id="rangeB" 
-					    			type="text"  name="amountRange" 
-					    			onchange="document.getElementsByName('amountInputB')[0].value=this.value;" 
-					    			data-slider-min="0" 
-					    			data-slider-max="100" 
-					    			step="1" 
-					    			data-slider-value="50" />
-				    			</div>
-				    		</div>
-				    		
-							
-			    		</div>   -->
 			</div>   <!--end selecteur -->
             
         </div> <!-- end conteneur traitement -->
