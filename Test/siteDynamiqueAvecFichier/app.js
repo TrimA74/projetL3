@@ -7,6 +7,12 @@ var variableChoisi=0;
 var plotDiv = document.getElementById('graph');
 
 var data;
+
+$('#btnRetour').on('click', function() {
+    window.location.href='index.php';
+            
+});
+
 /*
 * Fonction qui qui mets les données récup des csv dans des tableaux 2d
 */
