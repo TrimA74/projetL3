@@ -50,7 +50,7 @@ function updateSlider (elem,data) {
     var minX = data[variableChoisi][4];
     var maxX = data[variableChoisi][5];
     for(var i=0; i<matrix[data[variableChoisi][0]].length; i++){
-        tabX[i] = i;
+        tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
     }
     Promise.all([plotDiv]).then(function () {
     var update = {
@@ -114,15 +114,15 @@ function changeParams(parametre,val)
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
-           ligne = 0;
-        var datas = JSON.parse(JSON.stringify(matrix[data[i][0]][ligne]));
+        ligne = Math.round(ligne);
+        var datas = matrix[data[i][0]][ligne].slice();
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
-        tabX[i] = i;
+        tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
     }
     var layout = {
       yaxis: {
@@ -131,6 +131,7 @@ function changeParams(parametre,val)
         range : [0,3],
     },
       xaxis: {
+          
         title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
         showgrid: true,        // remove the x-axis grid lines              // customize the date format to "month, day"
     },   margin: {                           // update the left, bottom, right, top margin
@@ -149,6 +150,30 @@ function changeParams(parametre,val)
     $("#parametres").find(".param").css('display', 'block');
     $("#parametres").find("#param"+ parametre).css('display', 'none');
     
+    var variableCalcul;
+    for(var i = 0; i<data.length; i++)
+    {
+        if(data[i][1] == 0)
+            variableCalcul = i;
+    }
+        
+    //modification du nom du graph
+    console.log("hello");
+    $("#nomGraph").text(data[variableCalcul][2] + " en fonction de " + data[variableChoisi][2]);
+    
+    
+    //modification description
+    str='<label width="100%">Abscisse :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
+    str+='<label width="100%">Ordonnée :</label><p>'+data[variableCalcul][2]+' '+data[variableCalcul][3]+' = '+data[variableCalcul][0]+'</p>';
+    str+='<label width="100%">Constante :</label>';
+    
+    for(var i = 1;i<data.length;i++){
+        if(i!=variableChoisi && data[i][1]!=0){
+            str+='<p>- '+data[i][2]+' '+data[i][3]+' = '+data[i][0]+' </strong></p>';
+        }
+    }
+    $("#descriptionDataset").html("");
+    $("#descriptionDataset").append(str);
 }
 function generate_handler( j,data ) {
     return function(event) { 
@@ -198,6 +223,7 @@ function majApresSet(result, set)
     //gestion parametres
     $("#parametres").children().remove();
     str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Autres paramètres <h2/>";
+    
     
     
     
@@ -311,8 +337,6 @@ function majApresSet(result, set)
 function Calcul(matriceAbscisse, tableaux) {
 	var tabOrdonee = new Array(); 	// tableau résultat
 	var tabPrecalcul = new Array();
-	//var ligneM1 = matrice1[indiceM1];
-	//var ligneM2 = matrice2[indiceM2];
 	var nbColonnes = matriceAbscisse[0].length;
 	var nbLignes = matriceAbscisse.length;
 	

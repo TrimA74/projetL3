@@ -86,28 +86,14 @@
 				</div>
 				<div class="col-md-9">
 		
-					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : Température en fonction de ... (A dynamiser)<h2/>
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : <span id="nomGraph"></span><h2/>
 						<div id="graph"></div>
 				</div>
 			</div> <!-- end row -->
             
             
             <div class="col-md-12" id="boutons"><!-- les boutons -->
-				<!--    <div class="col-md-4">
-				</div>
-				<div class="col-md-4" >
-					<h2> <span class="glyphicon glyphicon-option-horizontal"></span>  Matrice en abscisse<h2/>
-						    <button class="btn btn-primary btn-lg"  
-						 style="background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);">X</button>
-						 <button class="btn btn-primary btn-lg" 
-						 style="background: linear-gradient(to top right, #3366ff 0%, #66ff33 100%);">T</button>
-						 <button class="btn btn-primary btn-lg"
-						 style="background: linear-gradient(to bottom left, #3366ff 0%, #66ff33 100%);">A</button>
-						 <button class="btn btn-primary btn-lg" 
-						 style="background: linear-gradient(to top left, #3366ff 0%, #66ff33 100%);">B</button>     
-				</div>
-				<div class="col-md-4">
-				</div>      -->
+
 			</div>
 			<div class="col-md-12"><!-- les selecteurs -->
 				<div class="col-md-4">
