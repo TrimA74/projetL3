@@ -33,7 +33,7 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $url = Yii::$app->request->getHostInfo();
+    $url = Yii::$app->request->getBaseUrl()."/index.php";
     ?>
     <ul class="nav navbar-nav navbar-right">
       <li class="active"><a href="<?php echo $url;?>/site">Home</a></li>
