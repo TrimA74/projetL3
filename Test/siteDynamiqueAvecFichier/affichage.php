@@ -123,8 +123,8 @@
   					<div class="col-md-5">
 					</div>
 					<div class="col-md-2">
-						<a href="index.php" class="btn btn-info btn-lg" style="background: linear-gradient(to left, #99ccff 0%, #99ccaa 89%);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
-        				</a>
+						<button class="btn btn-primary btn-lg" id="btnRetour" 
+						style="background-color: rgb(230,235,235); color: rgb(0,0,0);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retour </button>
         			</div>
         			<div class="col-md-5">
 					</div>
