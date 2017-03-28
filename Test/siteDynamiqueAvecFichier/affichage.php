@@ -10,7 +10,12 @@
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<meta charset="utf-8" />
+		<script type="text/x-mathjax-config">
+  			MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+		</script>
+		<script type="text/javascript" async
+		  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+		</script>
 		<title>Visu-thermique</title>
 
 	</head>
@@ -29,9 +34,20 @@
 		 <div style="margin-bottom: 25px;"> <!-- gestion pdf -->
 			<div class="col-md-2">
 			</div>
-			<div class="col-md-8">
-					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
-					<iframe src="../../Documentation/Etude_des_technologie.pdf"  width="100%" height="500px"></iframe>
+			<div class="col-md-12" style="margin-bottom: 1%;"> <!-- gestion pdf -->
+				<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
+					\begin{align}
+					  c \frac{\partial u}{\partial t} & = \frac{\partial u}{\partial x} \left( \, d \frac{\partial u}{\partial x} \, \right) \,,
+					& t & \ > \ 0\,, \;&  x & \ \in \ \big[ \, 0, \, 1 \, \big] \,, \\[3pt]
+					  d \, \frac{\partial u}{\partial x} & = \mathrm{Bi} \cdot \left( \, u - u_{\,L} \, \right)  \,,
+					& t & \ > \ 0\,, \,& x & = 0 \,, \\[3pt]
+					 -d \, \frac{\partial u}{\partial x} & = \mathrm{Bi} \cdot \left( \, u - u_{\,R} \, \right)  \,,
+					& t & \ > \ 0\,, \,&   x & = 1 \,, \\[3pt]
+					 u & = 1 \,,
+					& t & = 0\,, \,& x & \ \in \ \big[ \, 0, \, 1 \, \big] \,.
+					\end{align}
+					When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+					$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
 			</div>
 			<div class="col-md-2">
 			</div>
