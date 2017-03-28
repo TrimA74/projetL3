@@ -46,14 +46,19 @@ margin-top: 3%;
 
 
 /* ************** PAGE PRINCIPALE ************* */
+/* centrage du titre */
+.centerTitle{
+	text-align : center;
+}
 
 /* Titre en haut a gauche du site */
 .encadrerDuTitre {
-	border: 2px solid rgb(50,150,180); padding: 1px; 
+	border: 2px solid rgb(50,150,180); padding: 1%; padding-left: 10%; padding-right: 10%;
 	background-color: rgb(230,235,235); 
 	-moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; 
 	-moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;
-	margin-top: 1%; margin-bottom: 2%;margin-right: 35%; margin-left: 35%;
+	margin-top: 1%; margin-bottom: 2%; margin-right: auto; margin-left: auto;
+	display: inline-block;
 }
 
 /* font ; caractéristique de la zone principale */
