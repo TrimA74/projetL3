@@ -112,12 +112,16 @@ $('#selectset').on('change', function() {
 function changeParams(parametre,val)
 {
     variableChoisi = val;
-
+    
+    $("#parametres").find(".param").css('display', 'block');
+    $("#parametres").find("#param"+ parametre).css('display', 'none');
+    
     var tabLigne = [];//les lignes choisis
     for(var i=1; i<data.length;i++){
         if(data[i][1] == 0 || variableChoisi==i){
             continue;
         }
+        console.log(data[i][0]);
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
         ligne = Math.round(ligne);
@@ -153,8 +157,7 @@ function changeParams(parametre,val)
 
     });
 
-    $("#parametres").find(".param").css('display', 'block');
-    $("#parametres").find("#param"+ parametre).css('display', 'none');
+
     
     var variableCalcul;
     for(var i = 0; i<data.length; i++)
@@ -208,19 +211,27 @@ function majApresSet(result, set)
     
     
     
+     
+    for(var i =0;i<data.length;i++){
+        if(data[i][1]==1){
+            variableChoisi = i;
+            break;
+        }
+    }
+    
+    
     //gestion boutons
     $("#boutons").children().remove();
     
-    str = "<div class='col-md-4'></div>";
-    str += "<div class='col-md-4'>";
-    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Matrice en abscisse</h2>";
+    str = "<div class='col-md-8'>";
+    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Matrice en abscisse<h2/>";
     
     for(i=1; i<data.length; i++)
     {   if(data[i][1] == 1)
-            str += "<button onclick=\"changeParams($( this ).text(),$( this ).val())\"  value =\""+i+"\"class='btn btn-primary btn-lg' style='background: linear-gradient(to bottom right, #3366ff 0%, #66ff33 100%);'>"+ data[i][0] + "</button>";
+            str += "<button onclick=\"changeParams($( this ).text(),$( this ).val())\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ data[i][0] + "</button>";
     }
     str += "</div>";
-	str += "<div class='col-md-4'></div>";
+	str += "<div class='col-md-4 rubriquePage'></div>";
     
     $("#boutons").append(str);
     
@@ -229,19 +240,19 @@ function majApresSet(result, set)
     //gestion parametres
     $("#parametres").children().remove();
     str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Autres paramètres <h2/>";
-    
+    str += "<div class='form-horizontal'>";
     
     
     
     for(i=1; i<data.length; i++)
     {
         
-        if(data[i][1] == 1)
+        if(data[i][1] == 1 )
         {
+            console.log(data[i][0] + " : " + data[i][1] + " i: "+i)
             var step = (data[i][5]-data[i][4]) / (matrix[data[i][0]].length-1);
             
-            str += "<div class='form-horizontal' >";
-            str += "<div class='form-group param' id='param" + data[i][0] + "'  style='display:none;'>";
+            str += "<div class='form-group param' id='param" + data[i][0] + "' style='display:none; '>";
             str += "<label for='amountInput" + data[i][0] + "' class='col-sm-1 control-label'>" + data[i][0] + "</label>";
             str += "<div class='col-sm-2'>";
             str += "<input id='rangeN" + data[i][0] + "'  \
@@ -249,11 +260,19 @@ function majApresSet(result, set)
             type='number' name='amountInput" + data[i][0] + "' value='"+(data[i][5]/2)+"' \
             min='"+data[i][4]+"' max='"+data[i][5]+"' step='"+ step +"' class='form-control'/>";
             str += "</div>";
-            str += "<div class='col-sm-4'>";
+            str += "<div class='col-sm-9'>";
+            str += "<div class='col-sm-1'>";
+            str += "<span class='minSlider' >"+ Number(data[i][4]) +"</span> ";
+            str += "</div>";
+            str += "<div class='col-sm-5'>";
             str += "<input  id='range" + data[i][0] + "' type='text'  \
             name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" \
             data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='10' \
             data-slider-value='"+(data[i][5]/2)+"' />";
+            str += "</div>";
+            str += "<div class='col-sm-1'>";
+            str += "<span class='minMaxSlider'>"+ Number(data[i][5]) +"</span>";
+            str += "</div>";
             str += "</div>";
             str += "</div>";
         }
@@ -281,12 +300,7 @@ function majApresSet(result, set)
     }
     var tableaux = [];//les lignes choisis
 
-    for(var i =0;i<data.length;i++){
-        if(data[i][1]==1){
-            variableChoisi = i;
-            break;
-        }
-    }
+   
 
     for(var i=1; i<data.length;i++){
         if(data[i][1] == 0 || variableChoisi==i){
