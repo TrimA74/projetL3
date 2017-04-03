@@ -1,5 +1,5 @@
-Variables,Fichiers,Nom,unité,min,max
-u,0,Pression,[Pa],-Inf,Inf
-x,1,Epaisseur,[m],0.000000e+00,1.000000e+00
-t,1,Temps,[h],0.000000e+00,1.200000e+02
-nu,1,Diffusivité,[m^2/s],2.325581e-03,2.325581e-02
+Variables,Fichiers,Nom,unité,min,max,debut
+u,0,Pression,[Pa],-Inf,Inf,0
+x,1,Epaisseur,[m],0.000000e+00,1.000000e+00,0
+t,1,Temps,[h],0.000000e+00,1.200000e+02,1
+nu,1,Diffusivité,[m^2/s],2.325581e-03,2.325581e-02,1

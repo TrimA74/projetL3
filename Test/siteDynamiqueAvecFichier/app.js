@@ -121,7 +121,6 @@ function changeParams(parametre,val)
         if(data[i][1] == 0 || variableChoisi==i){
             continue;
         }
-        console.log(data[i][0]);
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
         ligne = Math.round(ligne);
@@ -167,7 +166,6 @@ function changeParams(parametre,val)
     }
         
     //modification du nom du graph
-    console.log("hello");
     $("#nomGraph").text(data[variableCalcul][2] + " en fonction de " + data[variableChoisi][2]);
     
     
@@ -249,7 +247,6 @@ function majApresSet(result, set)
         
         if(data[i][1] == 1 )
         {
-            console.log(data[i][0] + " : " + data[i][1] + " i: "+i)
             var step = (data[i][5]-data[i][4]) / (matrix[data[i][0]].length-1);
             
             str += "<div class='form-group param' id='param" + data[i][0] + "' style='display:none; '>";
@@ -367,7 +364,8 @@ function Calcul(matriceAbscisse, tableaux) {
     // On précalcule la multiplication des lignes des matrices fixés
     for(var j=1; j<tableaux.length; j++)
     {
-        for(var i=0;i<nbColonnes;i++){
+        var i = Number(data[j][6]);
+        for(i;i<nbColonnes;i++){
             tabPrecalcul[i] *= Number(tableaux[j][i]);
         }
     }
