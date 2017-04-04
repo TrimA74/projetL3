@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
 		<link rel="stylesheet" href="style.css" />
 	  	<meta charset="utf-8" />	
-		<title>Visu-thermique</title>
+		<title>Parametric model in Building Physics</title>
 
 	</head>
 
@@ -21,11 +21,12 @@
 		<header class="container">
 
 			<div class="grandCadre">
-				<h1 class="text-center"><strong>Visu Thermique</strong></h1>
+				<h1 class="text-center"><strong>Parametric model in Building Physics</strong></h1>
 			</div>
 
 		</header>
 
+        <div class="zonePrincipale">
 		<div class="container">
 			<div class="row">
 
@@ -64,7 +65,7 @@ closedir($dir);
 			</div>
 
 		</div>
-
+        </div>
 
 		<footer class="container-fluid footerIndex">
 		</footer>
