@@ -373,3 +373,5 @@ function Calcul(matriceAbscisse, tableaux) {
 }
 /*
 console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/
+
+console.log(MathJax.Message.Log());

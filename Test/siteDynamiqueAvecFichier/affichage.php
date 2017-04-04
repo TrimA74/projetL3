@@ -10,20 +10,15 @@
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: 
-  {inlineMath: 
-  	[['$','$'], ['\\(','\\)']]
-  },
-   CommonHTML: {
-    scale: 70	
-  }
-
-  });
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+            tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+            TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+            messageStyle: "none"
+        });
 </script>
 <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG">
 </script>
 		<title>Visu-thermique</title>
 
