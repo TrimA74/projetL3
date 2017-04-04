@@ -211,7 +211,7 @@ function majApresSet(result, set){
             $.ajax({
                 type: "GET",
                 async: false,
-                url: "data/Moisture diffusion in porous material/"+ set +"/"+ data[i][0] +".csv",
+                url: "data/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv",
                 dataType: "text",
                 success: function(matrice) {
                     matrix[data[i][0]] = processData(matrice);
