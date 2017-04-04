@@ -17,7 +17,7 @@ $('#btnRetour').on('click', function() {
 
 /*  */
 $('#selectset').on('change', function() {
-  alert( $_GET("cat"));
+  //alert( $_GET("cat"));
   var set = this.value;
   $.ajax({
                 url: 'ajax.php',
@@ -209,9 +209,9 @@ function majApresSet(result, set){
         if(data[i][1] == 1)
         {
             $.ajax({
-                type: "POST",
+                type: "GET",
                 async: false,
-                url: "data/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv",
+                url: "data/Moisture diffusion in porous material/"+ set +"/"+ data[i][0] +".csv",
                 dataType: "text",
                 success: function(matrice) {
                     matrix[data[i][0]] = processData(matrice);
