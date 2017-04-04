@@ -202,7 +202,7 @@ function generate_handler( j,data ) {
 function majApresSet(result, set){
     
     
-    
+    alert( $_GET("cat"));
     data = result;
     for(var i=1; i<data.length; i++)
     {   
