@@ -33,9 +33,11 @@
 
 	<body class="body">
         
-		<header>	
-			<div class="encadrerDuTitre">
-				<h2 class="text-center" style="font-size: 215%"><i>Visu Thermique</i></h2>
+		<header>
+			<div class="col-md-12 centerTitle">
+				<div class="encadrerDuTitre">
+					<h2 class="text-center" style="font-size: 215%"><i>Visu Thermique</i></h2>
+				</div>
 			</div>
 		</header>
 
