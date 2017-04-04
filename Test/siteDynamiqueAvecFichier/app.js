@@ -17,7 +17,7 @@ $('#btnRetour').on('click', function() {
 
 /*  */
 $('#selectset').on('change', function() {
-  //alert( $_GET("cat"));
+  alert( $_GET("cat"));
   var set = this.value;
   $.ajax({
                 url: 'ajax.php',
@@ -99,7 +99,9 @@ function updateSlider (elem,data) {
 /*  */
 function $_GET(param) {
 	var vars = {};
-	window.location.href.replace( location.hash, '' ).replace( 
+    var url = window.location.href.replace( location.hash, '' );
+    url = decodeURI(url);
+	url.replace( 
 		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
 		function( m, key, value ) { // callback
 			vars[key] = value !== undefined ? value : '';
@@ -198,6 +200,9 @@ function generate_handler( j,data ) {
 
 /*  */
 function majApresSet(result, set){
+    
+    
+    
     data = result;
     for(var i=1; i<data.length; i++)
     {   
