@@ -8,14 +8,39 @@ var plotDiv = document.getElementById('graph');
 
 var data;
 
+/*  */
 $('#btnRetour').on('click', function() {
     window.location.href='index.php';
             
 });
 
-/*
-* Fonction qui qui mets les données récup des csv dans des tableaux 2d
-*/
+
+/*  */
+$('#selectset').on('change', function() {
+  //alert( $_GET("cat"));
+  var set = this.value;
+  $.ajax({
+                url: 'ajax.php',
+                type:'POST',
+                dataType : 'json', // On désire recevoir du HTML
+                data:
+                {
+                    myFunction:'chargeSet',
+                    myParams:{
+                        set:this.value,
+                        cat:$_GET("cat")
+                    }
+                },
+                success: function(result)
+                {
+                    majApresSet(result, set);
+                }
+            });
+            
+});
+
+
+/* Fonction qui met les données récupérées des csv dans des tableaux */
 function processData(allText) {
     var allTextLines = allText.split(/\r\n|\n/);
     var headers = allTextLines[0].split(',');
@@ -35,6 +60,7 @@ function processData(allText) {
 }
 
 
+/*  */
 function updateSlider (elem,data) {
     var val = $("#range"+elem).slider('getValue');
 
@@ -70,6 +96,7 @@ function updateSlider (elem,data) {
 }
 
 
+/*  */
 function $_GET(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -86,31 +113,8 @@ function $_GET(param) {
 }
 
 
-$('#selectset').on('change', function() {
-  //alert( $_GET("cat"));
-  var set = this.value;
-  $.ajax({
-                url: 'ajax.php',
-                type:'POST',
-                dataType : 'json', // On désire recevoir du HTML
-                data:
-                {
-                    myFunction:'chargeSet',
-                    myParams:{
-                        set:this.value,
-                        cat:$_GET("cat")
-                    }
-                },
-                success: function(result)
-                {
-                    majApresSet(result, set);
-                }
-            });
-            
-});
-
-function changeParams(parametre,val)
-{
+/*  */
+function changeParams(parametre,val){
     variableChoisi = val;
     
     $("#parametres").find(".param").css('display', 'block');
@@ -182,14 +186,18 @@ function changeParams(parametre,val)
     $("#descriptionDataset").html("");
     $("#descriptionDataset").append(str);
 }
+
+
+/*  */
 function generate_handler( j,data ) {
     return function(event) { 
         updateSlider(j,data);
     };
 }
 
-function majApresSet(result, set)
-{
+
+/*  */
+function majApresSet(result, set){
     data = result;
     for(var i=1; i<data.length; i++)
     {   
@@ -363,6 +371,7 @@ function majApresSet(result, set)
    
 }
 
+
 /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
 function Calcul(matriceAbscisse, tableaux) {
 	var tabOrdonee = new Array(); 					// Tableau contenant le résultat (toutes les ordonnées calculées)
@@ -396,3 +405,4 @@ function Calcul(matriceAbscisse, tableaux) {
 	return tabOrdonee;
 
 }
+
