@@ -17,7 +17,7 @@ $('#btnRetour').on('click', function() {
 
 /*  */
 $('#selectset').on('change', function() {
-  alert( $_GET("cat"));
+  //alert( $_GET("cat"));
   var set = this.value;
   $.ajax({
                 url: 'ajax.php',
