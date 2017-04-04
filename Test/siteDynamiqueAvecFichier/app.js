@@ -324,64 +324,75 @@ function majApresSet(result, set)
     var tab = JSON.parse(JSON.stringify(tableaux));
     var tabY = Calcul(matrix[data[variableChoisi][0]],tab);
     var tabX = new Array();
+	
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
         tabX[i] = i;
     }
+	
+	// Parametres de la trace à tracer dans le layout
     var trace = {
         x : tabX,
         y : tabY,
-        type : 'scatter'
+        type : 'scatter'	// type de la trace (pour voir toutes les options possibles: https://plot.ly/javascript/reference/ )
     };
-     var layout = {
-      yaxis: {
-        title: ''+data[1][2]+' '+data[1][3]},       // set the y axis title
-        type : 'linear',
-        autorange : 'false',
-        range : [0,3],
-      xaxis: {
-        title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
-        showgrid: true,  
-        type : 'linear',        // remove the x-axis grid lines              // customize the date format to "month, day"
-    },   margin: {                           // update the left, bottom, right, top margin
-        l: 40, b: 40, r: 10, t: 10
-      },
-      showlegend : false
-    };   
-    Plotly.newPlot(plotDiv,[trace],layout);
+	
+	// Parametres du layout (pour voir toutes les options possibles: https://plot.ly/javascript/reference/#layout )
+    var layout = {
+		yaxis: {	
+			title: ''+data[1][2]+' '+data[1][3],    // On récupère le titre dans les métadonnées
+			type : 'linear',
+			autorange : true,
+			range : [0,3]
+		},
+		xaxis: {
+			title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
+			showgrid: true,  
+			type : 'linear',
+			autorange : true
+		},   
+		margin: {                
+			l: 40, b: 40, r: 10, t: 10
+		},
+		// Autres options
+		showlegend : false,
+		autosize : true
+    }; 
+	
+	// Plotly construit le graphique (rq: on remove des bouttons mis par défaut dans la modebar (pour liste des bouttons: https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js) ainsi que le logo)
+    Plotly.newPlot(plotDiv, [trace], layout, {modeBarButtonsToRemove: ['sendDataToCloud', 'zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'resetScale2d', 'toImage', 'hoverClosestCartesian', 'hoverCompareCartesian'], displaylogo: false});
    
 }
 
+/* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
 function Calcul(matriceAbscisse, tableaux) {
-	var tabOrdonee = new Array(); 	// tableau résultat
+	var tabOrdonee = new Array(); 					// Tableau contenant le résultat (toutes les ordonnées calculées)
 	var tabPrecalcul = new Array();
-	var nbColonnes = matriceAbscisse[0].length;
-	var nbLignes = matriceAbscisse.length;
+	var nbColonnes = matriceAbscisse[0].length;		// Théoriquement le même dans toutes les matrices
+	var nbLignes = matriceAbscisse.length;			// Nombre de valeurs calculables
 	
-    tabPrecalcul = tableaux[0];
+    tabPrecalcul = tableaux[0];		// Pour éviter de recalculer plusieurs fois la même chose, on stocke dans un tableau le résultat des produits des lignes déjà fixées
 
 
-    //console.log(tableaux);
     // On précalcule la multiplication des lignes des matrices fixés
-    for(var j=1; j<tableaux.length; j++)
+    for(var j=1; j<tableaux.length; j++)	//pour chaque ligne à précalculer
     {
-        var i = Number(data[j][6]);
-        for(i;i<nbColonnes;i++){
+        for(var i=0;i<nbColonnes;i++){
             tabPrecalcul[i] *= Number(tableaux[j][i]);
         }
     }
+	//console.log(tabPrecalcul);
     
 	// On initialise le tableau y avec des numbers (pour le +=)
 	for(var i=0;i<nbLignes;i++){
 		tabOrdonee[i]=0;
 	}
-	// 
-	for(var i=0;i<nbLignes;i++){
-		for(var j=0;j<nbColonnes;j++){
-			tabOrdonee[i] += Number(tabPrecalcul[j]) * Number(matriceAbscisse[i][j]); 
+	
+	// Calcul
+	for(var i=0;i<nbLignes;i++){	// Pour chaque valeur de y
+		for(var j=0;j<nbColonnes;j++){		// On fait la somme des produits de chaque colonnes
+			tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]); 
 		}
 	}	
 	return tabOrdonee;
 
 }
-/*
-console.log((1.1111111e-01).toFixed(2)); // 1267650600228229401496703205376*/
