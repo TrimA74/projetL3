@@ -10,22 +10,16 @@
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap-slider.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="style.css" />
-		<meta charset="utf-8" />
-		<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-  tex2jax: 
-  {inlineMath: 
-  	[['$','$'], ['\\(','\\)']]
-  },
-   CommonHTML: {
-    scale: 70	
-  }
-
-  });
+        <link rel="stylesheet" href="style.css">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+            tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+            TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+            messageStyle: "none"
+        });
 </script>
 <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG">
 </script>
 		<title>Parametric model in Building Physics</title>
 
@@ -33,10 +27,10 @@
 
 	<body class="body">
         
-		<header>
+		<header  class="container">
 			<div class="col-md-12 centerTitle">
 				<div class="encadrerDuTitre">
-					<h2 class="text-center" style="font-size: 215%"><i>Visu Thermique</i></h2>
+					<h2 class="text-center" style="font-size: 215%"><i>Parametric model in Building Physics</i></h2>
 				</div>
 			</div>
 		</header>
@@ -122,6 +116,8 @@
 					<h4> <span class="glyphicon glyphicon-paperclip"></span>  Reférences : </h4></label>
 					<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Lien documentation pdf</a> </h5>
 					<h5><a href="https://hal.archives-ouvertes.fr/hal-01004940"  title="ref">Proper Generalized Decomposition</a> </h5>
+					<h5><a href="http://link.springer.com/article/10.1007/s11831-016-9184-1"  title="ref">link.springer.com</a> </h5>
+					<h5><a href="http://www.sciencedirect.com/science/article/pii/S0377025711000061"  title="ref">www.sciencedirect.com</a> </h5>
 				</div>
 				<div><!--bouton retour -->
 			    	<div>

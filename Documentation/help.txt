@@ -1,1 +1,0 @@
-$ chown -R www-data:www-data . /* www-data devient propriétaire de tout ce qui se trouve dans le répertoire courant
