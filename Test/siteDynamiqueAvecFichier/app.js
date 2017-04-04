@@ -204,6 +204,37 @@ function majApresSet(result, set){
     
     
     data = result;
+    
+
+    for(var i=1; i<data.length; i++)
+    {   
+        if(data[i][1] == 1)
+        {
+            $.ajax({
+                        url: 'ajax.php',
+                        type:'POST',
+                        async: false,
+                        dataType : 'json', // On désire recevoir du HTML
+                        data:
+                        {
+                            myFunction:'chargeMatrice',
+                            myParams:{
+                                set:set,
+                                cat:$_GET("cat"),
+                                matrice: data[i][0]
+                            }
+                        },
+                        success: function(result)
+                        {
+                            matrix[data[i][0]] = processData(result);
+                        }
+                    });
+        }
+    }
+
+    
+    
+    /* ancienne manniere de faire avant de traiter le cas des espaces dans le nom de dossier
     for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
@@ -218,7 +249,7 @@ function majApresSet(result, set){
                 }
              });
         }
-    }
+    }*/
     
     
     
