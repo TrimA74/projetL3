@@ -27,7 +27,7 @@
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 </script>
-		<title>Visu-thermique</title>
+		<title>Parametric model in Building Physics</title>
 
 	</head>
 
@@ -120,9 +120,8 @@
         	<div class="container">
 				<div>
 					<h4> <span class="glyphicon glyphicon-paperclip"></span>  Reférences : </h4></label>
-					<h5><a href="../Documentation/Etude_des_technologie.pdf" title="Pdf">Lien documentation pdf</a> </h5>
-					<h5><a href="https://fr.wikipedia.org/wiki/Thermique"  title="Pdf">Lien Site thermique</a> </h5>
-					<h5><a href="https://fr.wiktionary.org/wiki/hydrique" title="Pdf">Lien Site hydrique</a> </h5>
+					<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Lien documentation pdf</a> </h5>
+					<h5><a href="https://hal.archives-ouvertes.fr/hal-01004940"  title="ref">Proper Generalized Decomposition</a> </h5>
 				</div>
 				<div><!--bouton retour -->
 			    	<div>
