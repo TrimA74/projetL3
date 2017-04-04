@@ -202,14 +202,14 @@ function generate_handler( j,data ) {
 function majApresSet(result, set){
     
     
-    alert( $_GET("cat"));
+    
     data = result;
     for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
         {
             $.ajax({
-                type: "GET",
+                type: "POST",
                 async: false,
                 url: "data/"+ $_GET("cat") +"/"+ set +"/"+ data[i][0] +".csv",
                 dataType: "text",
