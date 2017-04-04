@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html style="width=100%;">
 <head>
 	 <meta charset="UTF-8">
 	  <meta name="description" content="Free Web tutorials">
@@ -20,26 +20,26 @@
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG">
 </script>
-		<title>Visu-thermique</title>
+		<title>Parametric model in Building Physics</title>
 
 	</head>
 
-	<body style="background: linear-gradient(to bottom right, #99ccff 0%, #ccff99 89%);">
-
+	<body class="body">
         
-        
-        
-		<header class="container" style="margin-top: 30px; margin-bottom: 25px;">
-			<div style="border: 3px solid rgb(50,150,180); padding: 20px; background-color: rgb(250,250,190); -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;">
-				<h1 class="text-center"><strong>Visu Thermique</strong></h1>
+		<header>
+			<div class="col-md-12 centerTitle">
+				<div class="encadrerDuTitre">
+					<h2 class="text-center" style="font-size: 215%"><i>Visu Thermique</i></h2>
+				</div>
 			</div>
 		</header>
 
-		 <div style="margin-bottom: 25px;"> <!-- gestion pdf -->
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-12" style="margin-bottom: 1%;"> <!-- gestion pdf -->
-				<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
+        
+        <div class="zonePrincipale">
+		<div class="container">
+			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $_GET["cat"] ?></u></strong></h1>
+			<div class="col-md-12 rubriquePage">
+					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
 					\begin{align}
 					  c \frac{\partial u}{\partial t} & = \frac{\partial u}{\partial x} \left( \, d \frac{\partial u}{\partial x} \, \right) \,,
 					& t & \ > \ 0\,, \;&  x & \ \in \ \big[ \, 0, \, 1 \, \big] \,, \\[3pt]
@@ -50,26 +50,17 @@
 					 u & = 1 \,,
 					& t & = 0\,, \,& x & \ \in \ \big[ \, 0, \, 1 \, \big] \,.
 					\end{align}
-</div>
-			<div class="col-md-2">
 			</div>
-		</div>
-        
-        <div class="container">
         
         <?php
         $chemin = "./data/".$_GET["cat"];
         if ($dir = opendir($chemin)) {
             ?>
            
-        
-            <div class="row">
-				<div class="col-md-3"><!--selecteur du set de donnée-->
-
-					  <label for="selectset"><h3> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h3></label>
-				      <select  multiple class="form-control" id="selectset" 
-				      style="background-color: rgb(100, 180, 190);color: rgb(255, 255, 255); height: 460px; font-size: 16px;">
-				        <optgroup label="<?php echo $_GET["cat"]; ?>">
+        <div class="row">
+            <div class="col-md-5">
+					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h2></label>
+				      <select class="form-control selDataSet" id="selectset">
                             <?php
                             while($file = readdir($dir)) {
                                 if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
@@ -83,47 +74,61 @@
     closedir($dir);
     }
 ?>
-                
+                </div>
 
+				<div class="col-md-7">
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-12 rubriquePage">
 		
-					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : <span id="nomGraph"></span><h2/>
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : <span id="nomGraph"></span></h2>
 						<div id="graph"></div>
 				</div>
 			</div> <!-- end row -->
             
             
-            <div class="col-md-12" id="boutons"><!-- les boutons -->
+            <div class="col-md-12 rubriquePage" id="boutons"><!-- les boutons -->
 
 			</div>
-			<div class="col-md-12"><!-- les selecteurs -->
-				<div class="col-md-4">
-					<div style="border-left : 5px solid rgb(250,250,250);  padding-left:20px;">
-						<div style="font-size: 18px;" id="descriptionDataset">
-						</div>
-					</div>
-				</div>
-                
-                
-                
-				<div class="col-md-8" id="parametres">
+			<div class="col-md-12 rubriquePage"><!-- les selecteurs -->
+				<div class="form-horizontal">
+                    <div class="col-md-8" id="parametres">
+                        <!-- les slider ici -->
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="descriptionADroite" id="descriptionDataset">
+                            <!-- la description ici -->
+                        </div>
+                    </div>
+                    
+                    
+                </div>
 
 			</div>   <!--end selecteur -->
             
         </div> <!-- end conteneur traitement -->
+        </div> <!--end font blanc-->
 
-        <footer class="container-fluid" style="margin-bottom: 40px;">
-  				<div>
-  					<div class="col-md-5">
-					</div>
-					<div class="col-md-2">
-						<button class="btn btn-primary btn-lg" id="btnRetour" 
-						style="background-color: rgb(230,235,235); color: rgb(0,0,0);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retour </button>
-        			</div>
-        			<div class="col-md-5">
-					</div>
+        <footer class="container-fluid footerPage">
+        	<div class="container">
+				<div>
+					<h4> <span class="glyphicon glyphicon-paperclip"></span>  Reférences : </h4></label>
+					<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Lien documentation pdf</a> </h5>
+					<h5><a href="https://hal.archives-ouvertes.fr/hal-01004940"  title="ref">Proper Generalized Decomposition</a> </h5>
 				</div>
+				<div><!--bouton retour -->
+			    	<div>
+			  			<div class="col-md-5">
+						</div>
+						<div class="col-md-2">
+		        			<button class="btn btn-primary btn-lg boutonReturn" id="btnRetour" >
+		        			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour </button>
+		      			</div>
+			        	<div class="col-md-5">
+						</div>
+					</div>
+			    </div>	
+			</div>
 		</footer>
         
     <script src="jquery.min.js" integrity=""></script>
