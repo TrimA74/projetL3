@@ -77,7 +77,7 @@ function updateSlider (elem,data) {
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
-    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
+    var tabY = Calcul(matrix[data[variableChoisi][0]], tableaux, data);
     var tabX = new Array();
     var minX = data[variableChoisi][4];
     var maxX = data[variableChoisi][5];
@@ -117,7 +117,7 @@ function $_GET(param) {
 
 /*  */
 function changeParams(parametre,val){
-    variableChoisi = val;
+    variableChoisi = val;	//numéro de la matrice à mettre en abscisse (défini dans le bouton qui appelle l'évènement)  
     
     $("#parametres").find(".param").css('display', 'block');
     $("#parametres").find("#param"+ parametre).css('display', 'none');
@@ -134,7 +134,7 @@ function changeParams(parametre,val){
         tabLigne.push(datas);
     }
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
-    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
+    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux, data);
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
         tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
@@ -335,7 +335,7 @@ function majApresSet(result, set){
     $("#descriptionDataset").append(str);
     
     var tab = JSON.parse(JSON.stringify(tableaux));
-    var tabY = Calcul(matrix[data[variableChoisi][0]],tab);
+    var tabY = Calcul(matrix[data[variableChoisi][0]],tab, data);
     var tabX = new Array();
 	
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
@@ -378,7 +378,8 @@ function majApresSet(result, set){
 
 
 /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
-function Calcul(matriceAbscisse, tableaux) {
+function Calcul(matriceAbscisse, tableaux, metadonnees) {
+	//console.log(metadonnees);
 	var tabOrdonee = new Array(); 					// Tableau contenant le résultat (toutes les ordonnées calculées)
 	var tabPrecalcul = new Array();
 	var nbColonnes = matriceAbscisse[0].length;		// Théoriquement le même dans toutes les matrices
@@ -396,10 +397,11 @@ function Calcul(matriceAbscisse, tableaux) {
     }
 	//console.log(tabPrecalcul);
     
-	// On initialise le tableau y avec des numbers (pour le +=)
+	// On initialise le tableau y avec la valeur spécifiée dans les métadonnées
 	for(var i=0;i<nbLignes;i++){
-		tabOrdonee[i]=0;
+		tabOrdonee[i] = Number(metadonnees[variableChoisi][6]);
 	}
+	//console.log(tabOrdonee);
 	
 	// Calcul
 	for(var i=0;i<nbLignes;i++){	// Pour chaque valeur de y
