@@ -136,11 +136,7 @@ function changeParams(parametre,val){
     }
     
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
-<<<<<<< HEAD
     var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux, data);
-=======
-    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux); 
->>>>>>> ae32aa480baf2830a97120deedc7732bb3fc73e0
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
         tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
@@ -359,6 +355,7 @@ function majApresSet(result, set){
         ligne = Math.round(ligne);
         
         tableaux.push(matrix[data[i][0]][ligne].slice());
+        
     }
     i=2;
     str='<label width="100%">Abscisse :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
@@ -434,7 +431,7 @@ function Calcul(matriceAbscisse, tableaux, metadonnees) {
             tabPrecalcul[i] *= Number(tableaux[j][i]);
         }
     }
-	//console.log(tabPrecalcul);
+	//console.log(tableaux);
     
 	// On initialise le tableau y avec la valeur spécifiée dans les métadonnées
 	for(var i=0;i<nbLignes;i++){
