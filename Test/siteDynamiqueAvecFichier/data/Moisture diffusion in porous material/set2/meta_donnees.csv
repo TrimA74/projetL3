@@ -1,0 +1,6 @@
+Variables,Fichiers,Nom,unité,min,max,val.initiale
+u,0,field,[-],-Inf,Inf,1.000000e+00
+x,1,space,[-],0.000000e+00,1.000000e+00,NaN
+t,1,time,[-],0.000000e+00,1.000000e+00,NaN
+c,1,sorptioncapacity,[-],5.000000e-02,5.000000e-01,NaN
+
