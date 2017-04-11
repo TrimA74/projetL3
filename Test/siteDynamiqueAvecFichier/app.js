@@ -130,11 +130,13 @@ function changeParams(parametre,val){
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step;  
         ligne = Math.round(ligne);
+        
         var datas = matrix[data[i][0]][ligne].slice();
         tabLigne.push(datas);
     }
+    
     var tableaux = JSON.parse(JSON.stringify(tabLigne));
-    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux);
+    var tabY = Calcul(matrix[data[variableChoisi][0]],tableaux); 
     var tabX = new Array();
     for(var i=0;i<matrix[data[variableChoisi][0]].length;i++){
         tabX[i] = parseFloat(data[variableChoisi][4]) + i*(parseFloat(data[variableChoisi][5])-parseFloat(data[variableChoisi][4]))/matrix[data[variableChoisi][0]].length;
@@ -303,7 +305,7 @@ function majApresSet(result, set){
             str += "</div>";
             str += "<div class='col-sm-9'>";
             str += "<div class='col-sm-1'>";
-            str += "<span class='minSlider' >"+ Number(data[i][4]) +"</span> ";
+            str += "<span class='minSlider' >"+ Math.round(Number(data[i][4])*1000)/1000 +"</span> ";
             str += "</div>";
             str += "<div class='col-sm-5'>";
             str += "<input  id='range" + data[i][0] + "' type='text'  \
@@ -312,7 +314,7 @@ function majApresSet(result, set){
             data-slider-value='"+(data[i][5]/2)+"' />";
             str += "</div>";
             str += "<div class='col-sm-1'>";
-            str += "<span class='minMaxSlider'>"+ Number(data[i][5]) +"</span>";
+            str += "<span class='minMaxSlider'>"+ Math.round(Number(data[i][5]) *1000)/1000+"</span>";
             str += "</div>";
             str += "</div>";
             str += "</div>";
@@ -333,6 +335,7 @@ function majApresSet(result, set){
             slider = $("#range" + data[i][0]).slider({ 
               tooltip: 'always',
               step : pas,
+              precision: 3
             });
             slider.on('slideStop',generate_handler(data[i][0],data));
             $("#rangeN" + data[i][0]).on('change',generate_handler(data[i][0],data));
@@ -341,8 +344,7 @@ function majApresSet(result, set){
     }
     var tableaux = [];//les lignes choisis
 
-   
-
+       
     for(var i=1; i<data.length;i++){
         if(data[i][1] == 0 || variableChoisi==i){
             continue;
@@ -350,6 +352,8 @@ function majApresSet(result, set){
 
         var ligne = $("#range" + data[i][0]).slider('getValue');
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
+        ligne = Math.round(ligne);
+        
         tableaux.push(matrix[data[i][0]][ligne].slice());
     }
     i=2;
@@ -438,6 +442,7 @@ function Calcul(matriceAbscisse, tableaux) {
 			tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]); 
 		}
 	}	
+    
 	return tabOrdonee;
 
 }
