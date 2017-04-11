@@ -62,6 +62,7 @@
             <div class="col-md-5">
 					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h2></label>
 				      <select class="form-control selDataSet" id="selectset">
+                        <option></option>
                             <?php
                             while($file = readdir($dir)) {
                                 if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
