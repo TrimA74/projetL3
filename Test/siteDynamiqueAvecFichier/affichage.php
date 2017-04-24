@@ -54,7 +54,7 @@
            
         <div class="row">
             <div class="col-md-5">
-					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Choix dataset</h2></label>
+					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Dataset selection</h2></label>
 				      <select class="form-control selDataSet" id="selectset">
                         <option></option>
                             <?php
@@ -77,7 +77,7 @@
 				</div>
 				<div class="col-md-12 rubriquePage">
 		
-					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphique : <span id="nomGraph"></span></h2>
+					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
 						<div id="graph"></div>
 				</div>
 			</div> <!-- end row -->
@@ -109,8 +109,8 @@
         <footer class="container-fluid footerPage">
         	<div class="container">
 				<div>
-					<h4> <span class="glyphicon glyphicon-paperclip"></span>  Reférences : </h4></label>
-					<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Lien documentation pdf</a> </h5>
+					<h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
+					<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Documentation link (pdf)</a> </h5>
 					<h5><a href="https://hal.archives-ouvertes.fr/hal-01004940"  title="ref">Proper Generalized Decomposition</a> </h5>
 					<h5><a href="http://link.springer.com/article/10.1007/s11831-016-9184-1"  title="ref">link.springer.com</a> </h5>
 					<h5><a href="http://www.sciencedirect.com/science/article/pii/S0377025711000061"  title="ref">www.sciencedirect.com</a> </h5>
@@ -121,7 +121,7 @@
 						</div>
 						<div class="col-md-2">
 		        			<button class="btn btn-primary btn-lg boutonReturn" id="btnRetour" >
-		        			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour </button>
+		        			<span class="glyphicon glyphicon-circle-arrow-left"></span> Back </button>
 		      			</div>
 			        	<div class="col-md-5">
 						</div>

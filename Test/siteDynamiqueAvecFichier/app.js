@@ -174,13 +174,13 @@ function changeParams(parametre,val){
     }
         
     //modification du nom du graph
-    $("#nomGraph").text(data[variableCalcul][2] + " en fonction de " + data[variableChoisi][2]);
+    $("#nomGraph").text(data[variableCalcul][2] + " depending on  " + data[variableChoisi][2]);
     
     
     //modification description
-    str='<label width="100%">Abscisse :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
-    str+='<label width="100%">Ordonnée :</label><p>'+data[variableCalcul][2]+' '+data[variableCalcul][3]+' = '+data[variableCalcul][0]+'</p>';
-    str+='<label width="100%">Constante :</label>';
+    str='<label width="100%">Abscissa :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
+    str+='<label width="100%">Ordinate :</label><p>'+data[variableCalcul][2]+' '+data[variableCalcul][3]+' = '+data[variableCalcul][0]+'</p>';
+    str+='<label width="100%">Constant :</label>';
     
     for(var i = 1;i<data.length;i++){
         if(i!=variableChoisi && data[i][1]!=0){
@@ -268,7 +268,7 @@ function majApresSet(result, set){
     $("#boutons").children().remove();
     
     str = "<div class='col-md-8'>";
-    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Matrice en abscisse<h2/>";
+    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Matrix on the abscissa<h2/>";
     
     for(i=1; i<data.length; i++)
     {   if(data[i][1] == 1)
@@ -283,7 +283,7 @@ function majApresSet(result, set){
     
     //gestion parametres
     $("#parametres").children().remove();
-    str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Autres paramètres <h2/>";
+    str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Other parameters <h2/>";
     str += "<div class='form-horizontal'>";
     
     
@@ -358,9 +358,9 @@ function majApresSet(result, set){
         
     }
     i=2;
-    str='<label width="100%">Abscisse :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
-    str+='<label width="100%">Ordonnée :</label><p>'+data[1][2]+' '+data[1][3]+' = '+data[1][0]+'</p>';
-    str+='<label width="100%">Constante :</label>';
+    str='<label width="100%">Abscissa :</label><p>'+data[variableChoisi][2]+' '+data[variableChoisi][3]+' = '+data[variableChoisi][0]+'</p>';
+    str+='<label width="100%">Ordinate :</label><p>'+data[1][2]+' '+data[1][3]+' = '+data[1][0]+'</p>';
+    str+='<label width="100%">Constant :</label>';
     
     for(;i<data.length;i++){
         if(i!=variableChoisi){
