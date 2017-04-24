@@ -1,4 +1,5 @@
 Dimensionless Equation
+<beginLatex>
 \begin{subequations}
 \begin{align}
 c \, \frac{\partial u}{\partial t} 
@@ -14,6 +15,7 @@ u & = \ 1 \,,
 & t & = \ 0\,, \,&  x & \ \in \ \big[ \, 0, \, 1 \, \big] \,.
 \end{align}
 \end{subequations}
+<endLatex>
 
 Liens url
 2

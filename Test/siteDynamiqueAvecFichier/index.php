@@ -45,7 +45,10 @@ if ($dir = opendir("./data")) {
 					<h2 class="text-center"><a href="affichage.php?cat=<?php echo $file; ?>"><strong><?php echo $file; ?></strong></a><h2/>
 				</div>
                 
-<?php $chemintmp = $chemin."/".$file; ?>
+<?php $chemintmp = $chemin."/".$file; 
+
+            if(file_exists($chemintmp."/description.txt"))
+            {   ?>
                 
                 <div>
 
@@ -57,6 +60,7 @@ if ($dir = opendir("./data")) {
                 </div>
                 
 <?php   
+            }
         }
     }
 closedir($dir);

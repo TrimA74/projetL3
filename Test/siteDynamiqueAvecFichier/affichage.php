@@ -36,27 +36,21 @@
 		</header>
 
         
+        <?php
+        $chemin = "./data/".$_GET["cat"];
+        if ($dir = opendir($chemin)) {
+            ?>
+        
         <div class="zonePrincipale">
 		<div class="container">
 			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $_GET["cat"] ?></u></strong></h1>
 			<div class="col-md-12 rubriquePage">
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
-					\begin{align}
-					  c \frac{\partial u}{\partial t} & = \frac{\partial u}{\partial x} \left( \, d \frac{\partial u}{\partial x} \, \right) \,,
-					& t & \ > \ 0\,, \;&  x & \ \in \ \big[ \, 0, \, 1 \, \big] \,, \\[3pt]
-					  d \, \frac{\partial u}{\partial x} & = \mathrm{Bi} \cdot \left( \, u - u_{\,L} \, \right)  \,,
-					& t & \ > \ 0\,, \,& x & = 0 \,, \\[3pt]
-					 -d \, \frac{\partial u}{\partial x} & = \mathrm{Bi} \cdot \left( \, u - u_{\,R} \, \right)  \,,
-					& t & \ > \ 0\,, \,&   x & = 1 \,, \\[3pt]
-					 u & = 1 \,,
-					& t & = 0\,, \,& x & \ \in \ \big[ \, 0, \, 1 \, \big] \,.
-					\end{align}
+					<?php echo file_get_contents($chemin."/meta_donnees_groupe.txt");
+                    ?>
 			</div>
         
-        <?php
-        $chemin = "./data/".$_GET["cat"];
-        if ($dir = opendir($chemin)) {
-            ?>
+        
            
         <div class="row">
             <div class="col-md-5">
@@ -67,6 +61,7 @@
                             while($file = readdir($dir)) {
                                 if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
                                 {
+                                    
                                     echo "<option>".$file."</option>";
                                 }
                             }
