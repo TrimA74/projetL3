@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html style="width=100%;">
 <head>
@@ -46,7 +46,28 @@
 			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $_GET["cat"] ?></u></strong></h1>
 			<div class="col-md-12 rubriquePage">
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
-					<?php echo file_get_contents($chemin."/meta_donnees_groupe.txt");
+					<?php 
+                    //autre methode utilisé finalement (voir plus bas)
+                    /*$contenuFichier = file_get_contents($chemin."/meta_donnees_groupe.txt");
+                    $posDebutLatex = strpos($contenuFichier, "<beginLatex>")+12;
+                    $posFinLatex = strpos($contenuFichier, "<endLatex>");
+                    echo substr($contenuFichier, $posDebutLatex, $posFinLatex-$posDebutLatex);*/
+                    
+                    $contenuFichier = file($chemin."/meta_donnees_groupe.txt");
+                    $posDansFichier = 0;
+ 
+                   
+                    while(trim($contenuFichier[$posDansFichier])!="beginLatex" and $posDansFichier<sizeof($contenuFichier))
+                    {
+
+                        $posDansFichier++;
+                    }
+                    $posDansFichier++;
+                    while(trim($contenuFichier[$posDansFichier])!="endLatex" and $posDansFichier<sizeof($contenuFichier))
+                    {
+                        echo $contenuFichier[$posDansFichier];
+                        $posDansFichier++;
+                    }
                     ?>
 			</div>
         
@@ -110,10 +131,30 @@
         	<div class="container">
 				<div>
 					<h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
-					<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Documentation link (pdf)</a> </h5>
+					<!--<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Documentation link (pdf)</a> </h5>
 					<h5><a href="https://hal.archives-ouvertes.fr/hal-01004940"  title="ref">Proper Generalized Decomposition</a> </h5>
 					<h5><a href="http://link.springer.com/article/10.1007/s11831-016-9184-1"  title="ref">link.springer.com</a> </h5>
-					<h5><a href="http://www.sciencedirect.com/science/article/pii/S0377025711000061"  title="ref">www.sciencedirect.com</a> </h5>
+					<h5><a href="http://www.sciencedirect.com/science/article/pii/S0377025711000061"  title="ref">www.sciencedirect.com</a> </h5>-->
+                    <?php
+                    while(trim($contenuFichier[$posDansFichier])!="Liens url" and $posDansFichier<sizeof($contenuFichier))
+                    {
+                        $posDansFichier++;
+                    }
+                    $posDansFichier++;
+                    $nbLien = (int)trim($contenuFichier[$posDansFichier]);
+                    $posDansFichier++;
+                    for($i = 0; $i<$nbLien; $i++)
+                    {
+                        $debut = strpos($contenuFichier[$posDansFichier], "://")+3;
+                        $nom = substr($contenuFichier[$posDansFichier], $debut);
+                        $fin = strpos($nom, "/");
+                        $nom = substr($nom, 0, $fin);
+                        echo '<h5><a href="'.$contenuFichier[$posDansFichier].'"  title="ref">'.$nom.'</a> </h5>';
+                        $posDansFichier++;
+                    }
+                    
+                    //a voir pour les pdf
+                    ?>
 				</div>
 				<div><!--bouton retour -->
 			    	<div>
