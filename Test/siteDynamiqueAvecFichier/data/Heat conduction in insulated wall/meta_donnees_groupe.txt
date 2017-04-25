@@ -1,7 +1,6 @@
 ﻿
 beginLatex
 Dimensionless Equation
-\begin{subequations}
 \begin{align}
 c \, \frac{\partial u}{\partial t} 
 & = \ \frac{\partial^{\,2} u}{\partial x^{\,2}} \,
@@ -15,7 +14,6 @@ u
 u & = \ 1 \,,
 & t & = \ 0\,, \,&  x & \ \in \ \big[ \, 0, \, 1 \, \big] \,.
 \end{align}
-\end{subequations}
 endLatex
 
 Liens url
@@ -24,7 +22,8 @@ http://link.springer.com/article/10.1007/s11831-016-9184-1
 http://www.sciencedirect.com/science/article/pii/S0377025711000061
 
 pdf à inclure
-0
+1
+Etude_des_technologie.pdf
 
 
 
