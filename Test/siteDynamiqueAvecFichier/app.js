@@ -204,6 +204,16 @@ function generate_handler( j,data ) {
     };
 }
 
+function creeCanvas()
+{
+    $("#boutons").append('<canvas id="canvasMur" width="150" height="150"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+    var canvas  = document.querySelector('#canvasMur');
+    var context = canvas.getContext('2d');
+    
+    context.fillStyle = "gold";
+    context.fillRect(10, 10, 100, 100);
+}
+
 
 /*  */
 function majApresSet(result, set){
@@ -212,6 +222,8 @@ function majApresSet(result, set){
     
     data = result;
     
+    //cree canvas
+    creeCanvas();
 
     for(var i=1; i<data.length; i++)
     {   
@@ -369,7 +381,7 @@ function majApresSet(result, set){
     
     for(;i<data.length;i++){
         if(i!=variableChoisi){
-            str+='<p>- '+data[i][2]+' '+data[i][3]+' = '+data[i][0]+' </strong></p>';
+            str+='<p>'+data[i][2]+' '+data[i][3]+' = '+data[i][0]+' </strong></p>';
         }
     }
     $("#descriptionDataset").html("");
