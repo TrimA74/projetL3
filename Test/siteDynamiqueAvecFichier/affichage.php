@@ -164,7 +164,9 @@
                     $posDansFichier++;
                     for($i = 0; $i<$nbPDF; $i++)
                     {
-                        $debut = strrpos($contenuFichier[$posDansFichier], "/")+1;
+                        $debut = strrpos($contenuFichier[$posDansFichier], "/");
+                        if($debut !== false)
+                            $debut++;
                         $nom = substr($contenuFichier[$posDansFichier], $debut);
                         echo '<h5><a href="./data/'.$contenuFichier[$posDansFichier].'"  title="ref">'.$nom.'</a> </h5>';
                         $posDansFichier++;
