@@ -7,8 +7,12 @@ var variableChoisi=0;
 var plotDiv = document.getElementById('graph');
 
 var data;
+try {
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-
+}
+catch (e) {
+    alert("erreur");
+}
 /*  */
 $('#btnRetour').on('click', function() {
     window.location.href='index.php';
