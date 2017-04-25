@@ -48,10 +48,7 @@
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
 					<?php 
                     //autre methode utilisé finalement (voir plus bas)
-                    /*$contenuFichier = file_get_contents($chemin."/meta_donnees_groupe.txt");
-                    $posDebutLatex = strpos($contenuFichier, "<beginLatex>")+12;
-                    $posFinLatex = strpos($contenuFichier, "<endLatex>");
-                    echo substr($contenuFichier, $posDebutLatex, $posFinLatex-$posDebutLatex);*/
+
                     
                     $contenuFichier = file($chemin."/meta_donnees_groupe.txt");
                     $posDansFichier = 0;
@@ -93,6 +90,13 @@
     }
 ?>
                 </div>
+                <div class="col-md-12 dessinMur">
+		
+					<canvas id="canvasMur" width="150" height="150">
+                        <p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p>
+                    </canvas>
+				</div>
+                
 
 				<div class="col-md-7">
 				</div>
@@ -131,10 +135,6 @@
         	<div class="container">
 				<div>
 					<h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
-					<!--<h5><a href="./Etude_des_technologie.pdf" title="Pdf">Documentation link (pdf)</a> </h5>
-					<h5><a href="https://hal.archives-ouvertes.fr/hal-01004940"  title="ref">Proper Generalized Decomposition</a> </h5>
-					<h5><a href="http://link.springer.com/article/10.1007/s11831-016-9184-1"  title="ref">link.springer.com</a> </h5>
-					<h5><a href="http://www.sciencedirect.com/science/article/pii/S0377025711000061"  title="ref">www.sciencedirect.com</a> </h5>-->
                     <?php
                     //pour afficher les liens
                     while(trim($contenuFichier[$posDansFichier])!="Liens url" and $posDansFichier<sizeof($contenuFichier))
