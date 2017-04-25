@@ -210,14 +210,8 @@ function creeCanvas()
     var canvas  = document.querySelector('#canvasMur');
     var context = canvas.getContext('2d');
     
-    context.fillStyle = "#fff";
-    context.fillText("exterieur", 0, 50);
-    context.fillStyle = "#fff";
-    context.fillText("interieur", 350, 50);
-    
-    context.stroke = "black";
-    context.stroke(100, 10, 100, 100);
-    context.stroke(200, 10, 100, 100);
+    context.fillStyle = "gold";
+    context.fillRect(10, 10, 100, 100);
 }
 
 
@@ -479,5 +473,4 @@ function Calcul(matriceAbscisse, tableaux, metadonnees) {
 	return tabOrdonee;
 
 }
-
 
