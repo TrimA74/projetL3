@@ -143,6 +143,7 @@
 					<h5><a href="http://link.springer.com/article/10.1007/s11831-016-9184-1"  title="ref">link.springer.com</a> </h5>
 					<h5><a href="http://www.sciencedirect.com/science/article/pii/S0377025711000061"  title="ref">www.sciencedirect.com</a> </h5>-->
                     <?php
+                    //pour afficher les liens
                     while(trim($contenuFichier[$posDansFichier])!="Liens url" and $posDansFichier<sizeof($contenuFichier))
                     {
                         $posDansFichier++;
@@ -160,7 +161,23 @@
                         $posDansFichier++;
                     }
                     
-                    //a voir pour les pdf
+                    //pour les pdf
+                    while(trim($contenuFichier[$posDansFichier])!="pdf à inclure" and $posDansFichier<sizeof($contenuFichier))
+                    {
+                        $posDansFichier++;
+                    }
+                    $posDansFichier++;
+                    $nbPDF = (int)trim($contenuFichier[$posDansFichier]);
+                    $posDansFichier++;
+                    for($i = 0; $i<$nbPDF; $i++)
+                    {
+                        $debut = strrpos($contenuFichier[$posDansFichier], "/");
+                        if($debut !== false)
+                            $debut++;
+                        $nom = substr($contenuFichier[$posDansFichier], $debut);
+                        echo '<h5><a href="./data/'.$contenuFichier[$posDansFichier].'"  title="ref">'.$nom.'</a> </h5>';
+                        $posDansFichier++;
+                    }
                     ?>
 				</div>
 				<div><!--bouton retour -->
