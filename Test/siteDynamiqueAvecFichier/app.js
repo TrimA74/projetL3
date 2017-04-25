@@ -7,6 +7,7 @@ var variableChoisi=0;
 var plotDiv = document.getElementById('graph');
 
 var data;
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
 /*  */
 $('#btnRetour').on('click', function() {
