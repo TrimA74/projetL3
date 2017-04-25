@@ -100,6 +100,13 @@
 
 				<div class="col-md-7">
 				</div>
+				<div class="col-md-12">
+				<div class="col-md-3">
+					<h3>&emsp;&emsp;Set Information : </h3>
+				</div>
+				<div class="col-md-7" id="latexSetInfo">
+				</div>
+				</div>
 				<div class="col-md-12 rubriquePage">
 		
 					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
