@@ -390,8 +390,8 @@ function majApresSet(result, set){
 		yaxis: {	
 			title: ''+data[1][2]+' '+data[1][3],    // On récupère le titre dans les métadonnées
 			type : 'linear',
-			autorange : true,
-			range : [0,3]
+			/*autorange : true,
+			range : [0,3]*/
 		},
 		xaxis: {
 			title: ''+data[variableChoisi][2]+' '+data[variableChoisi][3],
@@ -406,10 +406,17 @@ function majApresSet(result, set){
 		showlegend : false,
 		autosize : true
     }; 
-	
-	// Plotly construit le graphique (rq: on remove des bouttons mis par défaut dans la modebar (pour liste des bouttons: https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js) ainsi que le logo)
+       
+    
+    var client = new XMLHttpRequest();
+    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.txt" );
+    client.onreadystatechange = function() {
+      $("#latexSetInfo").html("<p style=\"font-size:200%;\"> " + client.responseText + "</p>");
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+    client.send();
+    // Plotly construit le graphique (rq: on remove des bouttons mis par défaut dans la modebar (pour liste des bouttons: https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js) ainsi que le logo)
     Plotly.newPlot(plotDiv, [trace], layout, {modeBarButtonsToRemove: ['sendDataToCloud', 'zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'resetScale2d', 'toImage', 'hoverClosestCartesian', 'hoverCompareCartesian'], displaylogo: false});
-   
 }
 
 
