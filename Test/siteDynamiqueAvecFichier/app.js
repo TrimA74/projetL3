@@ -275,7 +275,6 @@ function majApresSet(result, set){
                         },
                         success: function(result)
                         {
-                            alert(data[i]);
                             matrix[data[i][0]] = processData(result);
                         }
                     });

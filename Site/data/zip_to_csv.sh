@@ -11,11 +11,10 @@ do
 	cd $filename/
 	sed -i -re 's/\t/,/g' *.txt | sed -i -re 's/( )//g' *.txt
 		for file in *.txt; do
-			echo $file
-    		if [ $file != "meta_donnees_LaTeX.txt" ]
-    		then
-    			mv "$file" "`basename "$file" .txt`.csv"
-    		fi
+			if [ $file != "meta_donnees_LaTeX.txt" ]
+			then
+    		mv "$file" "`basename "$file" .txt`.csv"
+			fi
 		done
 	cd ..
 	rm $param

@@ -17,7 +17,7 @@ h1 {
 .grandCadre{
 border: 3px solid rgb(50,150,180); padding: 1.6%; 
 background-color: rgb(230,235,235); 
-margin-top: 3%;
+margin-top: 3%; margin-bottom: 3%;
 -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; 
 -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;
 }
@@ -46,19 +46,14 @@ margin-top: 3%;
 
 
 /* ************** PAGE PRINCIPALE ************* */
-/* centrage du titre */
-.centerTitle{
-	text-align : center;
-}
 
 /* Titre en haut a gauche du site */
 .encadrerDuTitre {
-	border: 2px solid rgb(50,150,180); padding: 1%; padding-left: 10%; padding-right: 10%;
+	border: 2px solid rgb(50,150,180); padding: 1px; 
 	background-color: rgb(230,235,235); 
 	-moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; 
 	-moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px;
-	margin-top: 1%; margin-bottom: 2%; margin-right: auto; margin-left: auto;
-	display: inline-block;
+	margin-top: 1%; margin-bottom: 2%;margin-right: 35%; margin-left: 35%;
 }
 
 /* font ; caractéristique de la zone principale */
@@ -99,6 +94,12 @@ margin-top: 3%;
 
 .boutonReturn{
 	background-color: rgb(230,235,235); color: rgb(0,0,0);
+}
+
+.minSlider{
+    font-size: 70%; 
+	margin-right: 4%; margin-left: 4%;
+    text-align: right;
 }
 
 
