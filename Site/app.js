@@ -238,22 +238,22 @@ function majApresSet(result, set){
     
     
     data = result;
-    /*
+    
     //trouver la largeur et la diffusivité moyenne (pour le dessin de base)
     var largeur;
     var diffusivite;
     for(var i=0; i<data.length; i++)
     {
-        if(data[i][0]="x")
+        if(data[i][0]=="x")
             largeur = data[i];
-        else if(data[i][0]="nu")
+        else if(data[i][0]=="nu")
             diffusivite = data[i];
     }
     
     //cree canvas
     creeCanvasThermique(largeur, diffusivite);
     
-    */
+    
 
     for(var i=1; i<data.length; i++)
     {   
