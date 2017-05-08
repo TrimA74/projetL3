@@ -11,7 +11,6 @@ try {
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
 catch (e) {
-    alert("erreur");
 }
 /*  */
 $('#btnRetour').on('click', function() {
@@ -27,7 +26,7 @@ $('#selectset').on('change', function() {
   $.ajax({
                 url: 'ajax.php',
                 type:'POST',
-                dataType : 'json', // On désire recevoir du HTML
+                dataType : 'json',
                 data:
                 {
                     myFunction:'chargeSet',
@@ -204,14 +203,32 @@ function generate_handler( j,data ) {
     };
 }
 
-function creeCanvas()
+function creeCanvasThermique(dataLargeur, dataDiffusivite)
 {
-    $("#boutons").append('<canvas id="canvasMur" width="150" height="150"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+    
+    //diffusivite = (data[i][4]+data[i][5])/2;
+    //largeur = (data[i][4]+data[i][5])/2;
+    //il faut calculer un pourcentage
+    
+    
+    $("#dessinMur").append('<canvas id="canvasMur" width="1000" height="350"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
     var canvas  = document.querySelector('#canvasMur');
     var context = canvas.getContext('2d');
     
-    context.fillStyle = "gold";
-    context.fillRect(10, 10, 100, 100);
+    context.fillStyle = "black";
+    context.fillText("exterieur", 0, 50);
+    context.fillStyle = "black";
+    context.fillText("interieur", 350, 50);
+    
+    context.fillStyle = "black";
+    context.fillText("Load material", 120, 30);
+    context.fillStyle = "black";
+    context.fillText("Insulation", 220, 30);
+    
+    context.lineWidth = "5";
+    context.stroke = "black";
+    context.strokeRect(100, 10, 100, 300);
+    context.strokeRect(200, 10, 100, 300);
 }
 
 
@@ -221,9 +238,22 @@ function majApresSet(result, set){
     
     
     data = result;
+    /*
+    //trouver la largeur et la diffusivité moyenne (pour le dessin de base)
+    var largeur;
+    var diffusivite;
+    for(var i=0; i<data.length; i++)
+    {
+        if(data[i][0]="x")
+            largeur = data[i];
+        else if(data[i][0]="nu")
+            diffusivite = data[i];
+    }
     
     //cree canvas
-    creeCanvas();
+    creeCanvasThermique(largeur, diffusivite);
+    
+    */
 
     for(var i=1; i<data.length; i++)
     {   
@@ -245,6 +275,7 @@ function majApresSet(result, set){
                         },
                         success: function(result)
                         {
+                            alert(data[i]);
                             matrix[data[i][0]] = processData(result);
                         }
                     });
@@ -371,6 +402,7 @@ function majApresSet(result, set){
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         ligne = Math.round(ligne);
         
+        console.log(matrix);
         tableaux.push(matrix[data[i][0]][ligne].slice());
         
     }

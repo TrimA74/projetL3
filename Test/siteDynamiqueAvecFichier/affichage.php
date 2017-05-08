@@ -90,12 +90,7 @@
     }
 ?>
                 </div>
-                <div class="col-md-12 dessinMur">
-		
-					<canvas id="canvasMur" width="150" height="150">
-                        <p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p>
-                    </canvas>
-				</div>
+                
                 
 
 				<div class="col-md-7">
@@ -107,6 +102,12 @@
 				<div class="col-md-7" id="latexSetInfo">
 				</div>
 				</div>
+                
+                <div class="col-md-12" id="dessinMur">
+		
+				</div>
+                
+                
 				<div class="col-md-12 rubriquePage">
 		
 					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
