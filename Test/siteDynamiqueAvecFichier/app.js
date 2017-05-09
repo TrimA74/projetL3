@@ -206,10 +206,17 @@ function generate_handler( j,data ) {
 function creeCanvasThermique(dataLargeur, dataDiffusivite)
 {
     var largeurMur = 200;
-    var hauteur = 50;
+    var hauteur = 300;
+    
+    var largeurIsolationMax = (3/4)*largeurMur;
+    var largeurIsolationMin = 0;
+    
+    var largeurIsolation = largeurIsolationMax;
+    
+    
     
     //diffusivite = (data[i][4]+data[i][5])/2;
-    //largeur = (data[i][4]+data[i][5])/2;
+    largeur = (dataLargeur[4]+dataLargeur[5])/2;
     //il faut calculer un pourcentage
     
     
@@ -217,20 +224,49 @@ function creeCanvasThermique(dataLargeur, dataDiffusivite)
     var canvas  = document.querySelector('#canvasMur');
     var context = canvas.getContext('2d');
     
+    //coloration des rectangle
+    //rectangle du mur
+    context.fillStyle = "#FFFFFF";
+    context.fillRect(100, 10, largeurMur, hauteur);
+    //rectangle de l'isolation
+    context.fillStyle = "#DDDDDD";
+    context.fillRect(100+largeurMur, 10, largeurIsolation, hauteur);
+    
+    
+    //ajout des textes d'environnement
     context.fillStyle = "black";
     context.fillText("exterieur", 0, 50);
     context.fillStyle = "black";
-    context.fillText("interieur", 350, 50);
+    context.fillText("interieur", 100+largeurMur+largeurIsolation+20, 50);
     
+    //ajout des textes du mur et isolation
     context.fillStyle = "black";
-    context.fillText("Load material", 120, 30);
+    context.fillText("Load material", 100+20, 30);
     context.fillStyle = "black";
-    context.fillText("Insulation", 220, 30);
+    context.fillText("Insulation", 100+largeurMur+20, 30);
     
+    
+    //creation des contours des rectangles
     context.lineWidth = "5";
-    context.stroke = "black";
+    context.strokeStyle = "black";
     context.strokeRect(100, 10, largeurMur, hauteur);
-    context.strokeRect(200, 10, 100, hauteur);
+    context.strokeRect(100+largeurMur, 10, largeurIsolation, hauteur);
+    
+    //la fleche
+    context.beginPath();
+    context.lineWidth = "3";
+    context.strokeStyle = "black";
+    context.moveTo(50, hauteur/2+5);
+    context.lineTo(100+largeurMur+largeurIsolation+60,hauteur/2+5);
+    
+    context.lineWidth = "1";
+    context.moveTo(100+largeurMur+largeurIsolation+80, hauteur/2+5);
+    context.lineTo(100+largeurMur+largeurIsolation+50,hauteur/2+5+10);
+    context.lineTo(100+largeurMur+largeurIsolation+50,hauteur/2+5-10);
+    context.fill();
+    
+    context.stroke();
+    
 }
 
 
@@ -256,7 +292,6 @@ function majApresSet(result, set){
     creeCanvasThermique(largeur, diffusivite);
     
     
-
     for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
