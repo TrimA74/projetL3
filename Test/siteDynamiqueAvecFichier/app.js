@@ -205,6 +205,8 @@ function generate_handler( j,data ) {
 
 function creeCanvasThermique(dataLargeur, dataDiffusivite)
 {
+    var largeurMur = 200;
+    var hauteur = 50;
     
     //diffusivite = (data[i][4]+data[i][5])/2;
     //largeur = (data[i][4]+data[i][5])/2;
@@ -227,8 +229,8 @@ function creeCanvasThermique(dataLargeur, dataDiffusivite)
     
     context.lineWidth = "5";
     context.stroke = "black";
-    context.strokeRect(100, 10, 100, 300);
-    context.strokeRect(200, 10, 100, 300);
+    context.strokeRect(100, 10, largeurMur, hauteur);
+    context.strokeRect(200, 10, 100, hauteur);
 }
 
 
@@ -334,7 +336,7 @@ function majApresSet(result, set){
     str += "<div class='form-horizontal'>";
     
     
-    
+    //affichage des slider (pour le moment de simple input) avec tout ce qui va avec
     for(i=1; i<data.length; i++)
     {
         
