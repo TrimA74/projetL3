@@ -1,6 +1,6 @@
 {
   "latexDescription": "descriptionLatex.tex",
-  "title": "Heat conduction in insulated wall",
+  "title": "Moisture diffusion in porous material",
   "references": [
     {
       "lien": "http://link.springer.com/article/10.1007/s11831-016-9184-1",
@@ -19,7 +19,7 @@
   "set": [
     {
       "name": "set1",
-      "descriptionLatex": "/meta_donnees_LaTeX.txt",
+      "descriptionLatex": "/meta_donnees_LaTeX.tex",
       "parameters": [
         {
           "lettre": "u",
@@ -41,11 +41,11 @@
     },
     {
       "name": "set2",
-      "descriptionLatex": "/meta_donnees_LaTeX.txt"
+      "descriptionLatex": "/meta_donnees_LaTeX.tex"
     },
     {
       "name": "set3",
-      "descriptionLatex": "/meta_donnees_LaTeX.txt"
+      "descriptionLatex": "/meta_donnees_LaTeX.tex"
     }
   ]
 }
