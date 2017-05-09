@@ -223,10 +223,17 @@ function generate_handler( j,data ) {
 function creeCanvasThermique(dataLargeur, dataDiffusivite)
 {
     var largeurMur = 200;
-    var hauteur = 50;
+    var hauteur = 300;
+    
+    var largeurIsolationMax = (3/4)*largeurMur;
+    var largeurIsolationMin = 0;
+    
+    var largeurIsolation = largeurIsolationMax;
+    
+    
     
     //diffusivite = (data[i][4]+data[i][5])/2;
-    //largeur = (data[i][4]+data[i][5])/2;
+    largeur = (dataLargeur[4]+dataLargeur[5])/2;
     //il faut calculer un pourcentage
     
     
@@ -234,20 +241,49 @@ function creeCanvasThermique(dataLargeur, dataDiffusivite)
     var canvas  = document.querySelector('#canvasMur');
     var context = canvas.getContext('2d');
     
+    //coloration des rectangle
+    //rectangle du mur
+    context.fillStyle = "#FFFFFF";
+    context.fillRect(100, 10, largeurMur, hauteur);
+    //rectangle de l'isolation
+    context.fillStyle = "#DDDDDD";
+    context.fillRect(100+largeurMur, 10, largeurIsolation, hauteur);
+    
+    
+    //ajout des textes d'environnement
     context.fillStyle = "black";
     context.fillText("exterieur", 0, 50);
     context.fillStyle = "black";
-    context.fillText("interieur", 350, 50);
+    context.fillText("interieur", 100+largeurMur+largeurIsolation+20, 50);
     
+    //ajout des textes du mur et isolation
     context.fillStyle = "black";
-    context.fillText("Load material", 120, 30);
+    context.fillText("Load material", 100+20, 30);
     context.fillStyle = "black";
-    context.fillText("Insulation", 220, 30);
+    context.fillText("Insulation", 100+largeurMur+20, 30);
     
+    
+    //creation des contours des rectangles
     context.lineWidth = "5";
-    context.stroke = "black";
+    context.strokeStyle = "black";
     context.strokeRect(100, 10, largeurMur, hauteur);
-    context.strokeRect(200, 10, 100, hauteur);
+    context.strokeRect(100+largeurMur, 10, largeurIsolation, hauteur);
+    
+    //la fleche
+    context.beginPath();
+    context.lineWidth = "3";
+    context.strokeStyle = "black";
+    context.moveTo(50, hauteur/2+5);
+    context.lineTo(100+largeurMur+largeurIsolation+60,hauteur/2+5);
+    
+    context.lineWidth = "1";
+    context.moveTo(100+largeurMur+largeurIsolation+80, hauteur/2+5);
+    context.lineTo(100+largeurMur+largeurIsolation+50,hauteur/2+5+10);
+    context.lineTo(100+largeurMur+largeurIsolation+50,hauteur/2+5-10);
+    context.fill();
+    
+    context.stroke();
+    
 }
 
 
@@ -272,8 +308,6 @@ function majApresSet(result, set){
     //cree canvas
     creeCanvasThermique(largeur, diffusivite);
     
-    
-
     for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
@@ -420,7 +454,6 @@ function majApresSet(result, set){
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         ligne = Math.round(ligne);
         
-        console.log(matrix);
         tableaux.push(matrix[data[i][0]][ligne].slice());
         
     }
@@ -489,14 +522,12 @@ function majApresSet(result, set){
 
 /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
 function Calcul(matriceAbscisse, tableaux, metadonnees) {
-	//console.log(metadonnees);
 	var tabOrdonee = new Array(); 					// Tableau contenant le résultat (toutes les ordonnées calculées)
 	var tabPrecalcul = new Array();
 	var nbColonnes = matriceAbscisse[0].length;		// Théoriquement le même dans toutes les matrices
 	var nbLignes = matriceAbscisse.length;			// Nombre de valeurs calculables
 	
     tabPrecalcul = tableaux[0];		// Pour éviter de recalculer plusieurs fois la même chose, on stocke dans un tableau le résultat des produits des lignes déjà fixées
-
 
     // On précalcule la multiplication des lignes des matrices fixés
     for(var j=1; j<tableaux.length; j++)	//pour chaque ligne à précalculer
@@ -505,13 +536,12 @@ function Calcul(matriceAbscisse, tableaux, metadonnees) {
             tabPrecalcul[i] *= Number(tableaux[j][i]);
         }
     }
-	//console.log(tableaux);
+    
     
 	// On initialise le tableau y avec la valeur spécifiée dans les métadonnées
 	for(var i=0;i<nbLignes;i++){
 		tabOrdonee[i] = Number(metadonnees[variableChoisi][6]);
 	}
-	//console.log(tabOrdonee);
 	
 	// Calcul
 	for(var i=0;i<nbLignes;i++){	// Pour chaque valeur de y
