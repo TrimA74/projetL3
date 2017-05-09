@@ -291,7 +291,6 @@ function majApresSet(result, set){
     //cree canvas
     creeCanvasThermique(largeur, diffusivite);
     
-    
     for(var i=1; i<data.length; i++)
     {   
         if(data[i][1] == 1)
@@ -438,7 +437,6 @@ function majApresSet(result, set){
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         ligne = Math.round(ligne);
         
-        console.log(matrix);
         tableaux.push(matrix[data[i][0]][ligne].slice());
         
     }
@@ -507,14 +505,12 @@ function majApresSet(result, set){
 
 /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
 function Calcul(matriceAbscisse, tableaux, metadonnees) {
-	//console.log(metadonnees);
 	var tabOrdonee = new Array(); 					// Tableau contenant le résultat (toutes les ordonnées calculées)
 	var tabPrecalcul = new Array();
 	var nbColonnes = matriceAbscisse[0].length;		// Théoriquement le même dans toutes les matrices
 	var nbLignes = matriceAbscisse.length;			// Nombre de valeurs calculables
 	
     tabPrecalcul = tableaux[0];		// Pour éviter de recalculer plusieurs fois la même chose, on stocke dans un tableau le résultat des produits des lignes déjà fixées
-
 
     // On précalcule la multiplication des lignes des matrices fixés
     for(var j=1; j<tableaux.length; j++)	//pour chaque ligne à précalculer
@@ -523,13 +519,12 @@ function Calcul(matriceAbscisse, tableaux, metadonnees) {
             tabPrecalcul[i] *= Number(tableaux[j][i]);
         }
     }
-	//console.log(tableaux);
+    
     
 	// On initialise le tableau y avec la valeur spécifiée dans les métadonnées
 	for(var i=0;i<nbLignes;i++){
 		tabOrdonee[i] = Number(metadonnees[variableChoisi][6]);
 	}
-	//console.log(tabOrdonee);
 	
 	// Calcul
 	for(var i=0;i<nbLignes;i++){	// Pour chaque valeur de y
