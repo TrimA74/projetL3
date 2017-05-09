@@ -94,27 +94,28 @@
 				</div>
 			</div> <!-- end row -->
             
-            
-            <div class="col-md-12 rubriquePage" id="boutons"><!-- les boutons -->
-
-			</div>
-			<div class="col-md-12 rubriquePage"><!-- les selecteurs -->
-				<div class="form-horizontal">
-                    <div class="col-md-8" id="parametres">
+            <div class="row">
+                <div class="col-md-6 rubriquePage" id="boutons"><!-- les boutons --></div>
+                <div class="col-md-6" id="parametres">
                         <!-- les slider ici -->
                     </div>
+            </div>
+                
+            <div class="col-md-12 rubriquePage"><!-- les selecteurs -->
+                <div class="form-horizontal">
                     
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="descriptionADroite" id="descriptionDataset">
                             <!-- la description ici -->
                         </div>
                     </div>
                     
                     
+                    
+                    
                 </div>
 
-			</div>   <!--end selecteur -->
-            
+            </div>   <!--end selecteur -->
         </div> <!-- end conteneur traitement -->
         </div> <!--end font blanc-->
 
