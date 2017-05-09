@@ -47,24 +47,11 @@
 			<div class="col-md-12 rubriquePage">
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
 					<?php 
-                    //autre methode utilisé finalement (voir plus bas)
+                    $json = json_decode(file_get_contents($chemin."/metadata.json"),false);
+                    echo file_get_contents($chemin."/".$json->latexDescription);
 
-                    
                     $contenuFichier = file($chemin."/meta_donnees_groupe.txt");
-                    $posDansFichier = 0;
- 
-                   
-                    while(trim($contenuFichier[$posDansFichier])!="beginLatex" and $posDansFichier<sizeof($contenuFichier))
-                    {
-
-                        $posDansFichier++;
-                    }
-                    $posDansFichier++;
-                    while(trim($contenuFichier[$posDansFichier])!="endLatex" and $posDansFichier<sizeof($contenuFichier))
-                    {
-                        echo $contenuFichier[$posDansFichier];
-                        $posDansFichier++;
-                    }
+                     $posDansFichier = 0;
                     ?>
 			</div>
         
@@ -144,7 +131,12 @@
 				<div>
 					<h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
                     <?php
+                    $json = json_decode(file_get_contents($chemin."/metadata.json"),false);
+                    foreach ($json->references as $key => $value) {
+                        echo '<h5><a href="'.$value->lien.'"  target="_blank" title="ref">'.$value->nom.'</a> </h5>';
+                    }
                     //pour afficher les liens
+                    /*
                     while(trim($contenuFichier[$posDansFichier])!="Liens url" and $posDansFichier<sizeof($contenuFichier))
                     {
                         $posDansFichier++;
@@ -178,7 +170,7 @@
                         $nom = substr($contenuFichier[$posDansFichier], $debut);
                         echo '<h5><a href="./data/'.$contenuFichier[$posDansFichier].'"  title="ref">'.$nom.'</a> </h5>';
                         $posDansFichier++;
-                    }
+                    }*/
                     ?>
 				</div>
 				<div><!--bouton retour -->

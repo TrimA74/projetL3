@@ -3,6 +3,23 @@ var datasYInit = [];
 
 var matrix = new Object();
 var variableChoisi=0;
+var json = new Object();
+
+$.ajax({
+    url : 'ajax.php',
+    type : 'POST',
+    datatype : 'json',
+    data : {
+        myFunction:'chargeJson',
+        myParams:{
+            cat:$_GET("cat")
+        }
+    },
+    success : function (result) {
+        json = JSON.parse(result);
+    }
+
+})
 
 var plotDiv = document.getElementById('graph');
 

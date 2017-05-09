@@ -48,6 +48,12 @@ function chargeSet($data)
     
 }
 
+function chargeJson($data)
+{
+    $cat = $data['myParams']['cat'];
+    echo file_get_contents("./data/".$cat."/metadata.json");
+}
+
 function chargeMatrice($data)
 {
     $cat = $data['myParams']['cat'];

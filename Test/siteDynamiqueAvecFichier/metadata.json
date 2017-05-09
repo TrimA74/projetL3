@@ -1,0 +1,15 @@
+{
+  "siteTitle": "Parametric model in Building Physics",
+  "categories": [
+    {
+      "title": "Heat conduction in insulated wall",
+      "description": "The physical problem involves one-dimension heat diffusion through a multi-layer wall. The latter is composed of a load material and an insulation part. The wall is submitted to climatic transient boundary conditions on one side and sinusoidal temperature variation on the other side. A parametric solution is computed as a function of the space and time coordinates, as well as the thermal insulation thickness and the load material thermal diffusivity.",
+      "lien" : "Heat conduction in insulated wall"
+    },
+    {
+      "title": "Moisture diffusion in porous material",
+      "description": "The physical problem involves one-dimension moisture diffusion through a porous material. The material is submitted to a cyclic increases of relative humidity on one side and constant relative humidity on the other side. The permeability and storage coefficients do not depend on the moisture content. The model is computed as a function of the moisture storage capacity, the space and time.",
+      "lien" : "moisture"
+    }
+  ]
+}
