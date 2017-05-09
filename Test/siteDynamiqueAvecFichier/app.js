@@ -336,16 +336,17 @@ function majApresSet(result, set){
     }
     
     
-    //gestion boutons
+    //gestion @boutons
     $("#boutons").children().remove();
     
     str = "<div class='col-md-8'>";
-    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Matrix on the abscissa<h2/>";
-    
+    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Parameters<h2/>";
+    str += "<div class='buttonsList'>"
     for(i=1; i<data.length; i++)
     {   if(data[i][1] == 1)
-            str += "<button onclick=\"changeParams($( this ).text(),$( this ).val())\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ data[i][0] + "</button>";
+            str += "<button onclick=\"changeParams($( this ).text(),$( this ).val());$('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ data[i][0] + "</button>";
     }
+    str += "</div>";
     str += "</div>";
 	str += "<div class='col-md-4 rubriquePage'></div>";
     
@@ -379,7 +380,7 @@ function majApresSet(result, set){
             str += "<div class='col-sm-1'>";
             str += "<span class='minSlider' >"+ Math.round(Number(data[i][4])*1000)/1000 +"</span> ";
             str += "</div>";
-            str += "<div class='col-sm-5'>";
+            str += "<div class='col-sm-7'>";
             str += "<input  id='range" + data[i][0] + "' type='text'  \
             name='amountRange' onchange=\"document.getElementsByName('amountInput" + data[i][0] + "')[0].value=this.value;\" \
             data-slider-min='"+data[i][4]+"' data-slider-max='"+data[i][5]+"' step='10' \
