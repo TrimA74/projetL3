@@ -1,0 +1,51 @@
+{
+  "latexDescription": "descriptionLatex.tex",
+  "title": "Moisture diffusion in porous material",
+  "references": [
+    {
+      "lien": "http://link.springer.com/article/10.1007/s11831-016-9184-1",
+      "nom": "link.springer.com"
+    },
+    {
+      "nom": "www.sciencedirect.com",
+      "lien": "http://www.sciencedirect.com/science/article/pii/S0377025711000061"
+    },
+    {
+      "lien": "Etude_des_technologie.pdf",
+      "nom": "Etude_des_technologie.pdf"
+    }
+  ],
+  "description": "The physical problem involves one-dimension heat diffusion through a multi-layer wall. The latter is composed of a load material and an insulation part. The wall is submitted to climatic transient boundary conditions on one side and sinusoidal temperature variation on the other side. A parametric solution is computed as a function of the space and time coordinates, as well as the thermal insulation thickness and the load material thermal diffusivity.",
+  "set": [
+    {
+      "name": "set1",
+      "descriptionLatex": "/meta_donnees_LaTeX.txt",
+      "parameters": [
+        {
+          "lettre": "u",
+          "nom": "field",
+          "unite": "nope",
+          "min": "-Inf",
+          "max": "Inf",
+          "valInit": 1
+        },
+        {
+          "lettre": "x",
+          "nom": "space",
+          "unite": "nope",
+          "min": 0,
+          "max": 1,
+          "valInit": 0
+        }
+      ]
+    },
+    {
+      "name": "set2",
+      "descriptionLatex": "/meta_donnees_LaTeX.txt"
+    },
+    {
+      "name": "set3",
+      "descriptionLatex": "/meta_donnees_LaTeX.txt"
+    }
+  ]
+}

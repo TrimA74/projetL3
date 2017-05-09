@@ -3,6 +3,23 @@ var datasYInit = [];
 
 var matrix = new Object();
 var variableChoisi=0;
+var json = new Object();
+
+$.ajax({
+    url : 'ajax.php',
+    type : 'POST',
+    datatype : 'json',
+    data : {
+        myFunction:'chargeJson',
+        myParams:{
+            cat:$_GET("cat")
+        }
+    },
+    success : function (result) {
+        json = JSON.parse(result);
+    }
+
+})
 
 var plotDiv = document.getElementById('graph');
 
@@ -492,7 +509,7 @@ function majApresSet(result, set){
        
     
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.txt" );
+    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
     client.onreadystatechange = function() {
       $("#latexSetInfo").html("<p style=\"font-size:200%;\"> " + client.responseText + "</p>");
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);

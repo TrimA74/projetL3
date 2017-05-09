@@ -38,33 +38,16 @@
         
         <?php
         $chemin = "./data/".$_GET["cat"];
-        if ($dir = opendir($chemin)) {
+        $json = json_decode(file_get_contents($chemin."/metadata.json"),false);
             ?>
         
         <div class="zonePrincipale">
 		<div class="container">
-			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $_GET["cat"] ?></u></strong></h1>
+			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $json->title ?></u></strong></h1>
 			<div class="col-md-12 rubriquePage">
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
 					<?php 
-                    //autre methode utilisé finalement (voir plus bas)
-
-                    
-                    $contenuFichier = file($chemin."/meta_donnees_groupe.txt");
-                    $posDansFichier = 0;
- 
-                   
-                    while(trim($contenuFichier[$posDansFichier])!="beginLatex" and $posDansFichier<sizeof($contenuFichier))
-                    {
-
-                        $posDansFichier++;
-                    }
-                    $posDansFichier++;
-                    while(trim($contenuFichier[$posDansFichier])!="endLatex" and $posDansFichier<sizeof($contenuFichier))
-                    {
-                        echo $contenuFichier[$posDansFichier];
-                        $posDansFichier++;
-                    }
+                    echo file_get_contents($chemin."/".$json->latexDescription);
                     ?>
 			</div>
         
@@ -76,6 +59,7 @@
 				      <select class="form-control selDataSet" id="selectset">
                         <option></option>
                             <?php
+                                    if ($dir = opendir($chemin)) {
                             while($file = readdir($dir)) {
                                 if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
                                 {
@@ -83,16 +67,11 @@
                                     echo "<option>".$file."</option>";
                                 }
                             }
+                            closedir($dir);
+                            }
                             ?>
 				      </select>
-<?php                 
-    closedir($dir);
-    }
-?>
                 </div>
-                
-                
-
 				<div class="col-md-7">
 				</div>
 				<div class="col-md-12">
@@ -144,40 +123,9 @@
 				<div>
 					<h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
                     <?php
-                    //pour afficher les liens
-                    while(trim($contenuFichier[$posDansFichier])!="Liens url" and $posDansFichier<sizeof($contenuFichier))
-                    {
-                        $posDansFichier++;
-                    }
-                    $posDansFichier++;
-                    $nbLien = (int)trim($contenuFichier[$posDansFichier]);
-                    $posDansFichier++;
-                    for($i = 0; $i<$nbLien; $i++)
-                    {
-                        $debut = strpos($contenuFichier[$posDansFichier], "://")+3;
-                        $nom = substr($contenuFichier[$posDansFichier], $debut);
-                        $fin = strpos($nom, "/");
-                        $nom = substr($nom, 0, $fin);
-                        echo '<h5><a href="'.$contenuFichier[$posDansFichier].'"  title="ref">'.$nom.'</a> </h5>';
-                        $posDansFichier++;
-                    }
-                    
-                    //pour les pdf
-                    while(trim($contenuFichier[$posDansFichier])!="pdf à inclure" and $posDansFichier<sizeof($contenuFichier))
-                    {
-                        $posDansFichier++;
-                    }
-                    $posDansFichier++;
-                    $nbPDF = (int)trim($contenuFichier[$posDansFichier]);
-                    $posDansFichier++;
-                    for($i = 0; $i<$nbPDF; $i++)
-                    {
-                        $debut = strrpos($contenuFichier[$posDansFichier], "/");
-                        if($debut !== false)
-                            $debut++;
-                        $nom = substr($contenuFichier[$posDansFichier], $debut);
-                        echo '<h5><a href="./data/'.$contenuFichier[$posDansFichier].'"  title="ref">'.$nom.'</a> </h5>';
-                        $posDansFichier++;
+                    $json = json_decode(file_get_contents($chemin."/metadata.json"),false);
+                    foreach ($json->references as $key => $value) {
+                        echo '<h5><a href="'.$value->lien.'"  target="_blank" title="ref">'.$value->nom.'</a> </h5>';
                     }
                     ?>
 				</div>
