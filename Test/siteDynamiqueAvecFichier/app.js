@@ -3,23 +3,6 @@ var datasYInit = [];
 
 var matrix = new Object();
 var variableChoisi=0;
-var json = new Object();
-
-$.ajax({
-    url : 'ajax.php',
-    type : 'POST',
-    datatype : 'json',
-    data : {
-        myFunction:'chargeJson',
-        myParams:{
-            cat:$_GET("cat")
-        }
-    },
-    success : function (result) {
-        json = JSON.parse(result);
-    }
-
-})
 
 var plotDiv = document.getElementById('graph');
 
@@ -220,15 +203,10 @@ function generate_handler( j,data ) {
     };
 }
 
-function creeCanvasThermique(dataLargeur, dataDiffusivite)
-{
+function creeCanvasThermique(dataLargeur, dataDiffusivite){
     var largeurMur = 200;
     var hauteur = 300;
     
-    var largeurIsolationMax = (3/4)*largeurMur;
-    var largeurIsolationMin = 0;
-    
-    var largeurIsolation = largeurIsolationMax;
     
     
     
@@ -245,41 +223,35 @@ function creeCanvasThermique(dataLargeur, dataDiffusivite)
     //rectangle du mur
     context.fillStyle = "#FFFFFF";
     context.fillRect(100, 10, largeurMur, hauteur);
-    //rectangle de l'isolation
-    context.fillStyle = "#DDDDDD";
-    context.fillRect(100+largeurMur, 10, largeurIsolation, hauteur);
     
     
     //ajout des textes d'environnement
     context.fillStyle = "black";
     context.fillText("exterieur", 0, 50);
     context.fillStyle = "black";
-    context.fillText("interieur", 100+largeurMur+largeurIsolation+20, 50);
+    context.fillText("interieur", 100+largeurMur+20, 50);
     
     //ajout des textes du mur et isolation
     context.fillStyle = "black";
-    context.fillText("Load material", 100+20, 30);
-    context.fillStyle = "black";
-    context.fillText("Insulation", 100+largeurMur+20, 30);
+    context.fillText("Wall", 100+20, 30);
     
     
     //creation des contours des rectangles
     context.lineWidth = "5";
     context.strokeStyle = "black";
     context.strokeRect(100, 10, largeurMur, hauteur);
-    context.strokeRect(100+largeurMur, 10, largeurIsolation, hauteur);
     
     //la fleche
     context.beginPath();
     context.lineWidth = "3";
     context.strokeStyle = "black";
     context.moveTo(50, hauteur/2+5);
-    context.lineTo(100+largeurMur+largeurIsolation+60,hauteur/2+5);
+    context.lineTo(100+largeurMur+60,hauteur/2+5);
     
     context.lineWidth = "1";
-    context.moveTo(100+largeurMur+largeurIsolation+80, hauteur/2+5);
-    context.lineTo(100+largeurMur+largeurIsolation+50,hauteur/2+5+10);
-    context.lineTo(100+largeurMur+largeurIsolation+50,hauteur/2+5-10);
+    context.moveTo(100+largeurMur+80, hauteur/2+5);
+    context.lineTo(100+largeurMur+50,hauteur/2+5+10);
+    context.lineTo(100+largeurMur+50,hauteur/2+5-10);
     context.fill();
     
     context.stroke();
@@ -509,7 +481,7 @@ function majApresSet(result, set){
        
     
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
+    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.txt" );
     client.onreadystatechange = function() {
       $("#latexSetInfo").html("<p style=\"font-size:200%;\"> " + client.responseText + "</p>");
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
