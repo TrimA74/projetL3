@@ -19,7 +19,7 @@ Librarie Javascript pour afficher des graphiques.
 Framework CSS pour rendre le site responsive design.
 
 
-|-- projetL3
+    |-- projetL3
     |-- Etude_des_technologie.pdf
     |-- affichage.php
     |-- ajax.php
