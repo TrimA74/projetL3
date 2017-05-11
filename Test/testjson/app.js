@@ -1,16 +1,13 @@
-var datasY = [];
-var datasYInit = [];
-
 var matrix = new Object();
 var variableChoisi=0;
 
 var plotDiv = document.getElementById('graph');
 
-var data;
-
 var metadata;
 
-
+/* the preprocessors (if any were loaded) to run over the page again, 
+*** and then MathJax will look for unprocessed mathematics on the page and typeset it, 
+** leaving unchanged any math that has already been typeset.  */ 
 try {
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
@@ -43,7 +40,6 @@ $('#selectset').on('change', function() {
         },
         success: function(result)
         {
-           console.log(result);
            metadata = result;
            majApresSet(set);
         }
@@ -132,7 +128,7 @@ function updateSlider (elem,parameters) {
     
     
     /*******************************
-        gestion du dessin du mur
+    /** gestion du dessin du mur ***
     *******************************/
     
     //pour avoir les max et min de la largeur dans la fonction du canvas
@@ -596,13 +592,11 @@ function majApresSet(set){
     /****  Affichage des abscisses, ordonnées et constantes *******/ 
     /**************************************************************/
 
-    /* PARTIE JSON */ 
     str='<label width="100%">Abscissa :</label><p>'+variableChoisi.nom+' '+variableChoisi.unite+' = '+variableChoisi.lettre+'</p>';
     str+='<label width="100%">Ordinate :</label><p>'+parameters[0].nom+' '+parameters[0].unite+' = '+parameters[0].lettre+'</p>';
     str+='<label width="100%">Constant :</label>';
 
 
-    /* PARTIE JSON */ 
     parameters.forEach(function (e,i){
         if(e.fichier==1 && e!=variableChoisi){
             str+='<p>'+e.nom+' '+e.unite+' = '+e.lettre+' </strong></p>';
