@@ -622,7 +622,7 @@ function majApresSet(result, set){
        
     
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.txt" );
+    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
     client.onreadystatechange = function() {
       $("#latexSetInfo").html("<p style=\"font-size:200%;\"> " + client.responseText + "</p>");
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
