@@ -43,7 +43,6 @@ $('#selectset').on('change', function() {
         },
         success: function(result)
         {
-           console.log(result);
            metadata = result;
            majApresSet(set);
         }
@@ -102,7 +101,7 @@ function initTabx(variableChoisi){
 }
 
 /*  */
-function updateSlider (elem,parameters) {
+function updateSlider(elem,parameters) {
     var val = $("#range"+elem).slider('getValue');
 
     var tabLigne = [];    //les lignes choisies
@@ -131,31 +130,8 @@ function updateSlider (elem,parameters) {
     });
     
     
-    /*******************************
-        gestion du dessin du mur
-    *******************************/
-    
-    //pour avoir les max et min de la largeur dans la fonction du canvas
-    var dataLargeur;
-    parameters.forEach(function (e,i){
-        if(e.lettre=='L'){
-            dataLargeur = e ;
-        }
-    });
-    //trouver la largeur
-    var largeur;
-    if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
-    {
-        largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
-    }
-    else //sinon la valeur du slider
-    {
-        largeur = $("#range" + dataLargeur.lettre).slider('getValue');
-    }
-        
-    
-    //cree canvas
-    majCanvasThermique(dataLargeur, largeur);
+    //cree canvas pour le mur
+    majCanvasThermique();
 }
 
 
@@ -247,6 +223,13 @@ function changeParams(parametre,val){
     });
     $("#descriptionDataset").html("");
     $("#descriptionDataset").append(str);
+    
+    
+    
+    
+    
+    //cree canvas pour le mur
+    majCanvasThermique();
 }
 
 
@@ -303,7 +286,39 @@ function creeCanvas(){
 //met a jour le canvas du mur pour thermique
 function majCanvasThermique(dataLargeur, largeur){
     
-    console.log(largeur);
+    var parameters = metadata.set[0].parameters;
+    
+    /*******************************
+        gestion du dessin du mur
+    *******************************/
+    //cree canvas si il n'existe pas encore
+    if($("#canvasMur").length==0)
+    {
+        alert("creeCanvas");
+        creeCanvas();
+    }
+    
+
+    //pour avoir les max et min de la largeur dans la fonction du canvas
+    var dataLargeur;
+    parameters.forEach(function (e,i){
+        if(e.lettre=='L'){
+            dataLargeur = e ;
+        }
+    });
+    
+    //trouver la largeur
+    var largeur;
+    if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
+    {
+        largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
+    }
+    else //sinon la valeur du slider
+    {
+        largeur = $("#range" + dataLargeur.lettre).slider('getValue');
+    }
+    
+        
     
     var largeurMurBase = 200;
     var largeurMurMin = largeurMurBase*Number(dataLargeur.min);
@@ -454,19 +469,8 @@ function majApresSet(set){
 
     var parameters = metadata.set[0].parameters;
 
-    //gestion du mur
-    //pour avoir les max et min de la largeur dans la fonction du canvas
-    var dataLargeur;
-    parameters.forEach(function (e,i){
-        if(e.lettre=='L'){
-            dataLargeur = e ;
-        }
-    });
-    //trouver la largeur
-    var largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
-    //cree canvas
-    creeCanvas();
-    majCanvasThermique(dataLargeur, largeur);
+    //cree canvas pour le mur
+    majCanvasThermique();
 
 
 
@@ -531,7 +535,6 @@ function majApresSet(set){
     
     parameters.forEach(function (e,i) {
         if(e.fichier){
-            console.log(e.lettre);
             var step = (e.max-e.min) / (matrix[e.lettre].length-1);
             
             str += "<div class='form-group param' id='param" + e.lettre + "' style='display:none; '>";

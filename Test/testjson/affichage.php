@@ -82,9 +82,7 @@
 				</div>
 				</div>
                 
-                <div class="col-md-12" id="dessinMur">
-		
-				</div>
+               
                 
                 
 				<div class="col-md-12 rubriquePage">
@@ -108,6 +106,10 @@
                         <div class="descriptionADroite" id="descriptionDataset">
                             <!-- la description ici -->
                         </div>
+                    </div>
+                    
+                    <div class="col-md-6" id="dessinMur">
+		
                     </div>
                     
                     
