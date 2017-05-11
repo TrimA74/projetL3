@@ -1,16 +1,13 @@
-var datasY = [];
-var datasYInit = [];
-
 var matrix = new Object();
 var variableChoisi=0;
 
 var plotDiv = document.getElementById('graph');
 
-var data;
-
 var metadata;
 
-
+/* the preprocessors (if any were loaded) to run over the page again, 
+*** and then MathJax will look for unprocessed mathematics on the page and typeset it, 
+** leaving unchanged any math that has already been typeset.  */ 
 try {
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
@@ -20,6 +17,23 @@ catch (e) {
 $('#btnRetour').on('click', function() {
     window.location.href='index.php';
             
+});
+
+$.ajax({
+        url : 'ajax.php',
+        type: 'POST',
+        dataType : 'json',
+        data : 
+        {
+            myFunction:'chargeJsonCat',
+            myParams:{
+                cat:$_GET("cat")
+            }
+        },
+        success: function(result)
+        {
+            metadata = result ; 
+        }
 });
 
 
@@ -35,7 +49,7 @@ $('#selectset').on('change', function() {
         dataType : 'json',
         data : 
         {
-            myFunction:'chargeJson',
+            myFunction:'chargeJsonSet',
             myParams:{
                 set:set,
                 cat:$_GET("cat")
@@ -43,7 +57,22 @@ $('#selectset').on('change', function() {
         },
         success: function(result)
         {
-           metadata = result;
+            // si on a pas encore mis de set on concatène les objets
+           if(typeof(metadata.set) == "undefined" ){
+                var tmp = Object.assign(result,metadata);
+                metadata = tmp;
+           } else { // sinon on cherche si on l'a pas déjà load
+                var isHere = false;
+                metadata.set.forEach(function (e,i){
+                    if(e.name == set) {
+                        isHere = true;
+                    }
+                });
+                if(!isHere){ // si on l'a pas déjà load on l'ajoute dans le tableau de set
+                    metadata.set.push(result.set[0]);
+                }
+           }
+           console.log(metadata);
            majApresSet(set);
         }
     });
@@ -599,13 +628,11 @@ function majApresSet(set){
     /****  Affichage des abscisses, ordonnées et constantes *******/ 
     /**************************************************************/
 
-    /* PARTIE JSON */ 
     str='<label width="100%">Abscissa :</label><p>'+variableChoisi.nom+' '+variableChoisi.unite+' = '+variableChoisi.lettre+'</p>';
     str+='<label width="100%">Ordinate :</label><p>'+parameters[0].nom+' '+parameters[0].unite+' = '+parameters[0].lettre+'</p>';
     str+='<label width="100%">Constant :</label>';
 
 
-    /* PARTIE JSON */ 
     parameters.forEach(function (e,i){
         if(e.fichier==1 && e!=variableChoisi){
             str+='<p>'+e.nom+' '+e.unite+' = '+e.lettre+' </strong></p>';

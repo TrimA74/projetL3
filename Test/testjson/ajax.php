@@ -1,24 +1,5 @@
 <?php
 
-/*
-$cat = "Moisture diffusion in porous material";
-$set = "set1";
-$chemin = "./data/".$cat."/".$set."/";
-$explode = explode("\n", file_get_contents($chemin.'meta_donnees.csv'));
-$result = array();
-$compteurResult = 0;
-for($i=0; $i<sizeof($explode); $i++)
-{
-    $explode[$i] = trim($explode[$i]); //on eneleve les espaces en fin et debut pour bien detecter ensuite les lignes vides
-    if($explode[$i]!="")
-    {
-        $result[$compteurResult] = explode(",", $explode[$i]);
-        $compteurResult++;
-    }
-        
-}
-var_dump($result);*/
-
 
 if (isset($_POST['myFunction']) && $_POST['myFunction'] != '')
 {
@@ -48,11 +29,17 @@ function chargeSet($data)
     
 }
 
-function chargeJson($data)
+function chargeJsonSet($data)
 {
     $cat = $data['myParams']['cat'];
     $set = $data['myParams']['set'];
     echo file_get_contents("./data/".$cat."/".$set."/metadata.json");
+}
+
+function chargeJsonCat($data)
+{
+    $cat = $data['myParams']['cat'];
+    echo file_get_contents("./data/".$cat."/metadata.json");
 }
 
 
