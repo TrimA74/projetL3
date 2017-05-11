@@ -108,7 +108,6 @@ function updateSlider (elem,data) {
     var i=0;
     while(i<data.length && data[i][0]!="L")
     {
-        console.log("coucou"+i);
         i++;   
     }
     var dataLargeur = data[i];
@@ -354,10 +353,9 @@ function majCanvasThermique(dataLargeur, largeur){
     context.lineTo(100+(largeurMur/2)-5,60+hauteur);
     
     context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
-    context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20)
-2
+    context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20);
     context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
-    context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20)
+    context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20);
     
     context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
     context.lineTo(100+largeurMur,60+hauteur);
@@ -368,10 +366,10 @@ function majCanvasThermique(dataLargeur, largeur){
     context.lineTo(100+(largeurMur/2)-5,60);
     
     context.moveTo(100+(largeurMur/2)-5-10, 60+20);
-    context.lineTo(100+(largeurMur/2)-5+10, 60-20)
-2
+    context.lineTo(100+(largeurMur/2)-5+10, 60-20);
+    
     context.moveTo(100+(largeurMur/2)+5-10, 60+20);
-    context.lineTo(100+(largeurMur/2)+5+10, 60-20)
+    context.lineTo(100+(largeurMur/2)+5+10, 60-20);
     
     context.moveTo(100+(largeurMur/2)+5, 60);
     context.lineTo(100+largeurMur,60);

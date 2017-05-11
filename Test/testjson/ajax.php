@@ -52,7 +52,7 @@ function chargeJson($data)
 {
     $cat = $data['myParams']['cat'];
     $set = $data['myParams']['set'];
-    echo file_get_contents("./data/".$cat."/set".$set."/metadata.json");
+    echo file_get_contents("./data/".$cat."/".$set."/metadata.json");
 }
 
 
