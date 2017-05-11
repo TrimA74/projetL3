@@ -29,6 +29,10 @@ Metadata JSON
 
 [Set 3 Hydrique JSON Model](http://objgen.com/json/models/JAO)
 
+[Categorie Thermique](http://objgen.com/json/models/XKeb)
+
+[Categorie Hydrique](http://objgen.com/json/models/QcDeZ)
+
 
 
 
