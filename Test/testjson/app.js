@@ -19,6 +19,23 @@ $('#btnRetour').on('click', function() {
             
 });
 
+$.ajax({
+        url : 'ajax.php',
+        type: 'POST',
+        dataType : 'json',
+        data : 
+        {
+            myFunction:'chargeJsonCat',
+            myParams:{
+                cat:$_GET("cat")
+            }
+        },
+        success: function(result)
+        {
+            metadata = result ; 
+        }
+});
+
 
 /*  */
 $('#selectset').on('change', function() {
@@ -32,7 +49,7 @@ $('#selectset').on('change', function() {
         dataType : 'json',
         data : 
         {
-            myFunction:'chargeJson',
+            myFunction:'chargeJsonSet',
             myParams:{
                 set:set,
                 cat:$_GET("cat")
@@ -40,7 +57,22 @@ $('#selectset').on('change', function() {
         },
         success: function(result)
         {
-           metadata = result;
+            // si on a pas encore mis de set on concatène les objets
+           if(typeof(metadata.set) == "undefined" ){
+                var tmp = Object.assign(result,metadata);
+                metadata = tmp;
+           } else { // sinon on cherche si on l'a pas déjà load
+                var isHere = false;
+                metadata.set.forEach(function (e,i){
+                    if(e.name == set) {
+                        isHere = true;
+                    }
+                });
+                if(!isHere){ // si on l'a pas déjà load on l'ajoute dans le tableau de set
+                    metadata.set.push(result.set[0]);
+                }
+           }
+           console.log(metadata);
            majApresSet(set);
         }
     });
