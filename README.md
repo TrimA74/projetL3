@@ -21,7 +21,7 @@ Framework CSS pour rendre le site responsive design.
 Metadata JSON
 
 
-Set1 Thermique[^set1thermique]
+**Set1 Thermique**[^set1thermique]
 
 
 
