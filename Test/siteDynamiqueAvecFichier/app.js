@@ -66,6 +66,7 @@ function processData(allText) {
 
 /*  */
 function updateSlider (elem,data) {
+    
     var val = $("#range"+elem).slider('getValue');
 
     var tabLigne = [];//les lignes choisis
@@ -74,6 +75,7 @@ function updateSlider (elem,data) {
             continue;
         }
         var ligne = $("#range" + data[i][0]).slider('getValue');
+        console.log(ligne);
         ligne = (ligne-data[i][4])/ $("#range" + data[i][0]).slider('getAttribute').step; 
         ligne = Math.round(ligne);
 
@@ -96,6 +98,37 @@ function updateSlider (elem,data) {
     plotDiv.data[0].x = tabX.slice();
     Plotly.relayout(plotDiv,update);
     Plotly.redraw(plotDiv);
+    
+    
+    /*******************************
+        gestion du dessin du mur
+    *******************************/
+    
+    //pour avoir les max et min de la largeur dans la fonction du canvas et 
+    var i=0;
+    while(i<data.length && data[i][0]!="L")
+    {
+        console.log("coucou"+i);
+        i++;   
+    }
+    var dataLargeur = data[i];
+    //trouver la largeur
+    var largeur;
+    if(variableChoisi==i) //si la variableChoisi est celle de la largeur , on prend la moyenne
+    {
+        largeur = (Number(dataLargeur[5])+Number(dataLargeur[4]))/2;
+    }
+    else //sinon la valeur du slider
+    {
+        console.log(i);
+        console.log(data[i][0]);
+        largeur = $("#range" + data[i][0]).slider('getValue');
+    }
+        
+    
+    //cree canvas
+    majCanvasThermique(dataLargeur, largeur);
+    
 });
 }
 
@@ -203,55 +236,159 @@ function generate_handler( j,data ) {
     };
 }
 
-function creeCanvasThermique(dataLargeur, dataDiffusivite){
-    var largeurMur = 200;
+
+
+//fonction utilisé pour les pointillés
+function Norm(xA,yA,xB,yB) {
+    return Math.sqrt(Math.pow(xB-xA,2)+Math.pow(yB-yA,2));
+}
+
+//faire une ligne en pointillés
+function DashedLine(xA,yA,xB,yB,L,l, ctx) {
+ Nhatch=Norm(xA,yA,xB,yB)/(L+l);
+ x1=xA;y1=yA;
+ for (i=0;i < Nhatch; i++) {
+  newXY=Hatch(xA,yA,xB,yB,x1,y1,L);
+  x2=newXY[0];y2=newXY[1];
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  newXY=Hatch(xA,yA,xB,yB,x2,y2,l);
+  x1=newXY[0];
+  y1=newXY[1];
+ }
+}
+
+//fonction utilisé pour les pointillés
+function Hatch(xA,yA,xB,yB,x1,y1,l) {
+    if(xB-xA!=0)//si la droite n'est pas verticale
+    {
+        a=(yB-yA)/(xB-xA);b=yA-a*xA;// Equation reduite y=ax+b de (AB): 
+        if ((xB-xA)>0) {sgn=1;} else {sgn=-1;}
+        x2=sgn*l/Math.sqrt(1+a*a)+x1;
+        y2=a*x2+b;
+
+        if (Norm(x1,y1,x2,y2)>Norm(x1,y1,xB,yB)) {x2=xB;y2=yB;}
+    }else//droite verticale
+    {
+        if ((yB-yA)>0) {sgn=1;} else {sgn=-1;}
+        x2=xA;
+        y2= y1+(l/sgn);
+    }
+    return [x2,y2];
+}
+
+//crée l'élement canvas dans l'HTML
+function creeCanvas(){
+    $("#dessinMur").append('<canvas id="canvasMur" width="1000" height="400"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+}
+
+//met a jour le canvas du mur pour thermique
+function majCanvasThermique(dataLargeur, largeur){
+    
+    console.log(largeur);
+    
+    var largeurMurBase = 200;
+    var largeurMurMin = largeurMurBase*Number(dataLargeur[4]);
+    var largeurMurMax = largeurMurMin*Number(dataLargeur[5]);
+    var largeurMur = largeurMurBase*largeur;
     var hauteur = 300;
     
-    
-    
-    
-    //diffusivite = (data[i][4]+data[i][5])/2;
-    largeur = (dataLargeur[4]+dataLargeur[5])/2;
-    //il faut calculer un pourcentage
-    
-    
-    $("#dessinMur").append('<canvas id="canvasMur" width="1000" height="350"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+
     var canvas  = document.querySelector('#canvasMur');
     var context = canvas.getContext('2d');
+    context.clearRect(0,0,canvas.width, canvas.height);
     
     //coloration des rectangle
     //rectangle du mur
-    context.fillStyle = "#FFFFFF";
-    context.fillRect(100, 10, largeurMur, hauteur);
+    context.fillStyle = "#AAAAAA";
+    context.fillRect(100, 60, largeurMurMin, hauteur);
+    //rectangle agrandissement du mur
+    context.fillStyle = "#CCCCCC";
+    context.fillRect(100+largeurMurMin, 60, largeurMur-largeurMurMin, hauteur);
     
-    
+    context.font="18px 'Helvetica Neue',Helvetica,Arial,sans-serif";
     //ajout des textes d'environnement
     context.fillStyle = "black";
-    context.fillText("exterieur", 0, 50);
+    context.fillText("exterieur", 0, 110);
     context.fillStyle = "black";
-    context.fillText("interieur", 100+largeurMur+20, 50);
+    context.fillText("interieur", 100+largeurMurMax+20, 110);
     
     //ajout des textes du mur et isolation
     context.fillStyle = "black";
-    context.fillText("Wall", 100+20, 30);
+    context.fillText("Wall", 100+20, 90);
     
-    
-    //creation des contours des rectangles
-    context.lineWidth = "5";
+    //creation limite max et min du mur
+    context.lineWidth = 2;
     context.strokeStyle = "black";
-    context.strokeRect(100, 10, largeurMur, hauteur);
+    //min
+    var x=100+largeurMurMin;
+    var yA=30;
+    var yB=60+hauteur+30;
+    DashedLine(x,yA,x,yB,5,5, context)
+    //max
+    var x=100+largeurMurMax;
+    var yA=30;
+    var yB=60+hauteur+30;
+    DashedLine(x,yA,x,yB,5,5, context)
+    
+    //ajout des textes limites min max
+    context.fillStyle = "black";
+    context.fillText("min", 100+largeurMurMin-10, yA-5);
+    context.fillStyle = "black";
+    context.fillText("max", 100+largeurMurMax-10, yA-5);
+    
+    //creation des contours
+    context.beginPath();
+    context.lineWidth = "2";
+    context.strokeStyle = "black";
+    //context.strokeRect(100, 60, largeurMur, hauteur);
+    
+    //traits gauche et droite
+    context.moveTo(100, 60);
+    context.lineTo(100,60+hauteur);
+    context.moveTo(100+largeurMur, 60);
+    context.lineTo(100+largeurMur, 60+hauteur);
+    
+    
+    //traits bas
+    context.moveTo(100, 60+hauteur);
+    context.lineTo(100+(largeurMur/2)-5,60+hauteur);
+    
+    context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
+    context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20)
+2
+    context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
+    context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20)
+    
+    context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
+    context.lineTo(100+largeurMur,60+hauteur);
+    
+    
+    //traits hauts
+    context.moveTo(100, 60);
+    context.lineTo(100+(largeurMur/2)-5,60);
+    
+    context.moveTo(100+(largeurMur/2)-5-10, 60+20);
+    context.lineTo(100+(largeurMur/2)-5+10, 60-20)
+2
+    context.moveTo(100+(largeurMur/2)+5-10, 60+20);
+    context.lineTo(100+(largeurMur/2)+5+10, 60-20)
+    
+    context.moveTo(100+(largeurMur/2)+5, 60);
+    context.lineTo(100+largeurMur,60);
+    
+    context.stroke();
     
     //la fleche
     context.beginPath();
     context.lineWidth = "3";
     context.strokeStyle = "black";
-    context.moveTo(50, hauteur/2+5);
-    context.lineTo(100+largeurMur+60,hauteur/2+5);
+    context.moveTo(50, 60+(hauteur)/2);
+    context.lineTo(100+largeurMur+60,60+(hauteur)/2);
     
     context.lineWidth = "1";
-    context.moveTo(100+largeurMur+80, hauteur/2+5);
-    context.lineTo(100+largeurMur+50,hauteur/2+5+10);
-    context.lineTo(100+largeurMur+50,hauteur/2+5-10);
+    context.moveTo(100+largeurMur+80, 60+(hauteur)/2);
+    context.lineTo(100+largeurMur+50, 60+(hauteur)/2+10);
+    context.lineTo(100+largeurMur+50, 60+(hauteur)/2-10);
     context.fill();
     
     context.stroke();
@@ -266,19 +403,22 @@ function majApresSet(result, set){
     
     data = result;
     
-    //trouver la largeur et la diffusivité moyenne (pour le dessin de base)
-    var largeur;
-    var diffusivite;
+    //pour avoir les max et min de la largeur dans la fonction du canvas
+    var dataLargeur;
     for(var i=0; i<data.length; i++)
     {
-        if(data[i][0]=="x")
-            largeur = data[i];
-        else if(data[i][0]=="nu")
-            diffusivite = data[i];
+        if(data[i][0]=="L")
+            dataLargeur = data[i];
     }
     
+    
+    //trouver la largeur  (pour le dessin de base)
+    var largeur;
+    largeur = (Number(dataLargeur[5])+Number(dataLargeur[4]))/2;
+    
     //cree canvas
-    creeCanvasThermique(largeur, diffusivite);
+    creeCanvas();
+    majCanvasThermique(dataLargeur, largeur)
     
     for(var i=1; i<data.length; i++)
     {   
