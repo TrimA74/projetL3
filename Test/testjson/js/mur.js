@@ -27,7 +27,6 @@ var MODMur = (function () {
           if ((xB-xA)>0) {sgn=1;} else {sgn=-1;}
           x2=sgn*l/Math.sqrt(1+a*a)+x1;
           y2=a*x2+b;
-
           if (Norm(x1,y1,x2,y2)>Norm(x1,y1,xB,yB)) {x2=xB;y2=yB;}
       }else//droite verticale
       {
@@ -37,10 +36,11 @@ var MODMur = (function () {
       }
       return [x2,y2];
   }
-
   //crée l'élement canvas dans l'HTML
   self.creeCanvas = function (){
-      $("#dessinMur").append('<canvas id="canvasMur" width="1000" height="400"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+    var largeurCanvas = $("#dessinMur")[0].clientWidth*90/100;
+    var hauteurCanvas = largeurCanvas;
+    $("#dessinMur").append('<canvas id="canvasMur" width="'+largeurCanvas+'" height="'+hauteurCanvas+'"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
   }
   return self;
 })();
