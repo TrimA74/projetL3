@@ -15,11 +15,12 @@
   MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
             tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
             TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
-            messageStyle: "none"
+            messageStyle: "none",
+            SVG: { linebreaks: { automatic: true } }
         });
 </script>
 <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG">
 </script>
 		<title>Parametric model in Building Physics</title>
 
@@ -154,9 +155,11 @@
     <script src="js/bootstrap-slider.min.js"></script>
         
     
+    <script type="text/javascript" src="js/tools.js" ></script>
     <script type="text/javascript" src="js/plotly.js" ></script>
     <script type="text/javascript" src="js/fonctions.js" ></script>
     <script type="text/javascript" src="js/mur.js" ></script>
+    
     <script type="text/javascript" src="js/app.js" ></script>
     <script>
     //pour des test
