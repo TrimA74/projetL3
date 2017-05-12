@@ -21,7 +21,7 @@ Framework CSS pour rendre le site responsive design.
 Metadata JSON
 
 
-[Set 1 Thermique JSON Model](http://objgen.com/json/models/txu)
+[Set 1 Thermique JSON Model](http://objgen.com/json/models/x9fJ)
 
 [Set 1 Hydrique JSON Model](http://objgen.com/json/models/hq5d)
 
