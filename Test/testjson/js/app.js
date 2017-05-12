@@ -1,5 +1,5 @@
 var matrix = new Object();
-var variableChoisi=0;
+var variableChoisi= {};
 var setCourant;
 
 var plotDiv = document.getElementById('graph');
@@ -238,7 +238,7 @@ function majApresSet(set){
                     myFunction:'chargeMatrice',
                     myParams:{
                         set:set,
-                        cat:$_GET("cat"),
+                        cat:MODTools.$_GET("cat"),
                         matrice: e.lettre
                     }
                 },
