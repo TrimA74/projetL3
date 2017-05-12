@@ -115,6 +115,7 @@ var mesFonctions = {
         
         //trouver la largeur
         var largeur;
+        console.log(variableChoisi);
         if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
         {
             largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
@@ -232,5 +233,126 @@ var mesFonctions = {
         
         context.stroke();
         
-    }
+    }/*,
+    majCanvasHydrique  : function(){
+        
+        var parameters = metadata.set[setCourant].parameters;
+        
+        /*******************************
+            gestion du dessin du mur
+        *******************************/
+        //cree canvas si il n'existe pas encore
+        /*if($("#canvasMur").length==0)
+        {
+            creeCanvas();
+        }
+        
+
+        //pour avoir les max et min de la largeur dans la fonction du canvas
+        
+            
+        
+        var largeurMur = 200;
+        var hauteur = 300;
+    
+        var canvas  = document.querySelector('#canvasMur');
+        var context = canvas.getContext('2d');
+        context.clearRect(0,0,canvas.width, canvas.height);
+        
+        //coloration des rectangle
+        //rectangle du mur
+        context.fillStyle = "#AAAAAA";
+        context.fillRect(100, 60, largeurMurMin, hauteur);
+        //rectangle agrandissement du mur
+        context.fillStyle = "#CCCCCC";
+        context.fillRect(100+largeurMurMin, 60, largeurMur-largeurMurMin, hauteur);
+        
+        context.font="18px 'Helvetica Neue',Helvetica,Arial,sans-serif";
+        //ajout des textes d'environnement
+        context.fillStyle = "black";
+        context.fillText("exterieur", 0, 110);
+        context.fillStyle = "black";
+        context.fillText("interieur", 100+largeurMurMax+20, 110);
+        
+        //ajout des textes du mur et isolation
+        context.fillStyle = "black";
+        context.fillText("Wall", 100+20, 90);
+        
+        //creation limite max et min du mur
+        context.lineWidth = 2;
+        context.strokeStyle = "black";
+        //min
+        var x=100+largeurMurMin;
+        var yA=30;
+        var yB=60+hauteur+30;
+        DashedLine(x,yA,x,yB,5,5, context)
+        //max
+        var x=100+largeurMurMax;
+        var yA=30;
+        var yB=60+hauteur+30;
+        DashedLine(x,yA,x,yB,5,5, context)
+        
+        //ajout des textes limites min max
+        context.fillStyle = "black";
+        context.fillText("min", 100+largeurMurMin-10, yA-5);
+        context.fillStyle = "black";
+        context.fillText("max", 100+largeurMurMax-10, yA-5);
+        
+        //creation des contours
+        context.beginPath();
+        context.lineWidth = "2";
+        context.strokeStyle = "black";
+        //context.strokeRect(100, 60, largeurMur, hauteur);
+        
+        //traits gauche et droite
+        context.moveTo(100, 60);
+        context.lineTo(100,60+hauteur);
+        context.moveTo(100+largeurMur, 60);
+        context.lineTo(100+largeurMur, 60+hauteur);
+        
+        
+        //traits bas
+        context.moveTo(100, 60+hauteur);
+        context.lineTo(100+(largeurMur/2)-5,60+hauteur);
+        
+        context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
+        context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20);
+        context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
+        context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20);
+        
+        context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
+        context.lineTo(100+largeurMur,60+hauteur);
+        
+        
+        //traits hauts
+        context.moveTo(100, 60);
+        context.lineTo(100+(largeurMur/2)-5,60);
+        
+        context.moveTo(100+(largeurMur/2)-5-10, 60+20);
+        context.lineTo(100+(largeurMur/2)-5+10, 60-20);
+        
+        context.moveTo(100+(largeurMur/2)+5-10, 60+20);
+        context.lineTo(100+(largeurMur/2)+5+10, 60-20);
+        
+        context.moveTo(100+(largeurMur/2)+5, 60);
+        context.lineTo(100+largeurMur,60);
+        
+        context.stroke();
+        
+        //la fleche
+        context.beginPath();
+        context.lineWidth = "3";
+        context.strokeStyle = "black";
+        context.moveTo(50, 60+(hauteur)/2);
+        context.lineTo(100+largeurMur+60,60+(hauteur)/2);
+        
+        context.lineWidth = "1";
+        context.moveTo(100+largeurMur+80, 60+(hauteur)/2);
+        context.lineTo(100+largeurMur+50, 60+(hauteur)/2+10);
+        context.lineTo(100+largeurMur+50, 60+(hauteur)/2-10);
+        context.fill();
+        
+        context.stroke();
+    }*/
+    
 };

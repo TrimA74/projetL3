@@ -1,5 +1,5 @@
 var matrix = new Object();
-var variableChoisi=0;
+var variableChoisi= {};
 var setCourant;
 
 var plotDiv = document.getElementById('graph');
@@ -56,7 +56,7 @@ $( document ).ready(function() {
             {
                 myFunction:'chargeJsonCat',
                 myParams:{
-                    cat:$_GET("cat")
+                    cat: MODTools.$_GET("cat")
                 }
             },
             success: function(result)
@@ -81,7 +81,7 @@ $( document ).ready(function() {
                 myFunction:'chargeJsonSet',
                 myParams:{
                     set:set,
-                    cat:$_GET("cat")
+                    cat: MODTools.$_GET("cat")
                 }
             },
             success: function(result)
@@ -113,54 +113,9 @@ $( document ).ready(function() {
 
 
 
-/* Fonction qui met les données récupérées des csv dans des tableaux */
-function processData(allText) {
-    var allTextLines = allText.split(/\r\n|\n/);
-    var headers = allTextLines[0].split(',');
-    var lines = [];
 
-    for (var i=0; i<allTextLines.length; i++) {
-        var data = allTextLines[i].split(',');
-        if (data.length == headers.length) {
-            var tarr = [];
-            for (var j=0; j<headers.length; j++) {
-                tarr.push(Number(data[j]));
-            }
-            lines.push(tarr);
-        }
-    }
-    return lines.slice();
-}
 
-/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
-function getLignesFromSlider(parameters){
-    var tabLigne = [];    //les lignes choisies
 
-    $.each(parameters,function (i,e){
-        if(e.fichier==1 && e!=variableChoisi){
-            var ligne = $("#range" + e.lettre).slider('getValue');
-            ligne = Math.round((ligne-e.min)/ $("#range" + e.lettre).slider('getAttribute').step); 
-            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.lettre][ligne])));
-        }
-    });
-
-    return tabLigne;
-}
-
-/* On initialise les abscisses en fonction des métadonnées (On calcule la valeur d'abscisse associé au numéro de la valeur calculée) */
-function initTabx(variableChoisi){
-    var tabX = new Array();
-    var minX = variableChoisi.min;
-    var maxX = variableChoisi.max;
-
-    var pas = (parseFloat(maxX)-parseFloat(minX))/matrix[variableChoisi.lettre].length; // on calcule le pas en fonction du min et du max des métadonnées et du nombre de données 
-
-    for(var i=0; i<matrix[variableChoisi.lettre].length; i++){
-        tabX[i] = parseFloat(minX) + i * pas;
-    }
-
-    return tabX;
-}
 
 /*  */
 function updateSlider(elem,parameters) {
@@ -169,7 +124,7 @@ function updateSlider(elem,parameters) {
     var tabLigne = [];    //les lignes choisies
 
      // on récupère les lignes des matrices associées aux valeurs des sliders
-    tabLigne = getLignesFromSlider(parameters);
+    tabLigne = MODTools.getLignesFromSlider(parameters);
 
     // on recalcule la courbe 
     //var tabY = Calcul(matrix[variableChoisi.lettre], tabLigne);
@@ -177,7 +132,7 @@ function updateSlider(elem,parameters) {
 
     // On initialise les abscisses en fonction des métadonnées
     
-    var tabX = initTabx(variableChoisi);
+    var tabX = MODTools.initTabx(variableChoisi);
     
 
     // on redessine la courbe 
@@ -199,23 +154,7 @@ function updateSlider(elem,parameters) {
 }
 
 
-/*  */
-function $_GET(param) {
-	var vars = {};
-    var url = window.location.href.replace( location.hash, '' );
-    url = decodeURI(url);
-	url.replace( 
-		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-		function( m, key, value ) { // callback
-			vars[key] = value !== undefined ? value : '';
-		}
-	);
 
-	if ( param ) {
-		return vars[param] ? vars[param] : null;	
-	}
-	return vars;
-}
 
 
 /*  */
@@ -228,7 +167,7 @@ function changeParams(parametre,val){
     
     var tabLigne = [];//les lignes choisies
 
-    tabLigne = getLignesFromSlider(parameters);
+    tabLigne = MODTools.getLignesFromSlider(parameters);
     
     //var tabY = Calcul(matrix[variableChoisi.lettre],tabLigne);
     var tabY = mesFonctions["Calcul"](matrix[variableChoisi.lettre],tabLigne);
@@ -299,42 +238,6 @@ function changeParams(parametre,val){
 }
 
 
-/*  */
-function generate_handler( j,parameters ) {
-    return function(event) { 
-        updateSlider(j,parameters);
-    };
-}
-
-
-
-
-
-
-
-
-
-
-
-/* génère un vecteur (tableau) à partir d'une matrice (Sert lors du calcul de l'intégration */
-function integrationMatrice(matriceAIntegrer, delta){
-	var tabRetour = new Array();
-	//console.log(delta);
-	//console.log(matriceAIntegrer);
-	
-	for (var i = 0; i<matriceAIntegrer[0].length; i++){		//On initialise tabRetour à 0 (pour le +=)
-		tabRetour[i] = Number(0);
-	}
-
-	for (var i = 0; i<matriceAIntegrer[0].length; i++){		//Pour chaque colonne de la matrice
-		for (var j = 0; j<matriceAIntegrer.length; j++){	//On additionne les valeurs de toutes les lignes
-			tabRetour[i] += matriceAIntegrer[j][i];
-		}
-		tabRetour[i] *= delta;		//On multiplie ensuite chaque somme par delta
-	}
-	//console.log(tabRetour);
-	return tabRetour;
-}
 
 function majApresSet(set){
     
@@ -343,12 +246,10 @@ function majApresSet(set){
     console.log(metadata);
     var parameters = metadata.set[setCourant].parameters;
 
-    //cree canvas pour le mur
-    if(metadata.wall.displayWall)
-        mesFonctions[metadata.wall.method]();
+    
 
 
-
+    // récupération des matrices avec la fonction processData pour récupérer un tableau 2d
     $.each(parameters,function (i,e){
         if(e.fichier){
             $.ajax({
@@ -361,13 +262,13 @@ function majApresSet(set){
                     myFunction:'chargeMatrice',
                     myParams:{
                         set:set,
-                        cat:$_GET("cat"),
+                        cat:MODTools.$_GET("cat"),
                         matrice: e.lettre
                     }
                 },
                 success: function(result)
                 {
-                    matrix[e.lettre] = processData(result);
+                    matrix[e.lettre] = MODTools.processDataMatrix(result);
                 }
             });
         }
@@ -453,8 +354,8 @@ function majApresSet(set){
               step : pas,
               precision: 3
             });
-            slider.on('slideStop',generate_handler(e.lettre,parameters));
-            $("#rangeN" + e.lettre).on('change',generate_handler(e.lettre,parameters));
+            slider.on('slideStop',MODTools.updateSliderHandler(e.lettre,parameters));
+            $("#rangeN" + e.lettre).on('change',MODTools.updateSliderHandler(e.lettre,parameters));
         }
     });
 
@@ -525,7 +426,7 @@ function majApresSet(set){
     }; 
     
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ $_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
+    client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
     client.onreadystatechange = function() {
       $("#latexSetInfo").html("<p style=\"font-size:200%;\"> " + client.responseText + "</p>");
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
@@ -533,5 +434,14 @@ function majApresSet(set){
     client.send();
     // Plotly construit le graphique (rq: on remove des bouttons mis par défaut dans la modebar (pour liste des bouttons: https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js) ainsi que le logo)
     Plotly.newPlot(plotDiv, [trace], layout, {modeBarButtonsToRemove: ['sendDataToCloud', 'zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'resetScale2d', 'toImage', 'hoverClosestCartesian', 'hoverCompareCartesian'], displaylogo: false});
+
+    
+    
+    
+    
+    //cree canvas pour le mur
+    if(metadata.wall.displayWall)
+        mesFonctions[metadata.wall.method]();
+    
 } 
 
