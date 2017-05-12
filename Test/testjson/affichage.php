@@ -27,13 +27,15 @@
 
 	<body class="body">
         
-		<header  class="container">
+        <div class="fondHeader">
+		<header  class="container fondHeader">
 			<div class="col-md-12 centerTitle">
 				<div class="encadrerDuTitre">
 					<h2 class="text-center" style="font-size: 215%"><i>Parametric model in Building Physics</i></h2>
 				</div>
 			</div>
 		</header>
+        </div>
 
         
         <?php
@@ -44,6 +46,7 @@
         <div class="zonePrincipale">
 		<div class="container">
 			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $json->title ?></u></strong></h1>
+
 			<div class="col-md-12 rubriquePage">
 					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
 					<?php 
@@ -51,8 +54,14 @@
                     ?>
 			</div>
         
+        <div> <!-- Begin Calcul pression -->
+
+        <h2 class="titre_calcul"> Determination of pressure
+            <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-up"></span></button>
+        </h2>
         
-           
+        <div class="cadreCalcule">
+
         <div class="row">
             <div class="col-md-5">
 					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Dataset selection</h2></label>
@@ -74,12 +83,11 @@
                 </div>
 				<div class="col-md-7">
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-12 infoSetLatex">
 				<div class="col-md-3">
 					<h3>&emsp;&emsp;Set Information : </h3>
 				</div>
-				<div class="col-md-7" id="latexSetInfo">
-				</div>
+				<div class="col-md-7" id="latexSetInfo"></div>
 				</div>
                 
                
@@ -99,7 +107,7 @@
                     </div>
             </div>
                 
-            <div class="col-md-12 rubriquePage"><!-- les selecteurs -->
+            <div class="col-md-12 rubriquePage"><!-- les descriptions -->
                 <div class="form-horizontal">
                     
                     <div class="col-md-6">
@@ -111,14 +119,41 @@
                     <div class="col-md-6" id="dessinMur">
 		
                     </div>
-                    
-                    
-                    
-                    
+            
                 </div>
 
-            </div>   <!--end selecteur -->
+            </div>   <!--end descriptions -->
+
+
+            </div> <!-- fin encadrer calcule -->
+
+            </div> <!-- end Calcule Pression -->
+
+<!-- ********************************************************************************************************************************** -->
+<!-- ********************************************************************************************************************************** -->
+
+            <div> <!--Begin Calcule flux -->
+
+                <h2 class="titre_calcul"> Determination of flow
+                    <button class="btn btn-primary btn-lg bouton_R_A"><span class="glyphicon glyphicon-menu-down"></span></button>
+                </h2>
+
+
+            </div> <!--End Calcule flux -->
+
+            <div> <!--Begin Calcule 3e -->
+
+                <h2 class="titre_calcul"> Determination of 3e
+                    <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-down"></span></button>
+                </h2>
+
+            </div> <!--End Calcule 3e -->
+
+<!-- ********************************************************************************************************************************** -->
+<!-- ********************************************************************************************************************************** -->
+
         </div> <!-- end conteneur traitement -->
+
         </div> <!--end font blanc-->
 
         <footer class="container-fluid footerPage">

@@ -20,6 +20,7 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 
 	<body class="body">
 
+		<div class="fondHeader">
 		<header class="container">
 
 			<div class="grandCadre">
@@ -27,6 +28,7 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 			</div>
 
 		</header>
+		</div>
 
         <div class="zonePrincipale">
 		<div class="container">
@@ -53,8 +55,13 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 
 			</div>
         </div>
-
+        </div> <!-- end zone principale -->
 		<footer class="container-fluid footerIndex">
+			<div class="footerDescription">
+				<p>M. BERGER Julien</p>
+				<p>Chercheur au LOCIE</p>
+				<p>Docteur en Génie Civil et Sciences de l'Habitat</p>
+			</div>
 		</footer>
 		
 		<script src="bootstrap.min.js"></script>
