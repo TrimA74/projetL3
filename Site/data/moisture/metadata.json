@@ -1,0 +1,23 @@
+{
+  "latexDescription": "descriptionLatex.tex",
+  "title": "Moisture diffusion in porous material",
+  "references": [
+    {
+      "lien": "http://link.springer.com/article/10.1007/s11831-016-9184-1",
+      "nom": "link.springer.com"
+    },
+    {
+      "lien": "http://www.sciencedirect.com/science/article/pii/S0377025711000061",
+      "nom": "www.sciencedirect.com"
+    },
+    {
+      "lien": "Etude_des_technologie.pdf",
+      "nom": "Etude des technologie"
+    }
+  ],
+  "wall": {
+    "displayWall": 0,
+    "method": ""
+  },
+  "description": "The physical problem involves one-dimension moisture diffusion through a porous material. The material is submitted to a cyclic increases of relative humidity on one side and constant relative humidity on the other side. The permeability and storage coefficients do not depend on the moisture content. The model is computed as a function of the moisture storage capacity, the space and time."
+}
