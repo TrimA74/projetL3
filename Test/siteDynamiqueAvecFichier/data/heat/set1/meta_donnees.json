@@ -5,43 +5,53 @@
       "descriptionLatex": "/meta_donnees_LaTeX.tex",
       "parameters": [
         {
-          "matrice": "A",
+          "matrice": "0",
           "valeur": "u",
           "fichier": 0,
           "nom": "Pressure",
-          "unite": "[Pa]",
+          "unite": "[-]",
           "min": "-Inf",
           "max": "Inf",
           "valInit": 0
         },
         {
-          "matrice": "B",
+          "matrice": "F",
           "valeur": "x",
           "fichier": 1,
           "nom": "Thickness",
-          "unite": "[m]",
+          "unite": "[-]",
           "min": 0,
           "max": 1,
           "valInit": 1
         },
         {
-          "matrice": "C",
+          "matrice": "G",
           "valeur": "t",
           "fichier": 1,
           "nom": "Time",
-          "unite": "[h]",
+          "unite": "[-]",
           "min": 0,
           "max": 120,
           "valInit": 1
         },
         {
-          "matrice": "D",
+          "matrice": "H",
           "valeur": "nu",
           "fichier": 1,
           "nom": "Diffusivity",
-          "unite": "[m^2/s]",
+          "unite": "[-]",
           "min": 0.002325581,
           "max": 0.02325581,
+          "valInit": 0
+        },
+        {
+          "matrice": "I",
+          "valeur": "L",
+          "fichier": 1,
+          "nom": "Walllength",
+          "unite": "[-]",
+          "min": 1,
+          "max": 1.2,
           "valInit": 0
         }
       ]
