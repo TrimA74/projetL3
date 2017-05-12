@@ -7,10 +7,10 @@
 	  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
 	  <meta name="author" content="John Doe">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="bootstrap-slider.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-slider.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/style.css">
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
             tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
@@ -147,15 +147,17 @@
 			</div>
 		</footer>
         
-    <script src="jquery.min.js" integrity=""></script>
+    <script src="js/jquery.min.js" integrity=""></script>
     
     <!-- Latest compiled and minified JavaScript -->
-    <script src="bootstrap.min.js"></script>
-    <script src="bootstrap-slider.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-slider.min.js"></script>
         
     
-    <script type="text/javascript" src="plotly.js" ></script>
-    <script type="text/javascript" src="app.js" ></script>
+    <script type="text/javascript" src="js/plotly.js" ></script>
+    <script type="text/javascript" src="js/fonctions.js" ></script>
+    <script type="text/javascript" src="js/mur.js" ></script>
+    <script type="text/javascript" src="js/app.js" ></script>
     <script>
     //pour des test
     </script>
