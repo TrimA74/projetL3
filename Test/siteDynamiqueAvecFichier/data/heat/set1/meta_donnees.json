@@ -1,47 +1,47 @@
 {
   "set": [
     {
-      "name": "set3",
+      "name": "set1",
       "descriptionLatex": "/meta_donnees_LaTeX.tex",
       "parameters": [
         {
-          "matrice": "0",
+          "matrice": "A",
           "valeur": "u",
           "fichier": 0,
-          "nom": "Field",
-          "unite": "[-]",
+          "nom": "Pressure",
+          "unite": "[Pa]",
           "min": "-Inf",
           "max": "Inf",
+          "valInit": 0
+        },
+        {
+          "matrice": "B",
+          "valeur": "x",
+          "fichier": 1,
+          "nom": "Thickness",
+          "unite": "[m]",
+          "min": 0,
+          "max": 1,
           "valInit": 1
         },
         {
-          "matrice": "F",
-          "valeur": "x",
-          "fichier": 1,
-          "nom": "Space",
-          "unite": "[-]",
-          "min": 0,
-          "max": 1,
-          "valInit": 0
-        },
-        {
-          "matrice": "G",
+          "matrice": "C",
           "valeur": "t",
           "fichier": 1,
           "nom": "Time",
-          "unite": "[-]",
+          "unite": "[h]",
           "min": 0,
-          "max": 1,
-          "valInit": 0
+          "max": 120,
+          "valInit": 1
         },
         {
-          "matrice": "H",
-          "valeur": "c",
+          "matrice": "D",
+          "valeur": "nu",
           "fichier": 1,
-          "nom": "Sorptioncapacity",
-          "unite": "[-]",
-          "min": 0.05,
-          "max": 0.5,
+          "nom": "Diffusivity",
+          "unite": "[m^2/s]",
+          "min": 0.002325581,
+          "max": 0.02325581,
           "valInit": 0
         }
       ]
