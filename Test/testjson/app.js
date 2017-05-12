@@ -1,5 +1,6 @@
 var matrix = new Object();
 var variableChoisi=0;
+var setCourant;
 
 var plotDiv = document.getElementById('graph');
 
@@ -41,7 +42,7 @@ $.ajax({
 $('#selectset').on('change', function() {
 
 
-    //alert( $_GET("cat"));
+
     var set = this.value;
     $.ajax({
         url : 'ajax.php',
@@ -59,25 +60,170 @@ $('#selectset').on('change', function() {
         {
             // si on a pas encore mis de set on concatène les objets
            if(typeof(metadata.set) == "undefined" ){
-                var tmp = Object.assign(result,metadata);
-                metadata = tmp;
+                metadata.set = {};
+                metadata.set[result.set[0].name] = result.set[0];
            } else { // sinon on cherche si on l'a pas déjà load
                 var isHere = false;
-                metadata.set.forEach(function (e,i){
+                $.each(metadata.set,function (i,e){
                     if(e.name == set) {
                         isHere = true;
                     }
                 });
                 if(!isHere){ // si on l'a pas déjà load on l'ajoute dans le tableau de set
-                    metadata.set.push(result.set[0]);
+                    metadata.set[result.set[0].name] = result.set[0];
                 }
            }
-           console.log(metadata);
-           majApresSet(set);
+           majApresSet(result.set[0].name);
         }
     });
         
 });
+
+//met a jour le canvas du mur pour thermique
+var mesFonctions = {
+    majCanvasThermique : function(){
+        
+        var parameters = metadata.set[setCourant].parameters;
+        
+        /*******************************
+            gestion du dessin du mur
+        *******************************/
+        //cree canvas si il n'existe pas encore
+        if($("#canvasMur").length==0)
+        {
+            creeCanvas();
+        }
+        
+
+        //pour avoir les max et min de la largeur dans la fonction du canvas
+        var dataLargeur;
+        $.each(parameters,function (i,e){
+            if(e.lettre=='L'){
+                dataLargeur = e ;
+            }
+        });
+        
+        //trouver la largeur
+        var largeur;
+        if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
+        {
+            largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
+        }
+        else //sinon la valeur du slider
+        {
+            largeur = $("#range" + dataLargeur.lettre).slider('getValue');
+        }
+        
+            
+        
+        var largeurMurBase = 200;
+        var largeurMurMin = largeurMurBase*Number(dataLargeur.min);
+        var largeurMurMax = largeurMurMin*Number(dataLargeur.max);
+        var largeurMur = largeurMurBase*largeur;
+        var hauteur = 300;
+        
+
+        var canvas  = document.querySelector('#canvasMur');
+        var context = canvas.getContext('2d');
+        context.clearRect(0,0,canvas.width, canvas.height);
+        
+        //coloration des rectangle
+        //rectangle du mur
+        context.fillStyle = "#AAAAAA";
+        context.fillRect(100, 60, largeurMurMin, hauteur);
+        //rectangle agrandissement du mur
+        context.fillStyle = "#CCCCCC";
+        context.fillRect(100+largeurMurMin, 60, largeurMur-largeurMurMin, hauteur);
+        
+        context.font="18px 'Helvetica Neue',Helvetica,Arial,sans-serif";
+        //ajout des textes d'environnement
+        context.fillStyle = "black";
+        context.fillText("exterieur", 0, 110);
+        context.fillStyle = "black";
+        context.fillText("interieur", 100+largeurMurMax+20, 110);
+        
+        //ajout des textes du mur et isolation
+        context.fillStyle = "black";
+        context.fillText("Wall", 100+20, 90);
+        
+        //creation limite max et min du mur
+        context.lineWidth = 2;
+        context.strokeStyle = "black";
+        //min
+        var x=100+largeurMurMin;
+        var yA=30;
+        var yB=60+hauteur+30;
+        DashedLine(x,yA,x,yB,5,5, context)
+        //max
+        var x=100+largeurMurMax;
+        var yA=30;
+        var yB=60+hauteur+30;
+        DashedLine(x,yA,x,yB,5,5, context)
+        
+        //ajout des textes limites min max
+        context.fillStyle = "black";
+        context.fillText("min", 100+largeurMurMin-10, yA-5);
+        context.fillStyle = "black";
+        context.fillText("max", 100+largeurMurMax-10, yA-5);
+        
+        //creation des contours
+        context.beginPath();
+        context.lineWidth = "2";
+        context.strokeStyle = "black";
+        //context.strokeRect(100, 60, largeurMur, hauteur);
+        
+        //traits gauche et droite
+        context.moveTo(100, 60);
+        context.lineTo(100,60+hauteur);
+        context.moveTo(100+largeurMur, 60);
+        context.lineTo(100+largeurMur, 60+hauteur);
+        
+        
+        //traits bas
+        context.moveTo(100, 60+hauteur);
+        context.lineTo(100+(largeurMur/2)-5,60+hauteur);
+        
+        context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
+        context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20);
+        context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
+        context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20);
+        
+        context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
+        context.lineTo(100+largeurMur,60+hauteur);
+        
+        
+        //traits hauts
+        context.moveTo(100, 60);
+        context.lineTo(100+(largeurMur/2)-5,60);
+        
+        context.moveTo(100+(largeurMur/2)-5-10, 60+20);
+        context.lineTo(100+(largeurMur/2)-5+10, 60-20);
+        
+        context.moveTo(100+(largeurMur/2)+5-10, 60+20);
+        context.lineTo(100+(largeurMur/2)+5+10, 60-20);
+        
+        context.moveTo(100+(largeurMur/2)+5, 60);
+        context.lineTo(100+largeurMur,60);
+        
+        context.stroke();
+        
+        //la fleche
+        context.beginPath();
+        context.lineWidth = "3";
+        context.strokeStyle = "black";
+        context.moveTo(50, 60+(hauteur)/2);
+        context.lineTo(100+largeurMur+60,60+(hauteur)/2);
+        
+        context.lineWidth = "1";
+        context.moveTo(100+largeurMur+80, 60+(hauteur)/2);
+        context.lineTo(100+largeurMur+50, 60+(hauteur)/2+10);
+        context.lineTo(100+largeurMur+50, 60+(hauteur)/2-10);
+        context.fill();
+        
+        context.stroke();
+        
+    }
+};
 
 
 /* Fonction qui met les données récupérées des csv dans des tableaux */
@@ -103,7 +249,7 @@ function processData(allText) {
 function getLignesFromSlider(parameters){
     var tabLigne = [];    //les lignes choisies
 
-    parameters.forEach(function(e,i){
+    $.each(parameters,function (i,e){
         if(e.fichier==1 && e!=variableChoisi){
             var ligne = $("#range" + e.lettre).slider('getValue');
             ligne = Math.round((ligne-e.min)/ $("#range" + e.lettre).slider('getAttribute').step); 
@@ -160,7 +306,8 @@ function updateSlider(elem,parameters) {
     
     
     //cree canvas pour le mur
-    majCanvasThermique();
+    if(metadata.wall.displayWall)
+        mesFonctions[metadata.wall.method]();
 }
 
 
@@ -185,7 +332,7 @@ function $_GET(param) {
 
 /*  */
 function changeParams(parametre,val){
-    var parameters = metadata.set[0].parameters;
+    var parameters = metadata.set[setCourant].parameters;
     variableChoisi = parameters[val];	//numéro de la matrice à mettre en abscisse (défini dans le bouton qui appelle l'évènement)  
     
     $("#parametres").find(".param").css('display', 'block');
@@ -230,7 +377,7 @@ function changeParams(parametre,val){
 
     // variable de parameters avec l'attribut fichier à 0
     var variableCalcul;
-    parameters.forEach(function(e,i){
+    $.each(parameters,function (i,e){
         if(e.fichier==0){
             variableCalcul = e ;
         }
@@ -245,7 +392,7 @@ function changeParams(parametre,val){
     str+='<label width="100%">Ordinate :</label><p>'+variableCalcul.nom+' '+variableChoisi.unite+' = '+variableCalcul.lettre+'</p>';
     str+='<label width="100%">Constant :</label>';
     
-    parameters.forEach(function (e,i){
+    $.each(parameters,function (i,e){
         if(e.fichier==1 && e!=variableChoisi){
             str+='<p>'+e.nom+' '+e.unite+' = '+e.lettre+' </strong></p>';
         }
@@ -258,7 +405,8 @@ function changeParams(parametre,val){
     
     
     //cree canvas pour le mur
-    majCanvasThermique();
+    if(metadata.wall.displayWall)
+        mesFonctions[metadata.wall.method]();
 }
 
 
@@ -312,150 +460,6 @@ function creeCanvas(){
     $("#dessinMur").append('<canvas id="canvasMur" width="1000" height="400"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
 }
 
-//met a jour le canvas du mur pour thermique
-function majCanvasThermique(dataLargeur, largeur){
-    
-    var parameters = metadata.set[0].parameters;
-    
-    /*******************************
-        gestion du dessin du mur
-    *******************************/
-    //cree canvas si il n'existe pas encore
-    if($("#canvasMur").length==0)
-    {
-        alert("creeCanvas");
-        creeCanvas();
-    }
-    
-
-    //pour avoir les max et min de la largeur dans la fonction du canvas
-    var dataLargeur;
-    parameters.forEach(function (e,i){
-        if(e.lettre=='L'){
-            dataLargeur = e ;
-        }
-    });
-    
-    //trouver la largeur
-    var largeur;
-    if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
-    {
-        largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
-    }
-    else //sinon la valeur du slider
-    {
-        largeur = $("#range" + dataLargeur.lettre).slider('getValue');
-    }
-    
-        
-    
-    var largeurMurBase = 200;
-    var largeurMurMin = largeurMurBase*Number(dataLargeur.min);
-    var largeurMurMax = largeurMurMin*Number(dataLargeur.max);
-    var largeurMur = largeurMurBase*largeur;
-    var hauteur = 300;
-    
-
-    var canvas  = document.querySelector('#canvasMur');
-    var context = canvas.getContext('2d');
-    context.clearRect(0,0,canvas.width, canvas.height);
-    
-    //coloration des rectangle
-    //rectangle du mur
-    context.fillStyle = "#AAAAAA";
-    context.fillRect(100, 60, largeurMurMin, hauteur);
-    //rectangle agrandissement du mur
-    context.fillStyle = "#CCCCCC";
-    context.fillRect(100+largeurMurMin, 60, largeurMur-largeurMurMin, hauteur);
-    
-    context.font="18px 'Helvetica Neue',Helvetica,Arial,sans-serif";
-    //ajout des textes d'environnement
-    context.fillStyle = "black";
-    context.fillText("exterieur", 0, 110);
-    context.fillStyle = "black";
-    context.fillText("interieur", 100+largeurMurMax+20, 110);
-    
-    //ajout des textes du mur et isolation
-    context.fillStyle = "black";
-    context.fillText("Wall", 100+20, 90);
-    
-    //creation limite max et min du mur
-    context.lineWidth = 2;
-    context.strokeStyle = "black";
-    //min
-    var x=100+largeurMurMin;
-    var yA=30;
-    var yB=60+hauteur+30;
-    DashedLine(x,yA,x,yB,5,5, context)
-    //max
-    var x=100+largeurMurMax;
-    var yA=30;
-    var yB=60+hauteur+30;
-    DashedLine(x,yA,x,yB,5,5, context)
-    
-    //ajout des textes limites min max
-    context.fillStyle = "black";
-    context.fillText("min", 100+largeurMurMin-10, yA-5);
-    context.fillStyle = "black";
-    context.fillText("max", 100+largeurMurMax-10, yA-5);
-    
-    //creation des contours
-    context.beginPath();
-    context.lineWidth = "2";
-    context.strokeStyle = "black";
-    //context.strokeRect(100, 60, largeurMur, hauteur);
-    
-    //traits gauche et droite
-    context.moveTo(100, 60);
-    context.lineTo(100,60+hauteur);
-    context.moveTo(100+largeurMur, 60);
-    context.lineTo(100+largeurMur, 60+hauteur);
-    
-    
-    //traits bas
-    context.moveTo(100, 60+hauteur);
-    context.lineTo(100+(largeurMur/2)-5,60+hauteur);
-    
-    context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
-    context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20);
-    context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
-    context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20);
-    
-    context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
-    context.lineTo(100+largeurMur,60+hauteur);
-    
-    
-    //traits hauts
-    context.moveTo(100, 60);
-    context.lineTo(100+(largeurMur/2)-5,60);
-    
-    context.moveTo(100+(largeurMur/2)-5-10, 60+20);
-    context.lineTo(100+(largeurMur/2)-5+10, 60-20);
-    
-    context.moveTo(100+(largeurMur/2)+5-10, 60+20);
-    context.lineTo(100+(largeurMur/2)+5+10, 60-20);
-    
-    context.moveTo(100+(largeurMur/2)+5, 60);
-    context.lineTo(100+largeurMur,60);
-    
-    context.stroke();
-    
-    //la fleche
-    context.beginPath();
-    context.lineWidth = "3";
-    context.strokeStyle = "black";
-    context.moveTo(50, 60+(hauteur)/2);
-    context.lineTo(100+largeurMur+60,60+(hauteur)/2);
-    
-    context.lineWidth = "1";
-    context.moveTo(100+largeurMur+80, 60+(hauteur)/2);
-    context.lineTo(100+largeurMur+50, 60+(hauteur)/2+10);
-    context.lineTo(100+largeurMur+50, 60+(hauteur)/2-10);
-    context.fill();
-    
-    context.stroke();
-    
-}
 
 
 
@@ -495,15 +499,19 @@ function Calcul(matriceAbscisse, tableaux) {
 }
 
 function majApresSet(set){
-
-    var parameters = metadata.set[0].parameters;
+    
+    setCourant = set;
+    console.log(setCourant);
+    console.log(metadata);
+    var parameters = metadata.set[setCourant].parameters;
 
     //cree canvas pour le mur
-    majCanvasThermique();
+    if(metadata.wall.displayWall)
+        mesFonctions[metadata.wall.method]();
 
 
 
-    parameters.forEach(function (e,i) {
+    $.each(parameters,function (i,e){
         if(e.fichier){
             $.ajax({
                 url: 'ajax.php',
@@ -542,7 +550,7 @@ function majApresSet(set){
     str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Parameters<h2/>";
     str += "<div class='buttonsList'>";
 
-    parameters.forEach(function (e,i) {
+    $.each(parameters,function (i,e){
         if(e.fichier){
            str += "<button onclick=\"changeParams($( this ).text(),$( this ).val());$('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.lettre+ "</button>"; 
         }
@@ -562,7 +570,7 @@ function majApresSet(set){
 
     /* création de la structure html des sliders */  
     
-    parameters.forEach(function (e,i) {
+    $.each(parameters,function (i,e){
         if(e.fichier){
             var step = (e.max-e.min) / (matrix[e.lettre].length-1);
             
@@ -598,7 +606,7 @@ function majApresSet(set){
     var slider;
 
     /* création finial des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
-    parameters.forEach(function (e,i) {
+    $.each(parameters,function (i,e){
         if(e.fichier){
             var pas = (e.max-e.min)/(matrix[e.lettre].length-1);
             
@@ -615,7 +623,7 @@ function majApresSet(set){
     var tableaux = [];//les lignes choisis
 
 
-    parameters.forEach(function (e,i) {
+    $.each(parameters,function (i,e){
         if(e.fichier==1 && parameters[i].lettre!=variableChoisi.lettre){
             var ligne = $("#range" + e.lettre).slider('getValue');
             ligne = (ligne-e.min)/ $("#range" + e.lettre).slider('getAttribute').step; 
@@ -633,7 +641,7 @@ function majApresSet(set){
     str+='<label width="100%">Constant :</label>';
 
 
-    parameters.forEach(function (e,i){
+    $.each(parameters,function (i,e){
         if(e.fichier==1 && e!=variableChoisi){
             str+='<p>'+e.nom+' '+e.unite+' = '+e.lettre+' </strong></p>';
         }
