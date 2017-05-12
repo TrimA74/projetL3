@@ -75,7 +75,7 @@ margin-top: 3%; margin-bottom: 3%;
 
 /* Titre corespondant a l'un des 3 type de calcule (flux, pression ..) */
 .titre_calcul {
-	text-decoration: underline, bold;
+	text-decoration: underline;
 	margin-top: 4%; margin-bottom: 4%;margin-right: 0%; margin-left: 0%;
 }
 
@@ -154,7 +154,7 @@ margin-top: 3%; margin-bottom: 3%;
 }
 
 #dessinMur {
-	padding-bottom: 5%;
+	/*padding-bottom: 1%;*/
 }
 
 

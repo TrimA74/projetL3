@@ -57,53 +57,53 @@
             </div>
         </div>
 			
-        
+
+        <div class="row">
+            <div class="col-md-5">
+				<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Dataset selection</h2></label>
+				    <select class="form-control selDataSet" id="selectset">
+                        <option></option>
+                            <?php
+                                    if ($dir = opendir($chemin)) {
+                            while($file = readdir($dir)) {
+                                if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
+                                {
+                                    echo "<option>".$file."</option>";
+                                }
+                            }
+                            closedir($dir);
+                            }
+                            ?>
+				    </select>
+            </div>
+			<div class="col-md-7">
+			</div>
+			<div class="col-md-12 infoSetLatex">
+				<div class="col-md-3">
+					<h3>&emsp;&emsp;Set Information : </h3>
+				</div>
+			<div class="col-md-7" id="latexSetInfo"></div>
+			</div>
+        </div>
+                       
+                   
         <div class="row"> <!-- Begin Calcul pression -->
 
-            <h2 class="titre_calcul"> Determination of pressure
+            <h2 class="titre_calcul"> Tensor computation
                 <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-up"></span></button>
             </h2>
             
-            <div class="cadreCalcule">
+                <div class="cadreCalcule">
 
                 <div class="row">
-                    <div class="col-md-5">
-        					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Dataset selection</h2></label>
-        				      <select class="form-control selDataSet" id="selectset">
-                                <option></option>
-                                    <?php
-                                            if ($dir = opendir($chemin)) {
-                                    while($file = readdir($dir)) {
-                                        if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
-                                        {
-                                            
-                                            echo "<option>".$file."</option>";
-                                        }
-                                    }
-                                    closedir($dir);
-                                    }
-                                    ?>
-        				      </select>
-                        </div>
-        				<div class="col-md-7">
-        				</div>
-        				<div class="col-md-12 infoSetLatex">
-        				<div class="col-md-3">
-        					<h3>&emsp;&emsp;Set Information : </h3>
-        				</div>
-        				<div class="col-md-7" id="latexSetInfo"></div>
-        				</div>
-                        
-                       
-                        
-                        
         				<div class="col-md-12 rubriquePage">
         		
         					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
         						<div id="graph"></div>
         				</div>
-        		</div> <!-- end row -->
+        		</div> 
                     
+
                 <div class="row">
                     <div class="col-md-6 rubriquePage" id="boutons"><!-- les boutons --></div>
                     <div class="col-md-6" id="parametres">
@@ -134,8 +134,8 @@
 
             <div class="row"> <!--Begin Calcule flux -->
 
-                <h2 class="titre_calcul"> Determination of flow
-                    <button class="btn btn-primary btn-lg bouton_R_A"><span class="glyphicon glyphicon-menu-down"></span></button>
+                <h2 class="titre_calcul"> Global flow
+                     <button class="btn btn-primary btn-lg bouton_R_A"><span class="glyphicon glyphicon-menu-down"></span></button>
                 </h2>
 
 
@@ -143,7 +143,7 @@
 
             <div class="row"> <!--Begin Calcule 3e -->
 
-                <h2 class="titre_calcul"> Determination of 3e
+                <h2 class="titre_calcul"> Local flow
                     <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-down"></span></button>
                 </h2>
 
