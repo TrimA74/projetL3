@@ -112,11 +112,6 @@ $( document ).ready(function() {
 
 
 
-
-
-
-
-
 /*  */
 function updateSlider(elem,parameters) {
     var val = $("#range"+elem).slider('getValue');
@@ -152,9 +147,6 @@ function updateSlider(elem,parameters) {
     if(metadata.wall.displayWall)
         mesFonctions[metadata.wall.method]();
 }
-
-
-
 
 
 /*  */
@@ -238,12 +230,96 @@ function changeParams(parametre,val){
 }
 
 
+/*  */
+function creationCadreCalcul (cadre,parameters){
+    var controllers = $(cadre).find(".controllers");
+    controllers.show(); // on affiche la div des controlleurs qui contiendra les bouttons et les sliders
 
+
+    /*********************************
+    ***     GESTION BOUTTONS       ***
+    ***********************************/
+
+    var buttons = controllers.find(".buttonsList");
+    //console.log(buttons);
+
+    // On vide le contenu du bouton
+    buttons.html("");
+    var str = "";
+
+    //Pour chaque bouton, on le remplit avec les bonnes valeurs en fonction du paramètre que l'utilisateur a sélectionné
+    $.each(parameters,function (i,e){
+        if(e.fichier){
+           str += "<button onclick=\"changeParams($( this ).text(),$( this ).val());$('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.lettre+ "</button>"; 
+        }
+    });
+    buttons.append(str);
+    
+    
+    
+    /*******************************************
+    ***     GESTION PARAMETRES/SLIDERS       ***
+    ********************************************/
+    var variables = controllers.find(".variables");
+    variables.html("");
+    
+    str ="";
+    /* création de la structure html des sliders */  
+    
+    $.each(parameters,function (i,e){
+        if(e.fichier){
+            var step = (e.max-e.min) / (matrix[e.lettre].length-1);
+            
+            str += "<div class='form-group param' id='param" + e.lettre + "' style='display:none; '>";
+            str += "<label for='amountInput" + e.lettre + "' class='col-sm-1 control-label'>" + e.lettre + "</label>";
+            str += "<div class='col-sm-2'>";
+            str += "<input id='rangeN" + e.lettre + "'  \
+            onchange=\"$('#range" + e.lettre + "').slider('setValue',this.value);\"  \
+            type='number' name='amountInput" + e.lettre + "' value='"+(e.max/2)+"' \
+            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control'/>";
+            str += "</div>";
+            str += "<div class='col-sm-9'>";
+            str += "<div class='col-sm-1'>";
+            str += "<span class='minSlider' >"+ Math.round(Number(e.min)*1000)/1000 +"</span> ";
+            str += "</div>";
+            str += "<div class='col-sm-7'>";
+            str += "<input  id='range" + e.lettre + "' type='text'  \
+            name='amountRange' onchange=\"document.getElementsByName('amountInput" + e.lettre + "')[0].value=this.value;\" \
+            data-slider-min='"+e.min+"' data-slider-max='"+e.max+"' step='10' \
+            data-slider-value='"+(e.max/2)+"' />";
+            str += "</div>";
+            str += "<div class='col-sm-1'>";
+            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *1000)/1000+"</span>";
+            str += "</div>";
+            str += "</div>";
+            str += "</div>";  
+        }
+    });
+    
+    variables.append(str);
+    var slider;
+
+    /* création finiale des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
+    $.each(parameters,function (i,e){
+        if(e.fichier){
+            var pas = (e.max-e.min)/(matrix[e.lettre].length-1);
+            
+            slider = variables.find("#range" + e.lettre).slider({ 
+              tooltip: 'always',
+              step : pas,
+              precision: 3
+            });
+            slider.on('slideStop',MODTools.updateSliderHandler(e.lettre,parameters));
+            variables.find("#rangeN" + e.lettre).on('change',MODTools.updateSliderHandler(e.lettre,parameters));
+        }
+    });
+}
+
+
+/*  */
 function majApresSet(set){
     
     setCourant = set;
-    console.log(setCourant);
-    console.log(metadata);
     var parameters = metadata.set[setCourant].parameters;
 
     
@@ -282,92 +358,19 @@ function majApresSet(set){
     }while(parameters[i].fichier!=1 && i < parameters.length)
     variableChoisi =  parameters[i];
 
-    //gestion @boutons
-    $("#boutons").children().remove();
-    
-    str = "<div class='col-md-8'>";
-    str += "<h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Parameters<h2/>";
-    str += "<div class='buttonsList'>";
+    creationCadreCalcul(".tensoriel",parameters);
 
-    $.each(parameters,function (i,e){
-        if(e.fichier){
-           str += "<button onclick=\"changeParams($( this ).text(),$( this ).val());$('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.lettre+ "</button>"; 
-        }
-    });
-    str += "</div>";
-    str += "</div>";
-    str += "<div class='col-md-4 rubriquePage'></div>";
     
-    $("#boutons").append(str);
-    
-    
-    
-    //gestion parametres
-    $("#parametres").children().remove();
-    str = "<h2><span class='glyphicon glyphicon-option-vertical'></span>  Other parameters <h2/>";
-    str += "<div class='form-horizontal'>";
 
-    /* création de la structure html des sliders */  
-    
-    $.each(parameters,function (i,e){
-        if(e.fichier){
-            var step = (e.max-e.min) / (matrix[e.lettre].length-1);
-            
-            str += "<div class='form-group param' id='param" + e.lettre + "' style='display:none; '>";
-            str += "<label for='amountInput" + e.lettre + "' class='col-sm-1 control-label'>" + e.lettre + "</label>";
-            str += "<div class='col-sm-2'>";
-            str += "<input id='rangeN" + e.lettre + "'  \
-            onchange=\"$('#range" + e.lettre + "').slider('setValue',this.value);\"  \
-            type='number' name='amountInput" + e.lettre + "' value='"+(e.max/2)+"' \
-            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control'/>";
-            str += "</div>";
-            str += "<div class='col-sm-9'>";
-            str += "<div class='col-sm-1'>";
-            str += "<span class='minSlider' >"+ Math.round(Number(e.min)*1000)/1000 +"</span> ";
-            str += "</div>";
-            str += "<div class='col-sm-7'>";
-            str += "<input  id='range" + e.lettre + "' type='text'  \
-            name='amountRange' onchange=\"document.getElementsByName('amountInput" + e.lettre + "')[0].value=this.value;\" \
-            data-slider-min='"+e.min+"' data-slider-max='"+e.max+"' step='10' \
-            data-slider-value='"+(e.max/2)+"' />";
-            str += "</div>";
-            str += "<div class='col-sm-1'>";
-            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *1000)/1000+"</span>";
-            str += "</div>";
-            str += "</div>";
-            str += "</div>";  
-        }
-    });
-    
-     str += "</div>";
-     $("#parametres").append(str);
-    
-    var slider;
+    var tabLigne = [];//les lignes choisis
 
-    /* création finial des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
-    $.each(parameters,function (i,e){
-        if(e.fichier){
-            var pas = (e.max-e.min)/(matrix[e.lettre].length-1);
-            
-            slider = $("#range" + e.lettre).slider({ 
-              tooltip: 'always',
-              step : pas,
-              precision: 3
-            });
-            slider.on('slideStop',MODTools.updateSliderHandler(e.lettre,parameters));
-            $("#rangeN" + e.lettre).on('change',MODTools.updateSliderHandler(e.lettre,parameters));
-        }
-    });
-
-    var tableaux = [];//les lignes choisis
-
-
+    // pour chaque slider on récupère leur valeur pour récupérer la ligne dans les matrices pour les mettre dans tabLigne
     $.each(parameters,function (i,e){
         if(e.fichier==1 && parameters[i].lettre!=variableChoisi.lettre){
             var ligne = $("#range" + e.lettre).slider('getValue');
             ligne = (ligne-e.min)/ $("#range" + e.lettre).slider('getAttribute').step; 
             ligne = Math.round(ligne);
-            tableaux.push(matrix[e.lettre][ligne].slice());
+            tabLigne.push(matrix[e.lettre][ligne].slice());
         }
     });
 
@@ -389,14 +392,14 @@ function majApresSet(set){
     $("#descriptionDataset").append(str);
 
     
-    var tab = JSON.parse(JSON.stringify(tableaux));
-    //var tabY = Calcul(matrix[variableChoisi.lettre],tab);
+    var tab = JSON.parse(JSON.stringify(tabLigne));
     var tabY = mesFonctions["CalculTensoriel"](matrix[variableChoisi.lettre],tab);
     var tabX = new Array();
 
     for(var i=0;i<matrix[variableChoisi.lettre].length;i++){
         tabX[i] = i;
     }
+
     // Parametres de la trace à tracer dans le layout
     var trace = {
         x : tabX,
@@ -432,12 +435,10 @@ function majApresSet(set){
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     };
     client.send();
+
     // Plotly construit le graphique (rq: on remove des bouttons mis par défaut dans la modebar (pour liste des bouttons: https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js) ainsi que le logo)
     Plotly.newPlot(plotDiv, [trace], layout, {modeBarButtonsToRemove: ['sendDataToCloud', 'zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'resetScale2d', 'toImage', 'hoverClosestCartesian', 'hoverCompareCartesian'], displaylogo: false});
 
-    
-    
-    
     
     //cree canvas pour le mur
     if(metadata.wall.displayWall)

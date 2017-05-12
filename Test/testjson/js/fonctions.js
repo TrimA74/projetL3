@@ -115,7 +115,7 @@ var mesFonctions = {
         
         //trouver la largeur
         var largeur;
-        console.log(variableChoisi);
+        //console.log(variableChoisi);
         if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
         {
             largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
