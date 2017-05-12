@@ -194,12 +194,10 @@ var mesFonctions = {
         context.moveTo(100, 60+hauteur);
         context.lineTo(100+(largeurMur/2)-5,60+hauteur);
         
-        alert("coucou");
         context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
         context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20);
         context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
         context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20);
-        alert("fincoucou");
         
         context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
         context.lineTo(100+largeurMur,60+hauteur);

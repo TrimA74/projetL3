@@ -220,9 +220,7 @@ function majApresSet(set){
     console.log(metadata);
     var parameters = metadata.set[setCourant].parameters;
 
-    //cree canvas pour le mur
-    if(metadata.wall.displayWall)
-        mesFonctions[metadata.wall.method]();
+    
 
 
     // récupération des matrices avec la fonction processData pour récupérer un tableau 2d
@@ -410,5 +408,14 @@ function majApresSet(set){
     client.send();
     // Plotly construit le graphique (rq: on remove des bouttons mis par défaut dans la modebar (pour liste des bouttons: https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js) ainsi que le logo)
     Plotly.newPlot(plotDiv, [trace], layout, {modeBarButtonsToRemove: ['sendDataToCloud', 'zoomIn2d', 'zoomOut2d', 'select2d', 'lasso2d', 'resetScale2d', 'toImage', 'hoverClosestCartesian', 'hoverCompareCartesian'], displaylogo: false});
+
+    
+    
+    
+    
+    //cree canvas pour le mur
+    if(metadata.wall.displayWall)
+        mesFonctions[metadata.wall.method]();
+    
 } 
 
