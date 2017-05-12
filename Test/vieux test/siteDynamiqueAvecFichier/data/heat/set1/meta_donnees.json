@@ -1,0 +1,60 @@
+{
+  "set": [
+    {
+      "name": "set1",
+      "descriptionLatex": "/meta_donnees_LaTeX.tex",
+      "parameters": [
+        {
+          "matrice": "0",
+          "valeur": "u",
+          "fichier": 0,
+          "nom": "field",
+          "unite": "[-]",
+          "min": "-1.000000e+00",
+          "max": "1.000000e+00",
+          "valInit": 0
+        },
+        {
+          "matrice": "F",
+          "valeur": "x",
+          "fichier": 1,
+          "nom": "space",
+          "unite": "[-]",
+          "min": 0,
+          "max": 1,
+          "valInit": 0
+        },
+        {
+          "matrice": "G",
+          "valeur": "t",
+          "fichier": 1,
+          "nom": "time",
+          "unite": "[-]",
+          "min": 0,
+          "max": 1,
+          "valInit": 0
+        },
+        {
+          "matrice": "H",
+          "valeur": "u",
+          "fichier": 1,
+          "nom": "diffusivity",
+          "unite": "[-]",
+          "min": 0.5,
+          "max": 0.6,
+          "valInit": 0
+        },
+        {
+          "matrice": "I",
+          "valeur": "L",
+          "fichier": 1,
+          "nom": "Walllength",
+          "unite": "[-]",
+          "min": 1,
+          "max": 1.2,
+          "valInit": 0
+        }
+      ]
+    }
+  ]
+}
