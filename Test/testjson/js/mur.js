@@ -38,6 +38,9 @@ function Hatch(xA,yA,xB,yB,x1,y1,l) {
 
 //crée l'élement canvas dans l'HTML
 function creeCanvas(){
-    $("#dessinMur").append('<canvas id="canvasMur" width="1000" height="400"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+    var largeurCanvas = $("#dessinMur")[0].clientWidth*90/100;
+    var hauteurCanvas = largeurCanvas;
+    $("#dessinMur").append('<canvas id="canvasMur" width="'+largeurCanvas+'" height="'+hauteurCanvas+'"><p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p></canvas>');
+    
 }
 
