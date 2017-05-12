@@ -498,6 +498,87 @@ function Calcul(matriceAbscisse, tableaux) {
 
 }
 
+
+/* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
+function CalculIntegrale(matriceAbscisse, tableaux, parameters) {
+	//A la différence du calcul précédent, on ajoute un facteur C à chaque somme.
+	//Si l'utilisateur fixe le paramètre c, alors C = c(i fixé). Si l'utilisateur ne fixe pas le paramètre c, alors C = vecteur c.
+	var tabOrdonee = new Array(); 					// Tableau contenant le résultat (toutes les ordonnées calculées)
+	var tabC = new Array();							// Tableau contenant les valeurs du slider c
+	var tabPrecalcul = new Array();
+	var nbColonnes = matriceAbscisse[0].length;		// Théoriquement le même dans toutes les matrices
+	var nbLignes = matriceAbscisse.length;			// Nombre de valeurs calculables
+	var varProduit = "u";							// Nom du parametre à ajouter au produit (ex dans hydrique: "c")
+
+	// On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
+	var min;
+	var max;
+	$.each(parameters,function (i,e){
+        if(e.lettre==varProduit){
+            min = e.min;
+			max = e.max;
+        }
+    });
+	var pas = (max - min)/(matrix[varProduit].length-1);	// (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
+	for (var i=0; i<matrix[varProduit].length; i++){
+		tabC[i] = i*pas;
+	}
+	
+	
+    // On précalcule la multiplication des lignes des matrices fixés
+	tabPrecalcul = tableaux[0];				// Pour éviter de recalculer plusieurs fois la même chose, on stocke dans un tableau le résultat des produits des lignes déjà fixées
+    for(var j=1; j<tableaux.length; j++)	// Pour chaque ligne à précalculer
+    {
+        for(var i=0;i<nbColonnes;i++){
+            tabPrecalcul[i] *= Number(tableaux[j][i]);
+        }
+    }
+	//console.log(tableaux);
+    
+	
+	// On initialise le tableau y avec la valeur spécifiée dans les métadonnées
+	for(var i=0;i<nbLignes;i++){
+		tabOrdonee[i] = Number(variableChoisi.valInit);
+	}
+	//console.log(tabOrdonee);
+	
+	
+	// Calcul
+	for(var i=0;i<nbLignes;i++){			// Pour chaque valeur de y
+		for(var j=0;j<nbColonnes;j++){		// On fait la somme des produits de chaque colonnes
+			if (variableChoisi.lettre == varProduit){		// Si l'utilisateur à choisi le paramètre varProduit
+				tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
+			}else{											// Si l'utilisateur fixe le paramètre varProduit avec le slider
+				var valSlider = $("#range" + varProduit).slider('getValue');	// Récupération de la valeur du slider varProduit
+				tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * valSlider); 
+			}
+		}
+	}	
+
+	return tabOrdonee;
+}
+
+
+/* génère un vecteur (tableau) à partir d'une matrice (Sert lors du calcul de l'intégration */
+function integrationMatrice(matriceAIntegrer, delta){
+	var tabRetour = new Array();
+	//console.log(delta);
+	//console.log(matriceAIntegrer);
+	
+	for (var i = 0; i<matriceAIntegrer[0].length; i++){		//On initialise tabRetour à 0 (pour le +=)
+		tabRetour[i] = Number(0);
+	}
+
+	for (var i = 0; i<matriceAIntegrer[0].length; i++){		//Pour chaque colonne de la matrice
+		for (var j = 0; j<matriceAIntegrer.length; j++){	//On additionne les valeurs de toutes les lignes
+			tabRetour[i] += matriceAIntegrer[j][i];
+		}
+		tabRetour[i] *= delta;		//On multiplie ensuite chaque somme par delta
+	}
+	//console.log(tabRetour);
+	return tabRetour;
+}
+
 function majApresSet(set){
     
     setCourant = set;
