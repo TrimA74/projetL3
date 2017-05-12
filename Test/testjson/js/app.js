@@ -441,7 +441,9 @@ function majApresSet(set){
     
     //cree canvas pour le mur
     if(metadata.wall.displayWall)
+    {
         mesFonctions[metadata.wall.method]();
+    }
     
 } 
 
