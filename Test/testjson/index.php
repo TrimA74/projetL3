@@ -57,6 +57,7 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 		<footer class="container-fluid footerIndex">
 		</footer>
 		
+		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 
 	</body>
