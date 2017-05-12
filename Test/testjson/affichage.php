@@ -28,13 +28,15 @@
 
 	<body class="body">
         
-		<header  class="container">
+        <div class="fondHeader">
+		<header  class="container fondHeader">
 			<div class="col-md-12 centerTitle">
 				<div class="encadrerDuTitre">
 					<h2 class="text-center" style="font-size: 215%"><i>Parametric model in Building Physics</i></h2>
 				</div>
 			</div>
 		</header>
+        </div>
 
         
         <?php
@@ -44,105 +46,136 @@
         
         <div class="zonePrincipale">
 		<div class="container">
+        <div class="row">
 			<h1 class="text-center"  style="font-size: 260%"><strong><u><?php  echo $json->title ?></u></strong></h1>
-			<div class="col-md-12 rubriquePage">
-					<h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
-					<?php 
+        </div>
+        <div class="row">
+            <div class="col-md-12 rubriquePage">
+                    <h2><span class="glyphicon glyphicon-file"></span>  Documentation : <h2/>
+                    <?php 
                     echo file_get_contents($chemin."/".$json->latexDescription);
                     ?>
-			</div>
-        
-        
-           
+            </div>
+        </div>
+			
+
         <div class="row">
             <div class="col-md-5">
-					<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Dataset selection</h2></label>
-				      <select class="form-control selDataSet" id="selectset">
+				<label for="selectset"><h2> <span class="glyphicon glyphicon-list-alt"></span>  Dataset selection</h2></label>
+				    <select class="form-control selDataSet" id="selectset">
                         <option></option>
                             <?php
                                     if ($dir = opendir($chemin)) {
                             while($file = readdir($dir)) {
                                 if(is_dir($chemin."/".$file) and $file!="." and $file!="..")
                                 {
-                                    
                                     echo "<option>".$file."</option>";
                                 }
                             }
                             closedir($dir);
                             }
                             ?>
-				      </select>
-                </div>
-				<div class="col-md-7">
-				</div>
-				<div class="col-md-12">
+				    </select>
+            </div>
+			<div class="col-md-7">
+			</div>
+			<div class="col-md-12 infoSetLatex">
 				<div class="col-md-3">
 					<h3>&emsp;&emsp;Set Information : </h3>
 				</div>
-				<div class="col-md-7" id="latexSetInfo">
-				</div>
-				</div>
-                
-               
-                
-                
-				<div class="col-md-12 rubriquePage">
-		
-					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
-						<div id="graph"></div>
-				</div>
-			</div> <!-- end row -->
-            
-            <div class="row">
-                <div class="col-md-6 rubriquePage" id="boutons"><!-- les boutons --></div>
-                <div class="col-md-6" id="parametres">
-                        <!-- les slider ici -->
-                    </div>
-            </div>
-                
-            <div class="col-md-12 rubriquePage"><!-- les selecteurs -->
-                <div class="form-horizontal">
-                    
-                    <div class="col-md-6">
-                        <div class="descriptionADroite" id="descriptionDataset">
-                            <!-- la description ici -->
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6" id="dessinMur">
-		
-                    </div>
-                    
-                    
-                    
-                    
-                </div>
+			<div class="col-md-7" id="latexSetInfo"></div>
+			</div>
+        </div>
+                       
+                   
+        <div class="row"> <!-- Begin Calcul pression -->
 
-            </div>   <!--end selecteur -->
+            <h2 class="titre_calcul"> Tensor computation
+                <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-up"></span></button>
+            </h2>
+            
+                <div class="cadreCalcule">
+
+                <div class="row">
+        				<div class="col-md-12 rubriquePage">
+        		
+        					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
+        						<div id="graph"></div>
+        				</div>
+        		</div> 
+                    
+
+                <div class="row">
+                    <div class="col-md-6 rubriquePage" id="boutons"><!-- les boutons --></div>
+                    <div class="col-md-6" id="parametres">
+                                <!-- les slider ici -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 rubriquePage"><!-- les descriptions -->
+                            <div class="form-horizontal">  
+                                <div class="col-md-6">
+                                    <div class="descriptionADroite" id="descriptionDataset">
+                                        <!-- la description ici -->
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6" id="dessinMur">
+                    
+                                </div>
+                        
+                            </div>
+
+                    </div>   <!--end descriptions -->
+                </div>    
+                
+            </div> <!-- fin encadrer calcule -->
+
+        </div> <!-- end Calcule Pression -->
+
+            <div class="row"> <!--Begin Calcule flux -->
+
+                <h2 class="titre_calcul"> Global flow
+                     <button class="btn btn-primary btn-lg bouton_R_A"><span class="glyphicon glyphicon-menu-down"></span></button>
+                </h2>
+
+
+            </div> <!--End Calcule flux -->
+
+            <div class="row"> <!--Begin Calcule 3e -->
+
+                <h2 class="titre_calcul"> Local flow
+                    <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-down"></span></button>
+                </h2>
+
+            </div> <!--End Calcule 3e -->
+
         </div> <!-- end conteneur traitement -->
+
         </div> <!--end font blanc-->
 
         <footer class="container-fluid footerPage">
         	<div class="container">
 				<div>
-					<h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
-                    <?php
-                    $json = json_decode(file_get_contents($chemin."/metadata.json"),false);
-                    foreach ($json->references as $key => $value) {
-                        echo '<h5><a href="'.$value->lien.'"  target="_blank" title="ref">'.$value->nom.'</a> </h5>';
-                    }
-                    ?>
+                    <div class="col-md-6">
+                       <h4> <span class="glyphicon glyphicon-paperclip"></span>  References : </h4></label>
+                        <?php
+                        $json = json_decode(file_get_contents($chemin."/metadata.json"),false);
+                        foreach ($json->references as $key => $value) {
+                            echo '<h5><a href="'.$value->lien.'"  target="_blank" title="ref">'.$value->nom.'</a> </h5>';
+                        }
+                        ?> 
+                    </div>
+                    <div class="col-md-6">
+                        <?php include('footer.php'); ?>
+                    </div>
+					
 				</div>
 				<div><!--bouton retour -->
 			    	<div>
-			  			<div class="col-md-5">
-						</div>
-						<div class="col-md-2">
-		        			<button class="btn btn-primary btn-lg boutonReturn" id="btnRetour" >
+						<div class="col-md-12 boutonReturn">
+		        			<button class="btn btn-primary btn-lg " id="btnRetour" >
 		        			<span class="glyphicon glyphicon-circle-arrow-left"></span> Back </button>
-		      			</div>
-			        	<div class="col-md-5">
-						</div>
 					</div>
 			    </div>	
 			</div>
