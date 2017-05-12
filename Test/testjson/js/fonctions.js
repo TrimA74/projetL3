@@ -115,6 +115,7 @@ var mesFonctions = {
         
         //trouver la largeur
         var largeur;
+        console.log(variableChoisi);
         if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
         {
             largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
@@ -193,10 +194,12 @@ var mesFonctions = {
         context.moveTo(100, 60+hauteur);
         context.lineTo(100+(largeurMur/2)-5,60+hauteur);
         
+        alert("coucou");
         context.moveTo(100+(largeurMur/2)-5-10, 60+hauteur+20);
         context.lineTo(100+(largeurMur/2)-5+10, 60+hauteur-20);
         context.moveTo(100+(largeurMur/2)+5-10, 60+hauteur+20);
         context.lineTo(100+(largeurMur/2)+5+10, 60+hauteur-20);
+        alert("fincoucou");
         
         context.moveTo(100+(largeurMur/2)+5, 60+hauteur);
         context.lineTo(100+largeurMur,60+hauteur);
@@ -232,7 +235,7 @@ var mesFonctions = {
         
         context.stroke();
         
-    }
+    }/*,
     majCanvasHydrique  : function(){
         
         var parameters = metadata.set[setCourant].parameters;
@@ -241,7 +244,7 @@ var mesFonctions = {
             gestion du dessin du mur
         *******************************/
         //cree canvas si il n'existe pas encore
-        if($("#canvasMur").length==0)
+        /*if($("#canvasMur").length==0)
         {
             creeCanvas();
         }
@@ -253,8 +256,7 @@ var mesFonctions = {
         
         var largeurMur = 200;
         var hauteur = 300;
-        
-/*
+    
         var canvas  = document.querySelector('#canvasMur');
         var context = canvas.getContext('2d');
         context.clearRect(0,0,canvas.width, canvas.height);
@@ -352,7 +354,7 @@ var mesFonctions = {
         context.lineTo(100+largeurMur+50, 60+(hauteur)/2-10);
         context.fill();
         
-        context.stroke();*/
-    }
+        context.stroke();
+    }*/
     
 };
