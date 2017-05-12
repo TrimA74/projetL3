@@ -59,7 +59,7 @@ var mesFonctions = {
         return tabOrdonee;
     },
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
-    Calcul : function (matriceAbscisse, tableaux) {
+    CalculTensoriel : function (matriceAbscisse, tableaux) {
         var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices

@@ -102,7 +102,7 @@ function updateSlider(elem,parameters) {
 
     // on recalcule la courbe 
     //var tabY = Calcul(matrix[variableChoisi.lettre], tabLigne);
-    var tabY = mesFonctions["Calcul"](matrix[variableChoisi.lettre], tabLigne);
+    var tabY = mesFonctions["CalculTensoriel"](matrix[variableChoisi.lettre], tabLigne);
 
     // On initialise les abscisses en fonction des métadonnées
     
@@ -144,7 +144,7 @@ function changeParams(parametre,val){
     tabLigne = MODTools.getLignesFromSlider(parameters);
     
     //var tabY = Calcul(matrix[variableChoisi.lettre],tabLigne);
-    var tabY = mesFonctions["Calcul"](matrix[variableChoisi.lettre],tabLigne);
+    var tabY = mesFonctions["CalculTensoriel"](matrix[variableChoisi.lettre],tabLigne);
 
     var tabX = new Array();
     for(var i=0; i<matrix[variableChoisi.lettre].length; i++){
@@ -365,7 +365,7 @@ function majApresSet(set){
     
     var tab = JSON.parse(JSON.stringify(tableaux));
     //var tabY = Calcul(matrix[variableChoisi.lettre],tab);
-    var tabY = mesFonctions["Calcul"](matrix[variableChoisi.lettre],tab);
+    var tabY = mesFonctions["CalculTensoriel"](matrix[variableChoisi.lettre],tab);
     var tabX = new Array();
 
     for(var i=0;i<matrix[variableChoisi.lettre].length;i++){
