@@ -101,7 +101,7 @@ var mesFonctions = {
         //cree canvas si il n'existe pas encore
         if($("#canvasMur").length==0)
         {
-            creeCanvas();
+            MODMur.creeCanvas();
         }
         
 
@@ -163,12 +163,12 @@ var mesFonctions = {
         var x=100+largeurMurMin;
         var yA=30;
         var yB=60+hauteur+30;
-        DashedLine(x,yA,x,yB,5,5, context)
+        MODMur.DashedLine(x,yA,x,yB,5,5, context)
         //max
         var x=100+largeurMurMax;
         var yA=30;
         var yB=60+hauteur+30;
-        DashedLine(x,yA,x,yB,5,5, context)
+        MODMur.DashedLine(x,yA,x,yB,5,5, context)
         
         //ajout des textes limites min max
         context.fillStyle = "black";
