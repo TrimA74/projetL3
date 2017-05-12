@@ -8,40 +8,40 @@
           "matrice": "0",
           "valeur": "u",
           "fichier": 0,
-          "nom": "Pressure",
+          "nom": "field",
           "unite": "[-]",
-          "min": "-Inf",
-          "max": "Inf",
+          "min": "-1.000000e+00",
+          "max": "1.000000e+00",
           "valInit": 0
         },
         {
           "matrice": "F",
           "valeur": "x",
           "fichier": 1,
-          "nom": "Thickness",
+          "nom": "space",
           "unite": "[-]",
           "min": 0,
           "max": 1,
-          "valInit": 1
+          "valInit": 0
         },
         {
           "matrice": "G",
           "valeur": "t",
           "fichier": 1,
-          "nom": "Time",
+          "nom": "time",
           "unite": "[-]",
           "min": 0,
-          "max": 120,
-          "valInit": 1
+          "max": 1,
+          "valInit": 0
         },
         {
           "matrice": "H",
-          "valeur": "nu",
+          "valeur": "u",
           "fichier": 1,
-          "nom": "Diffusivity",
+          "nom": "diffusivity",
           "unite": "[-]",
-          "min": 0.002325581,
-          "max": 0.02325581,
+          "min": 0.5,
+          "max": 0.6,
           "valInit": 0
         },
         {
