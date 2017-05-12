@@ -59,7 +59,7 @@ var mesFonctions = {
         return tabOrdonee;
     },
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
-    Calcul : function (matriceAbscisse, tableaux) {
+    CalculTensoriel : function (matriceAbscisse, tableaux) {
         var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
@@ -101,7 +101,7 @@ var mesFonctions = {
         //cree canvas si il n'existe pas encore
         if($("#canvasMur").length==0)
         {
-            creeCanvas();
+            MODMur.creeCanvas();
         }
         
 
@@ -115,7 +115,6 @@ var mesFonctions = {
         
         //trouver la largeur
         var largeur;
-        console.log(variableChoisi);
         if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
         {
             largeur = (Number(dataLargeur.max)+Number(dataLargeur.min))/2;
@@ -171,12 +170,12 @@ var mesFonctions = {
         var x=largeurCote+largeurMurMin;
         var yA=hauteurCote-margeMinMAx;
         var yB=hauteurCote+hauteur+margeMinMAx;
-        DashedLine(x,yA,x,yB,5,5, context)
+        MODMur.DashedLine(x,yA,x,yB,5,5, context)
         //max
         var x=largeurCote+largeurMurMax;
         var yA=hauteurCote-margeMinMAx;
         var yB=hauteurCote+hauteur+margeMinMAx;
-        DashedLine(x,yA,x,yB,5,5, context)
+        MODMur.DashedLine(x,yA,x,yB,5,5, context)
         
         
         

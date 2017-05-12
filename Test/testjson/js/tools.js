@@ -18,6 +18,7 @@ var MODTools = (function(){
 		}
 		return vars;
 	};
+	
 	self.updateSliderHandler = function (j,parameters) {
 		 return function(event) { 
         updateSlider(j,parameters);
