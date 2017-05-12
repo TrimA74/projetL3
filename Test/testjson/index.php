@@ -57,13 +57,18 @@ $json = json_decode(file_get_contents("metadata.json"),false);
         </div>
         </div> <!-- end zone principale -->
 		<footer class="container-fluid footerIndex">
-			<div class="footerDescription">
-				<p>M. BERGER Julien</p>
-				<p>Chercheur au LOCIE</p>
-				<p>Docteur en Génie Civil et Sciences de l'Habitat</p>
+			<div class="container">
+				<div class="row">	
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<?php include('footer.php'); ?>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
 			</div>
 		</footer>
 		
+		<script src="jquery.min.js"></script>
 		<script src="bootstrap.min.js"></script>
 
 	</body>
