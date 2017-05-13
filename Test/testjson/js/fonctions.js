@@ -121,7 +121,7 @@ var mesFonctions = {
         }
         else //sinon la valeur du slider
         {
-            largeur = $("#range" + dataLargeur.lettre).slider('getValue');
+            largeur = $(".range" + dataLargeur.lettre).slider('getValue');
         }
         
         

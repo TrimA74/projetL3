@@ -96,16 +96,15 @@
                 <div class="cadreCalcule">
 
                     <div class="row">
-            				<div class="col-md-12 rubriquePage">
+            				<div class="col-md-12  graph-container">
             		
-            					 <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
-            						<div id="graph"></div>
+            					 <h2>
+                                    <span class="glyphicon glyphicon-signal"></span>  Graphic : <span class="nomGraph"></span>
+                                </h2>
             				</div>
             		</div> 
-                    
-
                     <div class="row controllers" style="display:none;">
-                        <div class="col-md-6 rubriquePage" id="boutons">
+                        <div class="col-md-5 rubriquePage" id="boutons">
                             <div class='col-md-8'>
                                 <h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Parameters</h2>
                                 <div class='buttonsList'>
@@ -116,14 +115,14 @@
                                 
                             </div>
                         </div>
-                        <div class="col-md-6" id="parametres">
+                        <div class="col-md-7" id="parametres">
                             <h2><span class='glyphicon glyphicon-option-vertical'></span>  Other parameters </h2>
                             <div class='form-horizontal variables'>
                             <!-- les sliders -->
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row graphinfo">
                         <div class="col-md-12 rubriquePage"><!-- les descriptions -->
                                 <div class="form-horizontal">  
                                     <div class="col-md-6">
@@ -245,11 +244,14 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-slider.min.js"></script>
+    <script type="text/javascript" src="js/plotly.js" ></script>
         
     
     <script type="text/javascript" src="js/tools.js" ></script>
-    <script type="text/javascript" src="js/plotly.js" ></script>
     <script type="text/javascript" src="js/fonctions.js" ></script>
+    
+    <script type="text/javascript" src="js/graph.js" ></script>
+    <script type="text/javascript" src="js/env.js" ></script>
     <script type="text/javascript" src="js/mur.js" ></script>
     
     <script type="text/javascript" src="js/app.js" ></script>
