@@ -135,6 +135,7 @@ function updateSlider(elem,parameters,cadre) {
 
 /*  */
 function changeParams(parametre,val,cadre){
+    console.log(cadre);
     var cadreDiv = $(cadre);
     var controllers = cadreDiv.find(".controllers");
     var parameters = metadata.set[setCourant].parameters;
@@ -201,8 +202,11 @@ function majApresSet(set,cadre){
     
 
     $.when.apply( $ , MODTools.getMatrixDeferred(parameters,set) ).done(function () {
-        MODEnv.creationCadreCalcul(".tensoriel",parameters);
-        MODGraph.createDefaultGraph(cadre); 
+        console.log(matrix);
+        $.each(metadata.calculs,function (i,e){
+            MODEnv.creationCadreCalcul("." + e.class,parameters);
+            MODGraph.createDefaultGraph("."+e.class); 
+        });
     }); 
     
       

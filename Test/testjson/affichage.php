@@ -143,60 +143,58 @@
 
         </div> <!-- end Calcule Pression -->
 
-            <div class="row"> <!--Begin Calcule flux -->
+            <div class="row flux"> <!--Begin Calcule flux -->
 
-                <h2 class="titre_calcul"> Global flow
-                     <button class="btn btn-primary btn-lg bouton_R_A"><span class="glyphicon glyphicon-menu-down"></span></button>
-                </h2>
-                    <div class="cadreCalcule">
+                <h2 class="titre_calcul"> Global Flow
+                <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-up"></span></button>
+            </h2>
+                <div class="cadreCalcule">
 
-                        <div class="row">
-                                <div class="col-md-12 rubriquePage">
-                        
-                                     <h2><span class="glyphicon glyphicon-signal"></span>  Graphic : <span id="nomGraph"></span></h2>
-                                        <div id="graph"></div>
-                                </div>
-                        </div> 
-                        
-
-                        <div class="row controllers" style="display:none;">
-                            <div class="col-md-6 rubriquePage" id="boutons">
-                                <div class='col-md-8'>
-                                    <h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Parameters</h2>
-                                    <div class='buttonsList'>
-                                            <!-- les boutons -->
-                                    </div>
-                                </div>
-                                <div class='col-md-4 rubriquePage'>
-                                    
+                    <div class="row">
+                            <div class="col-md-12  graph-container">
+                    
+                                 <h2>
+                                    <span class="glyphicon glyphicon-signal"></span>  Graphic : <span class="nomGraph"></span>
+                                </h2>
+                            </div>
+                    </div> 
+                    <div class="row controllers" style="display:none;">
+                        <div class="col-md-5 rubriquePage" id="boutons">
+                            <div class='col-md-8'>
+                                <h2> <span class='glyphicon glyphicon-option-horizontal'></span>  Parameters</h2>
+                                <div class='buttonsList'>
+                                        <!-- les boutons -->
                                 </div>
                             </div>
-                            <div class="col-md-6" id="parametres">
-                                <h2><span class='glyphicon glyphicon-option-vertical'></span>  Other parameters </h2>
-                                <div class='form-horizontal variables'>
-                                <!-- les sliders -->
-                                </div>
+                            <div class='col-md-4 rubriquePage'>
+                                
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 rubriquePage"><!-- les descriptions -->
-                                    <div class="form-horizontal">  
-                                        <div class="col-md-6">
-                                            <div class="descriptionADroite" id="descriptionDataset">
-                                                <!-- la description ici -->
-                                            </div>
+                        <div class="col-md-7" id="parametres">
+                            <h2><span class='glyphicon glyphicon-option-vertical'></span>  Other parameters </h2>
+                            <div class='form-horizontal variables'>
+                            <!-- les sliders -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row graphinfo">
+                        <div class="col-md-12 rubriquePage"><!-- les descriptions -->
+                                <div class="form-horizontal">  
+                                    <div class="col-md-6">
+                                        <div class="descriptionADroite" id="descriptionDataset">
+                                            <!-- la description ici -->
                                         </div>
-                                        
-                                        <div class="col-md-6" id="dessinMur">
-                            
-                                        </div>
-                                
                                     </div>
+                                    
+                                    <div class="col-md-6" id="dessinMur">
+                        
+                                    </div>
+                            
+                                </div>
 
-                            </div>   <!--end descriptions -->
-                        </div>    
-                    </div> <!-- fin encadrer calcule -->
-
+                        </div>   <!--end descriptions -->
+                    </div>    
+                </div> <!-- fin encadrer calcule -->
 
             </div> <!--End Calcule flux -->
 

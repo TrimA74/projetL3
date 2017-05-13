@@ -7,7 +7,7 @@ var MODGraph = (function(){
 	    tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
 	    
 	    //var tabY = Calcul(matrix[variableChoisi.lettre],tabLigne);
-	    var tabY = mesFonctions["CalculTensoriel"](matrix[variableChoisi.lettre],tabLigne);
+	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.lettre],tabLigne);
 
 	    var tabX = MODTools.initTabx(variableChoisi);
 
