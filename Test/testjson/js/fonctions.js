@@ -52,13 +52,16 @@ var mesFonctions = {
                 if (variableChoisi.lettre == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
-                    var valSlider = $("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
-                    tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * valSlider); 
+                    var ligne = $("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
+					ligne = Math.round((ligne-min)/ ranger.slider('getAttribute').step);	//Récupération de l'indice de cette valeur
+                    tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * tabC[ligne]); 
                 }
             }
         }   
         return tabOrdonee;
     },
+	
+	
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
     CalculTensoriel : function (matriceAbscisse, tableaux) {
         var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
@@ -92,6 +95,9 @@ var mesFonctions = {
         return tabOrdonee;
 
     },
+
+
+
     majCanvasThermique : function(){
         
         var parameters = metadata.set[setCourant].parameters;

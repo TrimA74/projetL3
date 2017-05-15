@@ -135,7 +135,7 @@ function updateSlider(elem,parameters,cadre) {
 
 /*  */
 function changeParams(parametre,val,cadre){
-    console.log(cadre);
+    //console.log(cadre);
     var cadreDiv = $(cadre);
     var controllers = cadreDiv.find(".controllers");
     var parameters = metadata.set[setCourant].parameters;
@@ -182,12 +182,11 @@ function changeParams(parametre,val,cadre){
 
 /* Fonction qui se déclanche sur l'événement onChange du selecteur de dataset */
 function majApresSet(set,cadre){
-    
+    console.log(metadata);
     setCourant = set;
     var parameters = metadata.set[setCourant].parameters;
 
     /* Latex Set Info*/ 
-
     var client = new XMLHttpRequest();
     client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
     client.onreadystatechange = function() {

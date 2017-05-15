@@ -1,6 +1,7 @@
 /*  */
 var MODTools = (function(){
 	var self = {};
+	
 	/* Récupère les paramètres get de la requête http*/ 
 	self.$_GET = function (param) {
 		var vars = {};
@@ -24,6 +25,7 @@ var MODTools = (function(){
         updateSlider(j,parameters,cadre);
     	};
 	};
+	
 	/* Fonction qui met les données récupérées des csv dans des tableaux */
 	self.processDataMatrix = function (allText) {
 		var allTextLines = allText.split(/\r\n|\n/);
@@ -71,7 +73,7 @@ var MODTools = (function(){
 	        if(e.fichier==1 && e!=variableChoisi){
 	        	var ranger = $(cadre).find(".range" + e.lettre);
 	            var ligne = ranger.slider('getValue');
-	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step); 
+	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
 	            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.lettre][ligne])));
 	        }
 	    });

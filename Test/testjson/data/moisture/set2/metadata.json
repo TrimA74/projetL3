@@ -2,6 +2,8 @@
   "set": [
     {
       "name": "set2",
+	  "matriceAIntegrer":"x",
+	  "paramPourIntegration":"c",
       "descriptionLatex": "/meta_donnees_LaTeX.tex",
       "parameters": [
         {
