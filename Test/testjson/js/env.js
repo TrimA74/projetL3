@@ -23,7 +23,7 @@ var MODEnv = (function () {
 	    //Pour chaque bouton, on le remplit avec les bonnes valeurs en fonction du paramètre que l'utilisateur a sélectionné
 	    $.each(parameters,function (i,e){
 	        if( (e.fichier && cadre==".tensoriel") ||	(cadre==".fluxGlobal" 
-			&& e.valeur != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 )){
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 )){
 	           str += "<button onclick=\"changeParams($( this ).text(),$( this ).val(),'"+cadre+"');$('"+cadre+"').find('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.valeur+ "</button>"; 
 	        }
 	    });
@@ -39,11 +39,10 @@ var MODEnv = (function () {
 	    
 	    str ="";
 
-	    console.log();
 	    /* création de la structure html des sliders */
 	    $.each(parameters,function (i,e){
 	        if( (e.fichier && cadre==".tensoriel") ||	(cadre==".fluxGlobal" 
-			&& e.valeur != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 )){
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 )){
 	            var step = (e.max-e.min) / (matrix[e.matrice].length-1);
 	            
 	            str += "<div class='form-group param param" + e.valeur + "' style='display:none; '>";
@@ -78,7 +77,7 @@ var MODEnv = (function () {
 	    /* création finiale des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
 	    $.each(parameters,function (i,e){
 	        if( (e.fichier && cadre==".tensoriel") ||	(cadre==".fluxGlobal" 
-			&& e.valeur != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 )){
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 )){
 	            var pas = (e.max-e.min)/(matrix[e.matrice].length-1);
 	            slider = variables.find(".range" + e.valeur).slider({ 
 	              tooltip: 'always',
