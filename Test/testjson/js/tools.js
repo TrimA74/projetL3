@@ -72,7 +72,6 @@ var MODTools = (function(){
 	    $.each(parameters,function (i,e){
 	        if( (e.fichier==1 && e!=variableChoisi && cadre==".tensoriel" ) || (cadre==".fluxGlobal" 
 			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 && e!=variableChoisi) ) {
-				console.log(e.valeur);
 	        	var ranger = $(cadre).find(".range" + e.valeur);
 	            var ligne = ranger.slider('getValue');
 	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);

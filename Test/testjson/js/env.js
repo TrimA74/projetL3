@@ -18,8 +18,6 @@ var MODEnv = (function () {
 	    buttons.html("");
 	    var str = "";
 
-		
-		
 	    //Pour chaque bouton, on le remplit avec les bonnes valeurs en fonction du paramètre que l'utilisateur a sélectionné
 	    $.each(parameters,function (i,e){
 	        if( (e.fichier && cadre==".tensoriel") ||	(cadre==".fluxGlobal" 

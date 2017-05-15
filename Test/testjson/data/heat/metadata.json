@@ -22,11 +22,13 @@
   "calculs": {
     "tensoriel": {
       "display": 1,
-      "method": "CalculTensoriel"
+      "method": "CalculTensoriel",
+      "title": "Tensor computation"
     },
     "fluxGlobal": {
       "display": 1,
       "method": "CalculIntegrale",
+      "title": "Global Flow",
       "matriceAIntegrer": "F",
       "paramPourIntegration": "k"
     }

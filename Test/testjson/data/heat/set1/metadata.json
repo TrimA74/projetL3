@@ -36,7 +36,7 @@
         },
         {
           "matrice": "H",
-          "valeur": "u",
+          "valeur": "k",
           "fichier": 1,
           "nom": "diffusivity",
           "unite": "[-]",

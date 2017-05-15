@@ -198,7 +198,6 @@ function changeParams(parametre,val,cadre){
 
 /* Fonction qui se déclanche sur l'événement onChange du selecteur de dataset */
 function majApresSet(set,cadre){
-    console.log(metadata);
     setCourant = set;
     var parameters = metadata.set[setCourant].parameters;
 
