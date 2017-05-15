@@ -9,8 +9,7 @@ var MODGraph = (function(){
 	    if (metadata.calculs[cadre.replace('.','')].method == "CalculTensoriel"){
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
 		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculIntegrale"){
-			var matriceAIntegrer = 'F';		//TODO: a récupérer du JSON
-			
+			var matriceAIntegrer = metadata.calculs.fluxGlobal.matriceAIntegrer;
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
 			
 			// On cherche le delta pour intégrer la matrice matriceAIntegrer
