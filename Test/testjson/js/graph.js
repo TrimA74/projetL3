@@ -4,9 +4,31 @@ var MODGraph = (function(){
 	self.redrawGraph = function (layout,cadre,variableChoisi,parameters) {
 	    var tabLigne = [];//les lignes choisies
 
-	    tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
-	    
-	    //var tabY = Calcul(matrix[variableChoisi.lettre],tabLigne);
+		console.log(metadata);
+		console.log(matrix);
+		
+		// On effectue le bon calcul
+	    if (metadata.calculs[cadre.replace('.','')].method == "CalculTensoriel"){
+			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
+		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculIntegrale"){
+			var matriceAIntegrer = 'x';
+			
+			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
+			
+			// On cherche le delta pour intégrer la matrice matriceAIntegrer
+			var min;
+			var max;
+			$.each(parameters,function (i,e){
+				if(e.lettre=='matriceAIntegrer'){
+					min = e.min;
+					max = e.max;
+				}
+			});
+			var delta = (max - min)/(matrix[matriceAIntegrer].length-1);    // (valMax-valMin) / nbVal
+			tabLigne.push(MODTools.integrationMatrice(matrix[matriceAIntegrer] , delta));
+		}
+		
+
 	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.lettre],tabLigne);
 
 	    var tabX = MODTools.initTabx(variableChoisi);
