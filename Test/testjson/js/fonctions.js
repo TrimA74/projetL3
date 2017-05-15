@@ -259,6 +259,149 @@ var mesFonctions = {
         
         context.stroke();
         
+    }, 
+    majCanvasHydrique : function(){ //pas encore fonctionnel
+        
+        var parameters = metadata.set[setCourant].parameters;
+        
+        /*******************************
+            gestion du dessin du mur
+        *******************************/
+        //cree canvas si il n'existe pas encore
+        if($("#canvasMur").length==0)
+        {
+            MODMur.creeCanvas();
+        }
+        
+
+        //pour avoir les max et min de la largeur dans la fonction du canvas
+        var dataDiffusivite;
+        $.each(parameters,function (i,e){
+            if(e.lettre=='nu'){
+                dataDiffusivite = e ;
+            }
+        });
+        
+        //trouver la largeur
+        var diffusivite;
+        if(variableChoisi==dataDiffusivite) //si la variableChoisi est celle de la largeur , on prend la moyenne
+        {
+            diffusivite = (Number(dataDiffusivite.max)+Number(dataDiffusivite.min))/2;
+        }
+        else //sinon la valeur du slider
+        {
+            diffusivite = $("#range" + dataDiffusivite.lettre).slider('getValue');
+        }
+        
+        //calcul des longueurs
+        largeurCanvas = $("#canvasMur")[0].width;
+        hauteurCanvas = $("#canvasMur")[0].height; 
+        
+        var largeurMur = largeurCanvas*60/(100*Number(dataLargeur.max));
+       
+        var largeurCote  = (20/100)*largeurCanvas //outside et inside
+        var largeurTriangleFleche  = (5/100)*largeurCanvas
+        var margeFleche  = (5/100)*largeurCanvas    //marge entre le mur et le debut ou le triangle dela fleche
+        var separationParallele  = (1/100)*largeurCanvas //espacement entre les 2 segments paralleles (sur le bord haut et bas du mur)
+        var decalageParallele  = (2/100)*largeurCanvas     //ce qui permet l'inclinaison des paralleles
+        
+        
+        var hauteur = hauteurCanvas*(70/100);
+        
+        var hauteurCote = hauteurCanvas*(15/100);
+        
+        var hauteurParallele = decalageParallele*(150/100);     //de combien depasse la parallele au-dessus et au-dessous du bord
+        var moitieHauteurFleche = largeurTriangleFleche*(30/100);   //hauteur de la demi-fleche
+        
+        
+        var canvas  = document.querySelector('#canvasMur');
+        var context = canvas.getContext('2d');
+        context.clearRect(0,0,canvas.width, canvas.height);
+        
+        //coloration des rectangle
+        //rectangle du mur: image des fissures
+        var img = new Image();   // Crée un nouvel objet Image
+        img.src = 'img/fissures.jpg'; // Définit le chemin vers sa source
+        context.drawImage(img,largeurCote,hauteurCote);
+       
+        
+        
+        
+        if(largeurCanvas > 270)
+        {
+            context.font="18px 'Helvetica Neue',Helvetica,Arial,sans-serif";
+            //ajout des textes d'environnement
+            context.fillStyle = "black";
+            context.fillText("Outside", 0, hauteurCote + (20/100)*hauteur);
+            context.fillStyle = "black";
+            context.fillText("Inside", largeurCote+largeurMur+20, hauteurCote + (20/100)*hauteur);
+            
+            //ajout des textes du mur et isolation
+            context.fillStyle = "black";
+            context.fillText("Wall", largeurCote+20, hauteurCote + (20/100)*hauteur);
+            
+        }
+        
+        
+        
+        
+        
+        //creation des contours
+        context.beginPath();
+        context.lineWidth = "2";
+        context.strokeStyle = "black";
+        //context.strokeRect(100, 60, largeurMur, hauteur);
+        
+        //traits gauche et droite
+        context.moveTo(largeurCote, hauteurCote);
+        context.lineTo(largeurCote,hauteurCote+hauteur);
+        context.moveTo(largeurCote+largeurMur, hauteurCote);
+        context.lineTo(largeurCote+largeurMur, hauteurCote+hauteur);
+        
+        
+        //traits bas
+        context.moveTo(largeurCote, hauteurCote+hauteur);
+        context.lineTo(largeurCote+(largeurMur/2)-separationParallele,hauteurCote+hauteur);
+        
+        context.moveTo(largeurCote+(largeurMur/2)-separationParallele-decalageParallele, hauteurCote+hauteur+hauteurParallele);
+        context.lineTo(largeurCote+(largeurMur/2)-separationParallele+decalageParallele, hauteurCote+hauteur-hauteurParallele);
+        context.moveTo(largeurCote+(largeurMur/2)+separationParallele-decalageParallele, hauteurCote+hauteur+hauteurParallele);
+        context.lineTo(largeurCote+(largeurMur/2)+separationParallele+decalageParallele, hauteurCote+hauteur-hauteurParallele);
+        
+        context.moveTo(largeurCote+(largeurMur/2)+separationParallele, hauteurCote+hauteur);
+        context.lineTo(largeurCote+largeurMur,hauteurCote+hauteur);
+        
+        
+        //traits hauts
+        context.moveTo(largeurCote, hauteurCote);
+        context.lineTo(largeurCote+(largeurMur/2)-separationParallele,hauteurCote);
+        
+        context.moveTo(largeurCote+(largeurMur/2)-separationParallele-decalageParallele, hauteurCote+hauteurParallele);
+        context.lineTo(largeurCote+(largeurMur/2)-separationParallele+decalageParallele, hauteurCote-hauteurParallele);
+        
+        context.moveTo(largeurCote+(largeurMur/2)+separationParallele-decalageParallele, hauteurCote+hauteurParallele);
+        context.lineTo(largeurCote+(largeurMur/2)+separationParallele+decalageParallele, hauteurCote-hauteurParallele);
+        
+        context.moveTo(largeurCote+(largeurMur/2)+separationParallele, hauteurCote);
+        context.lineTo(largeurCote+largeurMur,hauteurCote);
+        
+        context.stroke();
+        
+        //la fleche
+        context.beginPath();
+        context.lineWidth = "3";
+        context.strokeStyle = "black";
+        context.moveTo(largeurCote-margeFleche, hauteurCote+(hauteur)/2);
+        context.lineTo(largeurCote+largeurMur+margeFleche,hauteurCote+(hauteur)/2);
+        
+        context.lineWidth = "1";
+        context.moveTo(largeurCote+largeurMur+margeFleche+largeurTriangleFleche, hauteurCote+(hauteur)/2);
+        context.lineTo(largeurCote+largeurMur+margeFleche, hauteurCote+(hauteur)/2+moitieHauteurFleche);
+        context.lineTo(largeurCote+largeurMur+margeFleche, hauteurCote+(hauteur)/2-moitieHauteurFleche);
+        context.fill();
+        
+        context.stroke();
+        
     }
     
 };
