@@ -152,7 +152,7 @@ function updateSlider(elem,parameters,cadre) {
 
 /*  */
 function changeParams(parametre,val,cadre){
-    console.log(cadre);    var cadreDiv = $(cadre);
+    var cadreDiv = $(cadre);
     var controllers = cadreDiv.find(".controllers");
     var parameters = metadata.set[setCourant].parameters;
 
