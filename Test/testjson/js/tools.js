@@ -19,9 +19,9 @@ var MODTools = (function(){
 		return vars;
 	};
 	
-	self.updateSliderHandler = function (j,parameters) {
+	self.updateSliderHandler = function (j,parameters,cadre) {
 		 return function(event) { 
-        updateSlider(j,parameters);
+        updateSlider(j,parameters,cadre);
     	};
 	};
 	/* Fonction qui met les données récupérées des csv dans des tableaux */
@@ -64,13 +64,14 @@ var MODTools = (function(){
 	};
 
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
-	self.getLignesFromSlider = function (parameters){
+	self.getLignesFromSlider = function (parameters,cadre){
 		var tabLigne = [];    //les lignes choisies
 
 	    $.each(parameters,function (i,e){
 	        if(e.fichier==1 && e!=variableChoisi){
-	            var ligne = $("#range" + e.lettre).slider('getValue');
-	            ligne = Math.round((ligne-e.min)/ $("#range" + e.lettre).slider('getAttribute').step); 
+	        	var ranger = $(cadre).find(".range" + e.lettre);
+	            var ligne = ranger.slider('getValue');
+	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step); 
 	            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.lettre][ligne])));
 	        }
 	    });
@@ -92,6 +93,37 @@ var MODTools = (function(){
 
 	    return tabX;
 	};
+
+	self.getMatrixDeferred = function (parameters,set) {
+	    var deferreds = [];
+
+	    // récupération des matrices avec la fonction processData pour récupérer un tableau 2d
+	    $.each(parameters,function (i,e){
+	        if(e.fichier){
+	            deferreds.push($.ajax({
+	                url: 'ajax.php',
+	                type:'POST',
+	                async: true,
+	                dataType : 'json', // On désire recevoir du HTML
+	                data:
+	                {
+	                    myFunction:'chargeMatrice',
+	                    myParams:{
+	                        set:set,
+	                        cat:self.$_GET("cat"),
+	                        matrice: e.lettre
+	                    }
+	                },
+	                success: function(result)
+	                {
+	                    matrix[e.lettre] = self.processDataMatrix(result);
+	                }
+	            }));
+	        }
+	    });
+	    return deferreds;
+
+	}
 
 	return self;
 })();

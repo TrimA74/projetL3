@@ -1,7 +1,7 @@
 //met a jour le canvas du mur pour thermique
 var mesFonctions = {
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
-    CalculIntegrale : function (matriceAbscisse, tableaux, parameters) {
+    CalculIntegrale : function (matriceAbscisse, tableaux) {
         //A la différence du calcul précédent, on ajoute un facteur C à chaque somme.
         //Si l'utilisateur fixe le paramètre c, alors C = c(i fixé). Si l'utilisateur ne fixe pas le paramètre c, alors C = vecteur c.
         var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
@@ -9,7 +9,9 @@ var mesFonctions = {
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
-        var varProduit = "u";                           // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
+        var varProduit = "c";                           // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
+
+        var parameters = metadata.set[setCourant].parameters;
 
         // On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
         var min;
@@ -55,7 +57,6 @@ var mesFonctions = {
                 }
             }
         }   
-
         return tabOrdonee;
     },
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
@@ -121,7 +122,7 @@ var mesFonctions = {
         }
         else //sinon la valeur du slider
         {
-            largeur = $("#range" + dataLargeur.lettre).slider('getValue');
+            largeur = $(".range" + dataLargeur.lettre).slider('getValue');
         }
         
         

@@ -19,15 +19,17 @@
     "displayWall": 0,
     "method": ""
   },
-  "calculs": [
-    {
+  "calculs": {
+    "tensoriel": {
       "display": 1,
+      "class": "tensoriel",
       "method": "CalculTensoriel"
     },
-    {
+    "flux": {
       "display": 1,
+      "class": "flux",
       "method": "CalculIntegrale"
     }
-  ],
+  },
   "description": "The physical problem involves one-dimension moisture diffusion through a porous material. The material is submitted to a cyclic increases of relative humidity on one side and constant relative humidity on the other side. The permeability and storage coefficients do not depend on the moisture content. The model is computed as a function of the moisture storage capacity, the space and time."
 }
