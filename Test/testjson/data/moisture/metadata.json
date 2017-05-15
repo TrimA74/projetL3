@@ -22,12 +22,10 @@
   "calculs": {
     "tensoriel": {
       "display": 1,
-      "class": "tensoriel",
       "method": "CalculTensoriel"
     },
-    "flux": {
+    "fluxGlobal": {
       "display": 1,
-      "class": "flux",
       "method": "CalculIntegrale"
     }
   },
