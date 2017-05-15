@@ -106,6 +106,13 @@ $( document ).ready(function() {
         });
             
     });
+    
+    $('.bouton_R_A').on('click', function() {
+
+        
+        
+            
+    });
 
 });
 
@@ -135,8 +142,7 @@ function updateSlider(elem,parameters,cadre) {
 
 /*  */
 function changeParams(parametre,val,cadre){
-    //console.log(cadre);
-    var cadreDiv = $(cadre);
+    console.log(cadre);    var cadreDiv = $(cadre);
     var controllers = cadreDiv.find(".controllers");
     var parameters = metadata.set[setCourant].parameters;
 
@@ -197,14 +203,16 @@ function majApresSet(set,cadre){
 
     //cree canvas pour le mur
     if(metadata.wall.displayWall)
+    {
         mesFonctions[metadata.wall.method]();
+    }
     
 
     $.when.apply( $ , MODTools.getMatrixDeferred(parameters,set) ).done(function () {
-        console.log(matrix);
         $.each(metadata.calculs,function (i,e){
-            MODEnv.creationCadreCalcul("." + e.class,parameters);
-            MODGraph.createDefaultGraph("."+e.class); 
+
+            MODEnv.creationCadreCalcul("." + i,parameters);
+            MODGraph.createDefaultGraph("."+i); 
         });
     }); 
     

@@ -81,7 +81,7 @@
 			</div>
 			<div class="col-md-12 infoSetLatex">
 				<div class="col-md-3">
-					<h3>&emsp;&emsp;Set Information : </h3>
+					<h3>Set Information : </h3>
 				</div>
 			<div class="col-md-7" id="latexSetInfo"></div>
 			</div>

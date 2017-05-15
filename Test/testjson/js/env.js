@@ -18,6 +18,8 @@ var MODEnv = (function () {
 	    buttons.html("");
 	    var str = "";
 
+		
+		
 	    //Pour chaque bouton, on le remplit avec les bonnes valeurs en fonction du paramètre que l'utilisateur a sélectionné
 	    $.each(parameters,function (i,e){
 	        if(e.fichier){
@@ -32,6 +34,7 @@ var MODEnv = (function () {
 	    ***     GESTION PARAMETRES/SLIDERS       ***
 	    ********************************************/
 	    var variables = controllers.find(".variables");
+		console.log(variables);
 	    variables.html("");
 	    
 	    str ="";
@@ -75,6 +78,7 @@ var MODEnv = (function () {
 	        if(e.fichier){
 	            var pas = (e.max-e.min)/(matrix[e.lettre].length-1);
 	            
+				console.log(variables.find(".range" + e.lettre));
 	            slider = variables.find(".range" + e.lettre).slider({ 
 	              tooltip: 'always',
 	              step : pas,
