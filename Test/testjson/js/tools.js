@@ -64,14 +64,19 @@ var MODTools = (function(){
 		//console.log(tabRetour);
 		return tabRetour;
 	};
-
+	self.isSliderParameter = function (e,cadre,metadata) {
+		if(!e.fichier) { return false; }
+		if( cadre==".tensoriel" || (cadre==".fluxGlobal" 
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer )){
+			return true;
+		} else { return false; }
+	} 
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
 	self.getLignesFromSlider = function (parameters,cadre){
 		var tabLigne = [];    //les lignes choisies
 
 	    $.each(parameters,function (i,e){
-	        if( (e.fichier==1 && e!=variableChoisi && cadre==".tensoriel" ) || (cadre==".fluxGlobal" 
-			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer && e.fichier==1 && e!=variableChoisi) ) {
+	        if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi) {
 	        	var ranger = $(cadre).find(".range" + e.valeur);
 	            var ligne = ranger.slider('getValue');
 	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);

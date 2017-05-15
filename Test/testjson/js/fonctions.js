@@ -13,13 +13,9 @@ var mesFonctions = {
         var parameters = metadata.set[setCourant].parameters;
 
         // On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
-        var parametre;
-        $.each(parameters,function (i,e){
-            if(e.valeur == varProduit){
-                parametre =e;		
-            }
+        var parametre = parameters.find(function (e) {
+            return e.valeur == varProduit;
         });
-		
 
         var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
         for (var i=0; i<matrix[parametre.matrice].length; i++){
@@ -112,13 +108,9 @@ var mesFonctions = {
         
 
         //pour avoir les max et min de la largeur dans la fonction du canvas
-        var dataLargeur;
-        $.each(parameters,function (i,e){
-            if(e.valeur=='L'){
-                dataLargeur = e ;
-            }
-        });
-        
+        var dataLargeur = parameters.find(function (e) {
+            return e.valeur == 'L';
+        });        
         //trouver la largeur
         var largeur;
         if(variableChoisi==dataLargeur) //si la variableChoisi est celle de la largeur , on prend la moyenne
