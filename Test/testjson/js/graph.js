@@ -4,8 +4,6 @@ var MODGraph = (function(){
 	self.redrawGraph = function (layout,cadre,variableChoisi,parameters) {
 	    var tabLigne = [];//les lignes choisies
 
-		console.log(metadata);
-		console.log(matrix);
 		
 		// On effectue le bon calcul
 	    if (metadata.calculs[cadre.replace('.','')].method == "CalculTensoriel"){
@@ -29,7 +27,7 @@ var MODGraph = (function(){
 		}
 		
 
-	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.matrice],tabLigne);
+	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.matrice],tabLigne,cadre);
 
 
 	    var tabX = MODTools.initTabx(variableChoisi);

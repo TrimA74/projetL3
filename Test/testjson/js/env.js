@@ -34,11 +34,9 @@ var MODEnv = (function () {
 	    ***     GESTION PARAMETRES/SLIDERS       ***
 	    ********************************************/
 	    var variables = controllers.find(".variables");
-		console.log(variables);
 	    variables.html("");
 	    
 	    str ="";
-	    console.log(metadata);
 	    /* création de la structure html des sliders */
 	    $.each(parameters,function (i,e){
 	        if(e.fichier){

@@ -41,8 +41,6 @@ var mesFonctions = {
         for(var i=0;i<nbLignes;i++){
             tabOrdonee[i] = Number(variableChoisi.valInit);
         }
-        //console.log(tabOrdonee);
-        
         
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
@@ -50,20 +48,18 @@ var mesFonctions = {
                 if (variableChoisi.variable == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
-                    var ligne = $(cadre).find("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
-					ligne = Math.round((ligne-parametre.min)/ $(cadre).find("#range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
-                    console.log(ligne);
+                    var ligne = $(cadre).find(".range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
+					ligne = Math.round((ligne-parametre.min)/ $(cadre).find(".range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
                     tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * tabC[ligne]); 
                 }
             }
         }   
-        console.log(tabOrdonee);
         return tabOrdonee;
     },
 	
 	
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
-    CalculTensoriel : function (matriceAbscisse, tableaux) {
+    CalculTensoriel : function (matriceAbscisse, tableaux, cadre) {
         var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
