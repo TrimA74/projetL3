@@ -9,8 +9,8 @@ var mesFonctions = {
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
-        var varProduit = "c";                           // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
-
+        var varProduit = metadata.calculs.fluxGlobal.paramPourIntegration;                           // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
+        console.log("varProduit : " + varProduit);
         var parameters = metadata.set[setCourant].parameters;
 
         // On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)

@@ -31,6 +31,7 @@ var MODGraph = (function(){
 
 	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.lettre],tabLigne);
 
+
 	    var tabX = MODTools.initTabx(variableChoisi);
 
 	    var trace = {
