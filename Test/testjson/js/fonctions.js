@@ -1,7 +1,7 @@
 //met a jour le canvas du mur pour thermique
 var mesFonctions = {
     /* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
-    CalculIntegrale : function (matriceAbscisse, tableaux) {
+    CalculIntegrale : function (matriceAbscisse, tableaux, cadre) {
         //A la différence du calcul précédent, on ajoute un facteur C à chaque somme.
         //Si l'utilisateur fixe le paramètre c, alors C = c(i fixé). Si l'utilisateur ne fixe pas le paramètre c, alors C = vecteur c.
         var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
@@ -9,20 +9,17 @@ var mesFonctions = {
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
-        var varProduit = metadata.calculs.fluxGlobal.paramPourIntegration;                           // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
-        console.log("varProduit : " + varProduit);
+        var varProduit = metadata.calculs.fluxGlobal.paramPourIntegration;                        // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
         var parameters = metadata.set[setCourant].parameters;
 
         // On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
-        var min;
-        var max;
+        var parametre;
         $.each(parameters,function (i,e){
-            if(e.lettre==varProduit){
-                min = e.min;
-                max = e.max;
+            if(e.valeur == varProduit){
+                parametre =e;		
             }
         });
-        var pas = (max - min)/(matrix[varProduit].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
+        var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
         for (var i=0; i<matrix[varProduit].length; i++){
             tabC[i] = i*pas;
         }
@@ -49,11 +46,11 @@ var mesFonctions = {
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
             for(var j=0;j<nbColonnes;j++){      // On fait la somme des produits de chaque colonnes
-                if (variableChoisi.lettre == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
+                if (variableChoisi.variable == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
-                    var ligne = $("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
-					ligne = Math.round((ligne-min)/ $("#range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
+                    var ligne = $(cadre).find("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
+					ligne = Math.round((ligne-min)/ $(cadre).find("#range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
                     tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * tabC[ligne]); 
                 }
             }
@@ -115,7 +112,7 @@ var mesFonctions = {
         //pour avoir les max et min de la largeur dans la fonction du canvas
         var dataLargeur;
         $.each(parameters,function (i,e){
-            if(e.lettre=='L'){
+            if(e.valeur=='L'){
                 dataLargeur = e ;
             }
         });
@@ -128,7 +125,7 @@ var mesFonctions = {
         }
         else //sinon la valeur du slider
         {
-            largeur = $(".range" + dataLargeur.lettre).slider('getValue');
+            largeur = $(".range" + dataLargeur.valeur).slider('getValue');
         }
         
         
@@ -284,7 +281,7 @@ var mesFonctions = {
         //pour avoir les max et min de la largeur dans la fonction du canvas
         var dataDiffusivite;
         $.each(parameters,function (i,e){
-            if(e.lettre=='nu'){
+            if(e.valeur=='c'){
                 dataDiffusivite = e ;
             }
         });
@@ -297,7 +294,7 @@ var mesFonctions = {
         }
         else //sinon la valeur du slider
         {
-            diffusivite = $("#range" + dataDiffusivite.lettre).slider('getValue');
+            diffusivite = $("#range" + dataDiffusivite.valeur).slider('getValue');
         }
         
         //calcul des longueurs

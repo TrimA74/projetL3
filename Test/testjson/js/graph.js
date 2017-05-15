@@ -11,7 +11,7 @@ var MODGraph = (function(){
 	    if (metadata.calculs[cadre.replace('.','')].method == "CalculTensoriel"){
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
 		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculIntegrale"){
-			var matriceAIntegrer = 'x';
+			var matriceAIntegrer = 'F';		//TODO: a récupérer du JSON
 			
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
 			
@@ -19,7 +19,7 @@ var MODGraph = (function(){
 			var min;
 			var max;
 			$.each(parameters,function (i,e){
-				if(e.lettre=='matriceAIntegrer'){
+				if(e.matrice == matriceAIntegrer){
 					min = e.min;
 					max = e.max;
 				}
@@ -29,7 +29,7 @@ var MODGraph = (function(){
 		}
 		
 
-	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.lettre],tabLigne);
+	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.matrice],tabLigne);
 
 
 	    var tabX = MODTools.initTabx(variableChoisi);

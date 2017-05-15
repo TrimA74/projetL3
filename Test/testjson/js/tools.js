@@ -71,10 +71,10 @@ var MODTools = (function(){
 
 	    $.each(parameters,function (i,e){
 	        if(e.fichier==1 && e!=variableChoisi){
-	        	var ranger = $(cadre).find(".range" + e.lettre);
+	        	var ranger = $(cadre).find(".range" + e.valeur);
 	            var ligne = ranger.slider('getValue');
 	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
-	            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.lettre][ligne])));
+	            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
 	        }
 	    });
 
@@ -87,9 +87,9 @@ var MODTools = (function(){
 	    var minX = variableChoisi.min;
 	    var maxX = variableChoisi.max;
 
-	    var pas = (parseFloat(maxX)-parseFloat(minX))/matrix[variableChoisi.lettre].length; // on calcule le pas en fonction du min et du max des métadonnées et du nombre de données 
+	    var pas = (parseFloat(maxX)-parseFloat(minX))/matrix[variableChoisi.matrice].length; // on calcule le pas en fonction du min et du max des métadonnées et du nombre de données 
 
-	    for(var i=0; i<matrix[variableChoisi.lettre].length; i++){
+	    for(var i=0; i<matrix[variableChoisi.matrice].length; i++){
 	        tabX[i] = parseFloat(minX) + i * pas;
 	    }
 
@@ -113,12 +113,12 @@ var MODTools = (function(){
 	                    myParams:{
 	                        set:set,
 	                        cat:self.$_GET("cat"),
-	                        matrice: e.lettre
+	                        matrice: e.matrice
 	                    }
 	                },
 	                success: function(result)
 	                {
-	                    matrix[e.lettre] = self.processDataMatrix(result);
+	                    matrix[e.matrice] = self.processDataMatrix(result);
 	                }
 	            }));
 	        }
