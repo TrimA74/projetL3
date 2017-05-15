@@ -108,8 +108,18 @@ $( document ).ready(function() {
     });
     
     $('.bouton_R_A').on('click', function() {
-
         
+        if($(this).parent().parent().children(".cadreCalcule").is(':visible'))
+        {
+            $(this).parent().parent().children(".cadreCalcule").hide();
+            $(this).children("span").removeClass("glyphicon-menu-up");
+            $(this).children("span").addClass("glyphicon-menu-down");
+        }else
+        {
+            $(this).parent().parent().children(".cadreCalcule").show();
+            $(this).children("span").removeClass("glyphicon-menu-down");
+            $(this).children("span").addClass("glyphicon-menu-up");
+        }
         
             
     });
