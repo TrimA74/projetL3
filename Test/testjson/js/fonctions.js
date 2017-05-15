@@ -53,7 +53,7 @@ var mesFonctions = {
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
                     var ligne = $("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
-					ligne = Math.round((ligne-min)/ ranger.slider('getAttribute').step);	//Récupération de l'indice de cette valeur
+					ligne = Math.round((ligne-min)/ $("#range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
                     tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * tabC[ligne]); 
                 }
             }

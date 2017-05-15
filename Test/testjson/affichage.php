@@ -143,7 +143,7 @@
 
         </div> <!-- end Calcule Pression -->
 
-            <div class="row flux"> <!--Begin Calcule flux -->
+            <div class="row fluxGlobal"> <!--Begin Calcule GlobalFlux -->
 
                 <h2 class="titre_calcul"> Global Flow
                 <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-up"></span></button>
