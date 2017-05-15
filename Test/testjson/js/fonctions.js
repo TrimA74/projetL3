@@ -19,6 +19,7 @@ var mesFonctions = {
                 parametre =e;		
             }
         });
+		
 
         var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
         for (var i=0; i<matrix[parametre.matrice].length; i++){
@@ -54,6 +55,8 @@ var mesFonctions = {
                 }
             }
         }   
+		//console.log(tabOrdonee);
+		
         return tabOrdonee;
     },
 	

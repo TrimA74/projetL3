@@ -27,7 +27,7 @@
     "fluxGlobal": {
       "display": 1,
       "method": "CalculIntegrale",
-      "matriceAIntegrer": "x",
+      "matriceAIntegrer": "F",
       "paramPourIntegration": "c"
     }
   },
