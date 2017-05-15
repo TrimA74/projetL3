@@ -38,8 +38,8 @@ var MODEnv = (function () {
 	    variables.html("");
 	    
 	    str ="";
-	    /* création de la structure html des sliders */  
-	    
+	    console.log(metadata);
+	    /* création de la structure html des sliders */
 	    $.each(parameters,function (i,e){
 	        if(e.fichier){
 	            var step = (e.max-e.min) / (matrix[e.lettre].length-1);
