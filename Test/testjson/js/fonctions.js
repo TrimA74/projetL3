@@ -19,8 +19,9 @@ var mesFonctions = {
                 parametre =e;		
             }
         });
+
         var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
-        for (var i=0; i<matrix[varProduit].length; i++){
+        for (var i=0; i<matrix[parametre.matrice].length; i++){
             tabC[i] = i*pas;
         }
         
@@ -50,11 +51,13 @@ var mesFonctions = {
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
                     var ligne = $(cadre).find("#range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
-					ligne = Math.round((ligne-min)/ $(cadre).find("#range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
+					ligne = Math.round((ligne-parametre.min)/ $(cadre).find("#range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
+                    console.log(ligne);
                     tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * tabC[ligne]); 
                 }
             }
         }   
+        console.log(tabOrdonee);
         return tabOrdonee;
     },
 	
