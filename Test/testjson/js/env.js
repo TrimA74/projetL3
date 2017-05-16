@@ -46,7 +46,7 @@ var MODEnv = (function () {
 	            str += "<div class='col-sm-2'>";
 	            str += "<input  \
 	            onchange=\"$('"+cadre+"').find('.range" + e.valeur + "').slider('setValue',this.value);\"  \
-	            type='number' name='amountInput" + e.valeur + "' value='"+(e.max/2)+"' \
+	            type='number' name='amountInput" + e.valeur + "' value='"+((e.min+e.max)/2)+"' \
 	            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control rangeN"+e.valeur+"'/>";
 	            str += "</div>";
 	            str += "<div class='col-sm-7'>";
@@ -57,7 +57,7 @@ var MODEnv = (function () {
 	            str += "<input class='range"+e.valeur+"' type='text'  \
 	            name='amountRange' onchange=\"document.getElementsByName('amountInput" + e.valeur + "')[0].value=this.value;\" \
 	            data-slider-min='"+e.min+"' data-slider-max='"+e.max+"' step='10' \
-	            data-slider-value='"+(e.max/2)+"' />";
+	            data-slider-value='"+((e.min+e.max)/2)+"' />";
 	            str += "</div>";
 	            str += "<div class='col-sm-1'>";
 	            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *1000)/1000+"</span>";

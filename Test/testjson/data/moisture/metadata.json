@@ -17,7 +17,8 @@
   ],
   "wall": {
     "displayWall": 1,
-    "method": "majCanvasHydrique"
+    "method": "majCanvasHydrique",
+    "paramAbsorption": "c"
   },
   "calculs": {
     "tensoriel": {
