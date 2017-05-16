@@ -20,7 +20,7 @@ var MODEnv = (function () {
 
 	    //Pour chaque bouton, on le remplit avec les bonnes valeurs en fonction du paramètre que l'utilisateur a sélectionné
 	    $.each(parameters,function (i,e){
-	        if(MODTools.isSliderParameter(e,cadre,metadata)){
+	        if(MODTools.isButtonParameter(e,cadre,metadata)){
 	           str += "<button onclick=\"changeParams($( this ).text(),$( this ).val(),'"+cadre+"');$('"+cadre+"').find('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.valeur+ "</button>"; 
 	        }
 	    });
