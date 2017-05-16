@@ -2,10 +2,11 @@
   "set": [
     {
       "name": "set2",
-      "descriptionLatex": "/meta_donnees_LaTeX.tex",
+      "descriptionLatex": "meta_donnees_LaTeX.tex",
       "parameters": [
         {
-          "lettre": "u",
+          "matrice": "0",
+          "valeur": "u",
           "fichier": 0,
           "nom": "Field",
           "unite": "[-]",
@@ -14,7 +15,8 @@
           "valInit": 1
         },
         {
-          "lettre": "x",
+          "matrice": "F",
+          "valeur": "x",
           "fichier": 1,
           "nom": "Space",
           "unite": "[-]",
@@ -23,7 +25,8 @@
           "valInit": 0
         },
         {
-          "lettre": "t",
+          "matrice": "G",
+          "valeur": "t",
           "fichier": 1,
           "nom": "Time",
           "unite": "[-]",
@@ -32,7 +35,8 @@
           "valInit": 0
         },
         {
-          "lettre": "c",
+          "matrice": "H",
+          "valeur": "c",
           "fichier": 1,
           "nom": "Sorptioncapacity",
           "unite": "[-]",
