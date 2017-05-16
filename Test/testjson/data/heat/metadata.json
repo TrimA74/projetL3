@@ -32,6 +32,13 @@
       "title": "Global Flow",
       "matriceAIntegrer": "F",
       "paramPourIntegration": "k"
+    },
+	"fluxLocal": {
+      "display": 0,
+      "title": "Local Flow",
+      "method": "CalculDerive",
+      "matriceADeriver": "F",
+      "paramPourDerivation": "k"
     }
   },
   "description": "The physical problem involves one-dimension heat diffusion through a multi-layer wall. The latter is composed of a load material and an insulation part. The wall is submitted to climatic transient boundary conditions on one side and sinusoidal temperature variation on the other side. A parametric solution is computed as a function of the space and time coordinates, as well as the thermal insulation thickness and the load material thermal diffusivity."

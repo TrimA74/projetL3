@@ -21,6 +21,16 @@ $( document ).ready(function() {
         window.location.href='index.php';
                 
     });
+    if(screen.with > 800) {
+       MathJax.Hub.Config({
+        "HTML-CSS": { scale: 70}
+        });  
+    } else {
+         MathJax.Hub.Config({
+            "HTML-CSS": { scale: 60}
+        });
+    }
+   
 
 	/** Test MathJax responsive **/
 	/*window.MathJax = {

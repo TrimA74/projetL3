@@ -23,6 +23,36 @@ var MODGraph = (function(){
 			});
 			var delta = (max - min)/(matrix[matriceAIntegrer].length-1);    // (valMax-valMin) / nbVal
 			tabLigne.push(MODTools.integrationMatrice(matrix[matriceAIntegrer] , delta));
+		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculDerive"){
+			var matriceADeriver = metadata.calculs.fluxGlobal.matriceADeriver;
+			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
+			
+			// On cherche le delta pour dériver la matrice matriceADeriver
+			var min;
+			var max;
+			var valeur;
+			$.each(parameters,function (i,e){
+				if(e.matrice == matriceADeriver){
+					min = e.min;
+					max = e.max;
+					valeur = e.valeur;
+				}
+			});
+			var delta = (max - min)/(matrix[matriceADeriver].length-1);    // (valMax-valMin) / nbVal
+			
+			//On récupère également la ligne avant celle du slider x (F(Xi-1))
+			var ranger = $(cadre).find(".range" + valeur);
+			var ligne = ranger.slider('getValue');
+			ligne = Math.round((ligne-min)/ ranger.slider('getAttribute').step);
+			if (ligne>0){
+				//On calcule la ligne F(Xi-1)/dx
+				for (var i=0; i<matrix[e.matrice][ligne-1].lenght; i++){
+					matrix[e.matrice][ligne-1][i] = matrix[e.matrice][ligne-1][i]/delta;
+				}
+				tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne-1])));	// On l'ajoute au tableau tabLigne
+			}else{
+				console.log("Il y a un probleme");
+			}	
 		}
 		
 
