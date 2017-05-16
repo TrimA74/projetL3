@@ -82,10 +82,10 @@
             <div class="row <?php echo $key; ?>"> <!--Begin Calcule  -->
 
                 <h2 class="titre_calcul"> <?php echo $value->title?>
-                <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon glyphicon-menu-up"></span></button>
+                <button class="btn btn-primary btn-lg bouton_R_A" ><span class="glyphicon <?php echo ($value->display)? "glyphicon-menu-up": "glyphicon-menu-down"; ?>"></span></button>
             </h2>
-                <div class="cadreCalcule">
-
+                <div class="cadreCalcule" <?php if($value->display == 0){ echo 'style="display:none;"'; } ?> >
+  
                     <div class="row">
                             <div class="col-md-12  graph-container">
                     

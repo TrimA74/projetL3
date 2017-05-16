@@ -201,7 +201,7 @@ function majApresSet(set,cadre){
 
     /* Latex Set Info*/ 
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
+    client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/"+metadata.set[setCourant].descriptionLatex );
     client.onreadystatechange = function() {
       document.getElementById("latexSetInfo").innerHTML = "<p style=\"font-size:200%;\"> " + client.responseText + "</p>";
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
