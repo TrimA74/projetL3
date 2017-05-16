@@ -26,7 +26,7 @@
       "method": "CalculTensoriel"
     },
     "fluxGlobal": {
-      "display": 1,
+      "display": 0,
       "title": "Global Flow",
       "method": "CalculIntegrale",
       "matriceAIntegrer": "F",
