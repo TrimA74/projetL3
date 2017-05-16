@@ -71,7 +71,18 @@ var MODTools = (function(){
 			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer )){
 			return true;
 		} else { return false; }
-	} 
+	}
+
+	self.isButtonParameter = function (e,cadre,metadata) {
+		if(!e.fichier) { return false; }
+		if( cadre==".tensoriel" || (cadre==".fluxGlobal" 
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer )){
+			return true;
+		} else { return false; }
+	}
+
+
+
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
 	self.getLignesFromSlider = function (parameters,cadre){
 		var tabLigne = [];    //les lignes choisies

@@ -90,7 +90,7 @@ var MODEnv = (function () {
 	        .find(".graph-container")
 	        .append("<div id='graph-"+cadre.replace('.','')+"' class='graph'></div>");
 
-	    cadreDiv.find("#nomGraph").text("Please select variable to put on abscissa");
+	    cadreDiv.find(".nomGraph").text("Please select variable to put on abscissa");
 	}
 
 	self.updateCadre = function (cadre,parameters,variableCalcul,variableChoisi){
