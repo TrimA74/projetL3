@@ -79,6 +79,7 @@ var MODEnv = (function () {
 	              step : pas,
 	              precision: 3
 	            });
+	            /* updateSliderHandler est une closure pour se souvenir de e.valeur qui change à chaque itération */ 
 	            slider.on('slideStop',MODTools.updateSliderHandler(e.valeur,parameters,cadre));
 	            variables.find(".rangeN" + e.valeur).on('change',MODTools.updateSliderHandler(e.valeur,parameters,cadre));
 	        }

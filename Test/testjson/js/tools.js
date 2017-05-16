@@ -19,7 +19,8 @@ var MODTools = (function(){
 		}
 		return vars;
 	};
-	
+	/* Pour que la fonction updateSlider se souvienne de la valeur de j
+	quand elle sera déclenché par l'événement*/
 	self.updateSliderHandler = function (j,parameters,cadre) {
 		 return function(event) { 
         updateSlider(j,parameters,cadre);
