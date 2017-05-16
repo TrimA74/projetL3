@@ -2,7 +2,7 @@
   "set": [
     {
       "name": "set1",
-      "descriptionLatex": "/meta_donnees_LaTeX.tex",
+      "descriptionLatex": "meta_donnees_LaTeX.tex",
       "parameters": [
         {
           "matrice": "0",

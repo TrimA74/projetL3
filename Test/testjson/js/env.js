@@ -45,7 +45,7 @@ var MODEnv = (function () {
 	            str += "<label for='amountInput" + e.valeur + "' class='col-sm-1 control-label'>" + e.valeur + "</label>";
 	            str += "<div class='col-sm-2'>";
 	            str += "<input  \
-	            onchange=\"$("+cadre+").find('.range" + e.valeur + "').slider('setValue',this.value);\"  \
+	            onchange=\"$('"+cadre+"').find('.range" + e.valeur + "').slider('setValue',this.value);\"  \
 	            type='number' name='amountInput" + e.valeur + "' value='"+(e.max/2)+"' \
 	            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control rangeN"+e.valeur+"'/>";
 	            str += "</div>";
