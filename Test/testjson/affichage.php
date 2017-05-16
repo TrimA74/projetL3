@@ -32,7 +32,7 @@
 		<header  class="container fondHeader">
 			<div class="col-md-12 centerTitle">
 				<div class="encadrerDuTitre">
-					<h2 class="text-center" style="font-size: 215%"><i>Parametric model in Building Physics</i></h2>
+					<h2 class="text-center" ><i>Parametric model in Building Physics</i></h2>
 				</div>
 			</div>
 		</header>
