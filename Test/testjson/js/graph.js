@@ -4,22 +4,19 @@ var MODGraph = (function(){
 	self.redrawGraph = function (layout,cadre,variableChoisi,parameters) {
 	    var tabLigne = [];//les lignes choisies
 
-		console.log(metadata);
-		console.log(matrix);
 		
 		// On effectue le bon calcul
 	    if (metadata.calculs[cadre.replace('.','')].method == "CalculTensoriel"){
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
 		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculIntegrale"){
-			var matriceAIntegrer = 'x';
-			
+			var matriceAIntegrer = metadata.calculs.fluxGlobal.matriceAIntegrer;
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
 			
 			// On cherche le delta pour intégrer la matrice matriceAIntegrer
 			var min;
 			var max;
 			$.each(parameters,function (i,e){
-				if(e.lettre=='matriceAIntegrer'){
+				if(e.matrice == matriceAIntegrer){
 					min = e.min;
 					max = e.max;
 				}
@@ -29,7 +26,8 @@ var MODGraph = (function(){
 		}
 		
 
-	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.lettre],tabLigne);
+	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.matrice],tabLigne,cadre);
+
 
 	    var tabX = MODTools.initTabx(variableChoisi);
 

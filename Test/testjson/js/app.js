@@ -133,7 +133,7 @@ $( document ).ready(function() {
 
 /*  */
 function updateSlider(elem,parameters,cadre) {
-    var val = $("#range"+elem).slider('getValue');
+    var val = $(cadre).find("#range"+elem).slider('getValue');
 
     // on redessine la courbe 
     var layout = {
@@ -152,7 +152,7 @@ function updateSlider(elem,parameters,cadre) {
 
 /*  */
 function changeParams(parametre,val,cadre){
-    console.log(cadre);    var cadreDiv = $(cadre);
+    var cadreDiv = $(cadre);
     var controllers = cadreDiv.find(".controllers");
     var parameters = metadata.set[setCourant].parameters;
 
@@ -160,11 +160,8 @@ function changeParams(parametre,val,cadre){
     variableChoisi = parameters[val];	 
 
     // variable de parameters avec l'attribut fichier à 0
-    var variableCalcul;
-    $.each(parameters,function (i,e){
-        if(e.fichier==0){
-            variableCalcul = e ;
-        }
+    var variableCalcul = parameters.find(function (e) {
+        return e.fichier==0;
     });
     // Affiche tous les sliders sauf celui mis en abscisse
     cadreDiv.find(".param").css('display', 'block');
@@ -198,7 +195,6 @@ function changeParams(parametre,val,cadre){
 
 /* Fonction qui se déclanche sur l'événement onChange du selecteur de dataset */
 function majApresSet(set,cadre){
-    console.log(metadata);
     setCourant = set;
     var parameters = metadata.set[setCourant].parameters;
 
@@ -206,7 +202,7 @@ function majApresSet(set,cadre){
     var client = new XMLHttpRequest();
     client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/meta_donnees_LaTeX.tex" );
     client.onreadystatechange = function() {
-      $("#latexSetInfo").html("<p style=\"font-size:200%;\"> " + client.responseText + "</p>");
+      document.getElementById("latexSetInfo").innerHTML = "<p style=\"font-size:200%;\"> " + client.responseText + "</p>";
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     };
     client.send();
@@ -217,10 +213,13 @@ function majApresSet(set,cadre){
         mesFonctions[metadata.wall.method](cadre);
     }
     
-
+    /* Quand on a chargé toutes les matrices 
+    on créer le cadre de cacul et on dessine un graphe par défaut pour chaque méthode de calcul
+    Méthode apply utilisé pour pouvoir passer un tableau de paramètre peu importe le nombre
+    Méthode when utlisé pour attendre que chaque requête AJAX passé en paramètre soient terminées
+    */ 
     $.when.apply( $ , MODTools.getMatrixDeferred(parameters,set) ).done(function () {
         $.each(metadata.calculs,function (i,e){
-
             MODEnv.creationCadreCalcul("." + i,parameters);
             MODGraph.createDefaultGraph("."+i); 
         });

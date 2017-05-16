@@ -18,12 +18,10 @@ var MODEnv = (function () {
 	    buttons.html("");
 	    var str = "";
 
-		
-		
 	    //Pour chaque bouton, on le remplit avec les bonnes valeurs en fonction du paramètre que l'utilisateur a sélectionné
 	    $.each(parameters,function (i,e){
-	        if(e.fichier){
-	           str += "<button onclick=\"changeParams($( this ).text(),$( this ).val(),'"+cadre+"');$('"+cadre+"').find('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.lettre+ "</button>"; 
+	        if(MODTools.isSliderParameter(e,cadre,metadata)){
+	           str += "<button onclick=\"changeParams($( this ).text(),$( this ).val(),'"+cadre+"');$('"+cadre+"').find('.buttonsList > button').css('background-color','rgb(200,200,200)');$(this).css('background-color','#337ab7');\"  value =\""+i+"\"class='btn btn-primary btn-lg boutonAbscisse' >"+ e.valeur+ "</button>"; 
 	        }
 	    });
 	    buttons.append(str);
@@ -34,31 +32,30 @@ var MODEnv = (function () {
 	    ***     GESTION PARAMETRES/SLIDERS       ***
 	    ********************************************/
 	    var variables = controllers.find(".variables");
-		console.log(variables);
 	    variables.html("");
 	    
 	    str ="";
-	    /* création de la structure html des sliders */  
-	    
+
+	    /* création de la structure html des sliders */
 	    $.each(parameters,function (i,e){
-	        if(e.fichier){
-	            var step = (e.max-e.min) / (matrix[e.lettre].length-1);
+	        if(MODTools.isSliderParameter(e,cadre,metadata)){
+	            var step = (e.max-e.min) / (matrix[e.matrice].length-1);
 	            
-	            str += "<div class='form-group param param" + e.lettre + "' style='display:none; '>";
-	            str += "<label for='amountInput" + e.lettre + "' class='col-sm-1 control-label'>" + e.lettre + "</label>";
+	            str += "<div class='form-group param param" + e.valeur + "' style='display:none; '>";
+	            str += "<label for='amountInput" + e.valeur + "' class='col-sm-1 control-label'>" + e.valeur + "</label>";
 	            str += "<div class='col-sm-2'>";
 	            str += "<input  \
-	            onchange=\"$("+cadre+").find('.range" + e.lettre + "').slider('setValue',this.value);\"  \
-	            type='number' name='amountInput" + e.lettre + "' value='"+(e.max/2)+"' \
-	            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control rangeN"+e.lettre+"'/>";
+	            onchange=\"$("+cadre+").find('.range" + e.valeur + "').slider('setValue',this.value);\"  \
+	            type='number' name='amountInput" + e.valeur + "' value='"+(e.max/2)+"' \
+	            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control rangeN"+e.valeur+"'/>";
 	            str += "</div>";
 	            str += "<div class='col-sm-7'>";
 	            str += "<div class='col-sm-3'>";
 	            str += "<span class='minSlider' >"+ Math.round(Number(e.min)*1000)/1000 +"</span> ";
 	            str += "</div>";
 	            str += "<div class='col-sm-7'>";
-	            str += "<input class='range"+e.lettre+"' type='text'  \
-	            name='amountRange' onchange=\"document.getElementsByName('amountInput" + e.lettre + "')[0].value=this.value;\" \
+	            str += "<input class='range"+e.valeur+"' type='text'  \
+	            name='amountRange' onchange=\"document.getElementsByName('amountInput" + e.valeur + "')[0].value=this.value;\" \
 	            data-slider-min='"+e.min+"' data-slider-max='"+e.max+"' step='10' \
 	            data-slider-value='"+(e.max/2)+"' />";
 	            str += "</div>";
@@ -75,17 +72,15 @@ var MODEnv = (function () {
 
 	    /* création finiale des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
 	    $.each(parameters,function (i,e){
-	        if(e.fichier){
-	            var pas = (e.max-e.min)/(matrix[e.lettre].length-1);
-	            
-				console.log(variables.find(".range" + e.lettre));
-	            slider = variables.find(".range" + e.lettre).slider({ 
+	        if(MODTools.isSliderParameter(e,cadre,metadata)){
+	            var pas = (e.max-e.min)/(matrix[e.matrice].length-1);
+	            slider = variables.find(".range" + e.valeur).slider({ 
 	              tooltip: 'always',
 	              step : pas,
 	              precision: 3
 	            });
-	            slider.on('slideStop',MODTools.updateSliderHandler(e.lettre,parameters,cadre));
-	            variables.find(".rangeN" + e.lettre).on('change',MODTools.updateSliderHandler(e.lettre,parameters,cadre));
+	            slider.on('slideStop',MODTools.updateSliderHandler(e.valeur,parameters,cadre));
+	            variables.find(".rangeN" + e.valeur).on('change',MODTools.updateSliderHandler(e.valeur,parameters,cadre));
 	        }
 	    });
 
@@ -109,15 +104,15 @@ var MODEnv = (function () {
 	    /*****************************************************************/
 	    var description = cadreDiv.find(".graphinfo").find(".descriptionADroite");
 	    str='<label width="100%">Abscissa :</label>';
-	        str+= '<p>'+variableChoisi.nom+' '+variableChoisi.unite+' = '+variableChoisi.lettre+'</p>';
+	        str+= '<p>'+variableChoisi.nom+' '+variableChoisi.unite+' = '+variableChoisi.valeur+'</p>';
 	    str+='<label width="100%">Ordinate :</label>';
-	        str+='<p>'+variableCalcul.nom+' '+variableChoisi.unite+' = '+variableCalcul.lettre+'</p>';
+	        str+='<p>'+variableCalcul.nom+' '+variableChoisi.unite+' = '+variableCalcul.valeur+'</p>';
 	    str+='<label width="100%">Constant :</label>';
 
 	    /* Affichage des constantes (slider ) */ 
 	    $.each(parameters,function (i,e){
 	        if(e.fichier==1 && e!=variableChoisi){
-	            str+='<p>'+e.nom+' '+e.unite+' = '+e.lettre+' </strong></p>';
+	            str+='<p>'+e.nom+' '+e.unite+' = '+e.valeur+' </strong></p>';
 	        }
 	    });
 	    description.html("");
