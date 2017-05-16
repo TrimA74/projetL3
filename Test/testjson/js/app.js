@@ -144,7 +144,7 @@ function updateSlider(elem,parameters,cadre) {
     MODGraph.redrawGraph(layout,cadre,variableChoisi,parameters);
     //cree canvas pour le mur
     if(metadata.wall.displayWall)
-        mesFonctions[metadata.wall.method]();
+        mesFonctions[metadata.wall.method](cadre);
 }
 
 
@@ -188,7 +188,7 @@ function changeParams(parametre,val,cadre){
 
     //cree canvas pour le mur
     if(metadata.wall.displayWall)
-        mesFonctions[metadata.wall.method]();
+        mesFonctions[metadata.wall.method](cadre);
 }
 
 
@@ -214,7 +214,7 @@ function majApresSet(set,cadre){
     //cree canvas pour le mur
     if(metadata.wall.displayWall)
     {
-        mesFonctions[metadata.wall.method]();
+        mesFonctions[metadata.wall.method](cadre);
     }
     
 

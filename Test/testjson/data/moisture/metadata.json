@@ -16,8 +16,8 @@
     }
   ],
   "wall": {
-    "displayWall": 0,
-    "method": ""
+    "displayWall": 1,
+    "method": "majCanvasHydrique"
   },
   "calculs": {
     "tensoriel": {
