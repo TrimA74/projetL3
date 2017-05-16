@@ -9,10 +9,10 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 	  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
 	  <meta name="author" content="John Doe">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  	<link rel="stylesheet" href="bootstrap.min.css">
+	  	<link rel="stylesheet" href="css/bootstrap.min.css">
 	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="bootstrap-slider.min.css">
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="css/bootstrap-slider.min.css">
+		<link rel="stylesheet" href="css/style.css" />
 	  	<meta charset="utf-8" />	
 		<title><?php echo $json->siteTitle ?></title>
 
@@ -20,6 +20,7 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 
 	<body class="body">
 
+		<div class="fondHeader">
 		<header class="container">
 
 			<div class="grandCadre">
@@ -27,6 +28,7 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 			</div>
 
 		</header>
+		</div>
 
         <div class="zonePrincipale">
 		<div class="container">
@@ -53,11 +55,21 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 
 			</div>
         </div>
-
+        </div> <!-- end zone principale -->
 		<footer class="container-fluid footerIndex">
+			<div class="container">
+				<div class="row">	
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<?php include('footer.php'); ?>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+			</div>
 		</footer>
 		
-		<script src="bootstrap.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 
 	</body>
 

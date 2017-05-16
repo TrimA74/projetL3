@@ -1,1 +1,0 @@
-$u _{\infty}  = 1\ + 1.3\cdot\sin\bigl(\,\frac{2\,\pi}{2}\,t\,\bigr)^{\,2}, \hspace{30mm} Bi=10, \hspace{30mm} c \in \big[ \, 0, \, 1 \, \big]$

@@ -19,5 +19,19 @@
     "displayWall": 1,
     "method": "majCanvasThermique"
   },
+  "calculs": {
+    "tensoriel": {
+      "display": 1,
+      "method": "CalculTensoriel",
+      "title": "Tensor computation"
+    },
+    "fluxGlobal": {
+      "display": 0,
+      "method": "CalculIntegrale",
+      "title": "Global Flow",
+      "matriceAIntegrer": "F",
+      "paramPourIntegration": "k"
+    }
+  },
   "description": "The physical problem involves one-dimension heat diffusion through a multi-layer wall. The latter is composed of a load material and an insulation part. The wall is submitted to climatic transient boundary conditions on one side and sinusoidal temperature variation on the other side. A parametric solution is computed as a function of the space and time coordinates, as well as the thermal insulation thickness and the load material thermal diffusivity."
 }

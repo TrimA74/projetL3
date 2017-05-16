@@ -65,8 +65,6 @@ var MODTools = (function(){
 		//console.log(tabRetour);
 		return tabRetour;
 	};
-	
-	/* Autorise les boutons/slider à afficher ou pas en fonction du cadre */
 	self.isSliderParameter = function (e,cadre,metadata) {
 		if(!e.fichier) { return false; }
 		if( cadre==".tensoriel" || (cadre==".fluxGlobal" 
@@ -74,8 +72,6 @@ var MODTools = (function(){
 			return true;
 		} else { return false; }
 	} 
-	
-	
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
 	self.getLignesFromSlider = function (parameters,cadre){
 		var tabLigne = [];    //les lignes choisies
