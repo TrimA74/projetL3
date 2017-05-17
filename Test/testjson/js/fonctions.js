@@ -170,7 +170,7 @@ var mesFonctions = {
 
         //pour avoir les max et min de la largeur dans la fonction du canvas
         var dataLargeur = parameters.find(function (e) {
-            return e.valeur == 'L';
+            return e.valeur == metadata.wall.parameter;
         });        
         //trouver la largeur
         var largeur;
@@ -332,15 +332,10 @@ var mesFonctions = {
             MODMur.creeCanvas();
         }
         
-
-        //pour avoir les max et min de la largeur dans la fonction du canvas
-        var dataDiffusivite;
-        $.each(parameters,function (i,e){
-            if(e.valeur=='c'){
-                dataDiffusivite = e ;
-            }
-        });
-        
+        //pour avoir les max et min de la largeur dans la fonction du canvas        
+        var dataDiffusivite = parameters.find(function (e) {
+            return e.valeur == metadata.wall.parameter;
+        });        
         //trouver la largeur
         var diffusivite;
         if(variableChoisi==dataDiffusivite) //si la variableChoisi est celle de la largeur , on prend la moyenne
