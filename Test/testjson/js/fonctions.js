@@ -168,7 +168,7 @@ var mesFonctions = {
 
         //pour avoir les max et min de la largeur dans la fonction du canvas
         var dataLargeur = parameters.find(function (e) {
-            return e.valeur == metadata.wall.paramLargeurMur;
+            return e.valeur == metadata.wall.parameter;
         });        
         //trouver la largeur
         var largeur;
@@ -332,7 +332,7 @@ var mesFonctions = {
         
         //pour avoir les max et min de la largeur dans la fonction du canvas        
         var dataDiffusivite = parameters.find(function (e) {
-            return e.valeur == metadata.wall.paramAbsorption;
+            return e.valeur == metadata.wall.parameter;
         });        
         //trouver la largeur
         var diffusivite;

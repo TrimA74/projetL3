@@ -18,7 +18,7 @@
   "wall": {
     "displayWall": 1,
     "method": "majCanvasThermique",
-    "paramLargeurMur": "L"
+    "parameter": "L"
   },
   "calculs": {
     "tensoriel": {
