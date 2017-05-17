@@ -55,7 +55,7 @@ var MODEnv = (function () {
 	            str += "</div>";
 	            str += "<div class='col-sm-7'>";
 	            str += "<input class='range"+e.valeur+"' type='text'  \
-	            name='amountRange' onchange=\"document.getElementsByName('amountInput" + e.valeur + "')[0].value=this.value;\" \
+	            name='amountRange' \
 	            data-slider-min='"+e.min+"' data-slider-max='"+e.max+"' step='10' \
 	            data-slider-value='"+((e.min+e.max)/2)+"' />";
 	            str += "</div>";
@@ -66,6 +66,8 @@ var MODEnv = (function () {
 	            str += "</div>";  
 	        }
 	    });
+
+
 	    
 	    variables.append(str);
 	    var slider;
@@ -81,6 +83,9 @@ var MODEnv = (function () {
 	            });
 	            /* updateSliderHandler est une closure pour se souvenir de e.valeur qui change à chaque itération */ 
 	            slider.on('slideStop',MODTools.updateSliderHandler(e.valeur,parameters,cadre));
+	            slider.on('slideStop', function () {
+	            	$(cadre).find("[name='amountInput"+ e.valeur +"'] ").val(this.value);
+	            });
 	            variables.find(".rangeN" + e.valeur).on('change',MODTools.updateSliderHandler(e.valeur,parameters,cadre));
 	        }
 	    });
