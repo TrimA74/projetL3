@@ -40,30 +40,49 @@ var MODEnv = (function () {
 	    $.each(parameters,function (i,e){
 	        if(MODTools.isSliderParameter(e,cadre,metadata)){
 	            var step = (e.max-e.min) / (matrix[e.matrice].length-1);
+				var ordreDeGrandeur = 1;
+				// On veut par la suite arrondir les valeurs du slider de l'ordre de grandeur du pas
+				while(Math.round(step*ordreDeGrandeur)/(ordreDeGrandeur) != step && ordreDeGrandeur < 1000){	//on cherche l'ordre de grandeur du pas
+					ordreDeGrandeur *= 10;	// tant step*ordreDeGrandeur n'est pas entier
+				}
+				console.log(e.valeur+" = "+ordreDeGrandeur + "pas = " + step);
+				
+				var minReel;
 	            
 	            str += "<div class='form-group param param" + e.valeur + "' style='display:none; '>";
 	            str += "<label for='amountInput" + e.valeur + "' class='col-sm-1 control-label'>" + e.valeur + "</label>";
 	            str += "<div class='col-sm-2'>";
-	            str += "<input  \
-	            onchange=\"$('"+cadre+"').find('.range" + e.valeur + "').slider('setValue',this.value);\"  \
-	            type='number' name='amountInput" + e.valeur + "' value='"+((e.min+e.max)/2)+"' \
-	            min='"+e.min+"' max='"+e.max+"' step='"+ step +"' class='form-control rangeN"+e.valeur+"'/>";
+				// Si on est dans flux local, on ne veut pas afficher la valeur 0 du slider x (pour éviter des erreurs)
+				if(cadre == ".fluxLocal"){
+					var paramAssociee = parameters.find(function (e) {return e.matrice == metadata.calculs["fluxLocal"].matriceADeriver;});
+					if (e.valeur == paramAssociee.valeur){
+						minReel = e.min + step;
+					}else{
+						minReel = e.min;
+					}
+				}else{
+					minReel = e.min;
+				}
+				str += "<input  \
+					onchange=\"$('"+cadre+"').find('.range" + e.valeur + "').slider('setValue',this.value);\"  \
+					type='number' name='amountInput" + e.valeur + "' value='"+((e.min+e.max)/2)+"' \
+					min='"+minReel+"' max='"+e.max+"' step='"+ step +"' class='form-control rangeN"+e.valeur+"'/>";
 	            str += "</div>";
 	            str += "<div class='col-sm-7'>";
 	            str += "<div class='col-sm-3'>";
-	            str += "<span class='minSlider' >"+ Math.round(Number(e.min)*1000)/1000 +"</span> ";
+	            str += "<span class='minSlider' >"+ Math.round(Number(minReel)*1000)/1000 +"</span> ";
 	            str += "</div>";
 	            str += "<div class='col-sm-7'>";
 	            str += "<input class='range"+e.valeur+"' type='text'  \
 	            name='amountRange' \
-	            data-slider-min='"+e.min+"' data-slider-max='"+e.max+"' step='10' \
+	            data-slider-min='"+minReel+"' data-slider-max='"+e.max+"' step='10' \
 	            data-slider-value='"+((e.min+e.max)/2)+"' />";
 	            str += "</div>";
 	            str += "<div class='col-sm-1'>";
-	            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *1000)/1000+"</span>";
+	            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *10)/(10)+"</span>";
 	            str += "</div>";
 	            str += "</div>";
-	            str += "</div>";  
+	            str += "</div>";
 	        }
 	    });
 
@@ -72,7 +91,7 @@ var MODEnv = (function () {
 	    variables.append(str);
 	    var slider;
 
-	    /* création finiale des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
+	    /* création finale des sliders + ajout de l'événement slideStop sur chacun d'eux pour lier l'input à côté du slider*/ 
 	    $.each(parameters,function (i,e){
 	        if(MODTools.isSliderParameter(e,cadre,metadata)){
 	            var pas = (e.max-e.min)/(matrix[e.matrice].length-1);
