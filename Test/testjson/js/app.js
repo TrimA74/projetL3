@@ -211,12 +211,19 @@ function majApresSet(set,cadre){
 
     /* Latex Set Info*/ 
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/"+metadata.set[setCourant].descriptionLatex );
-    client.onreadystatechange = function() {
-      document.getElementById("latexSetInfo").innerHTML = "<p style=\"font-size:200%;\"> " + client.responseText + "</p>";
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-    };
-    client.send();
+    if(metadata.set[setCourant].descriptionLatex != ""){
+        client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/"+metadata.set[setCourant].descriptionLatex );
+        client.onreadystatechange = function() {
+          document.getElementById("latexSetInfo").innerHTML = " \
+          <p style=\"font-size:200%;\"> " + client.responseText + " \
+          </p>";
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        };
+        client.send();
+    } else {
+        document.getElementByClassName("infoSetLatex")[0].style.display = "none";
+    }
+    
 
     //cree canvas pour le mur
     if(metadata.wall.displayWall)
