@@ -143,7 +143,7 @@ $( document ).ready(function() {
 
 /*  */
 function updateSlider(elem,parameters,cadre) {
-    console.log(elem);
+    //console.log(elem);
     var val = $(cadre).find("#range"+elem).slider('getValue');
 
     // on redessine la courbe 
