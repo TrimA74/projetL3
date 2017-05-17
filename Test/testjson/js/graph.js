@@ -8,6 +8,8 @@ var MODGraph = (function(){
 		// On effectue le bon calcul
 	    if (metadata.calculs[cadre.replace('.','')].method == "CalculTensoriel"){
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);
+			
+			
 		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculIntegrale"){
 			var matriceAIntegrer = metadata.calculs.fluxGlobal.matriceAIntegrer;
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
@@ -23,8 +25,10 @@ var MODGraph = (function(){
 			});
 			var delta = (max - min)/(matrix[matriceAIntegrer].length-1);    // (valMax-valMin) / nbVal
 			tabLigne.push(MODTools.integrationMatrice(matrix[matriceAIntegrer] , delta));
+			
+			
 		}else if (metadata.calculs[cadre.replace('.','')].method == "CalculDerive"){
-			var matriceADeriver = metadata.calculs.fluxGlobal.matriceADeriver;
+			var matriceADeriver = metadata.calculs.fluxLocal.matriceADeriver;
 			tabLigne = MODTools.getLignesFromSlider(parameters,cadre);	//Les lignes des sliders + la matrice F intégrée
 			
 			// On cherche le delta pour dériver la matrice matriceADeriver
@@ -40,21 +44,21 @@ var MODGraph = (function(){
 			});
 			var delta = (max - min)/(matrix[matriceADeriver].length-1);    // (valMax-valMin) / nbVal
 			
-			//On récupère également la ligne avant celle du slider x (F(Xi-1))
-			var ranger = $(cadre).find(".range" + valeur);
+			//On récupère la ligne du slider x
+			var paramAssociee = parameters.find(function (e) {return e.matrice == metadata.calculs["fluxLocal"].matriceADeriver;});
+			
+			var ranger = $(cadre).find(".range" + paramAssociee.valeur);
 			var ligne = ranger.slider('getValue');
-			ligne = Math.round((ligne-min)/ ranger.slider('getAttribute').step);
+			ligne = Math.round((ligne-paramAssociee.min)/ ranger.slider('getAttribute').step);
+			
+			
 			if (ligne>0){
-				//On calcule la ligne F(Xi-1)/dx
-				for (var i=0; i<matrix[e.matrice][ligne-1].lenght; i++){
-					matrix[e.matrice][ligne-1][i] = matrix[e.matrice][ligne-1][i]/delta;
-				}
-				tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne-1])));	// On l'ajoute au tableau tabLigne
+				//On calcule  f(x) dérivée de F(x) sur la ligne associée
+				tabLigne.push(MODTools.DerivationMatrice(matrix[matriceADeriver], ligne, delta));
 			}else{
 				console.log("Il y a un probleme");
-			}	
+			}
 		}
-		
 
 	    var tabY = mesFonctions[metadata.calculs[cadre.replace('.','')].method](matrix[variableChoisi.matrice],tabLigne,cadre);
 

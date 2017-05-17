@@ -23,6 +23,8 @@ Metadata JSON
 
 [Set 1 Thermique JSON Model](http://objgen.com/json/models/x9fJ)
 
+[Set 2 Thermique JSON Model](http://objgen.com/json/models/d1x7Z)
+
 [Set 1 Hydrique JSON Model](http://objgen.com/json/models/hq5d)
 
 [Set 2 Hydrique JSON Model](http://objgen.com/json/models/PFqw0)
