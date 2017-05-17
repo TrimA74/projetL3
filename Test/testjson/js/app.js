@@ -30,6 +30,13 @@ $( document ).ready(function() {
             "HTML-CSS": { scale: 60}
         });
     }
+
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        console.info(message);
+    });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        console.info(message);
+});
    
 
 	/** Test MathJax responsive **/
