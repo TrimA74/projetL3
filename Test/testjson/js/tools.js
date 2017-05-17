@@ -107,26 +107,33 @@ var MODTools = (function(){
 	
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
 	self.getLignesFromSlider = function (parameters,cadre){
-		var tabLigne = [];    //les lignes choisies
-		
-		var paramAssociee = parameters.find(function (e) {return e.matrice == metadata.calculs["fluxLocal"].matriceADeriver;});
-		
+		var tabLigne = [];    //les lignes choisies		
 
 	    $.each(parameters,function (i,e){
 			// Si on est dans le flux local, on ne doit pas prendre les paramètres du slider correspondant à la matrice à dériver
-	        if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi && !(cadre == ".fluxLocal" && e.valeur == paramAssociee.valeur)) {
-				var ranger = $(cadre).find(".range" + e.valeur);
-	            var ligne = ranger.slider('getValue');
-	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
-				tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
-	        }
-	    });
+			if(cadre == ".fluxLocal"){
+				var paramAssociee = parameters.find(function (e) {return e.matrice == metadata.calculs["fluxLocal"].matriceADeriver;});
+				if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi && e.valeur != paramAssociee.valeur) {
+					var ranger = $(cadre).find(".range" + e.valeur);
+					var ligne = ranger.slider('getValue');
+					ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
+					tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
+				}
+			}else{
+				if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi){
+					var ranger = $(cadre).find(".range" + e.valeur);
+					var ligne = ranger.slider('getValue');
+					ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
+					tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
+				}
+			}
+		});
 	    return tabLigne;
-	};
+	}
 
 	/* On initialise les abscisses en fonction des métadonnées (On calcule la valeur d'abscisse associé au numéro de la valeur calculée) */
 	self.initTabx = function (variableChoisi) {
-		 var tabX = new Array();
+		var tabX = new Array();
 	    var minX = variableChoisi.min;
 	    var maxX = variableChoisi.max;
 
