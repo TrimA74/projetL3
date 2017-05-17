@@ -152,9 +152,6 @@
                         }
                         ?> 
                     </div>
-                    <div class="col-md-6">
-                        <?php include('footer.php'); ?>
-                    </div>
 					
 				</div>
 				<div><!--bouton retour -->
