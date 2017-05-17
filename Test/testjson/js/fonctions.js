@@ -11,6 +11,7 @@ var mesFonctions = {
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
         var varProduit = metadata.calculs.fluxGlobal.paramPourIntegration;                        // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
         var parameters = metadata.set[setCourant].parameters;
+		//console.log(tableaux);
 
 		// On récupère le paramètre associé à varProduit dans les métadonnées
         var parametre = parameters.find(function (e) {
@@ -102,8 +103,9 @@ var mesFonctions = {
         var tabPrecalcul = new Array();
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
-        var varProduit = metadata.calculs.fluxGlobal.paramPourDerivation;                        // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
+        var varProduit = metadata.calculs.fluxLocal.paramPourDerivation;                        // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
         var parameters = metadata.set[setCourant].parameters;
+		//console.log(tableaux);
 
         // On récupère le paramètre associé à varProduit dans les métadonnées
         var parametre = parameters.find(function (e) {
@@ -125,7 +127,7 @@ var mesFonctions = {
                 tabPrecalcul[i] *= Number(tableaux[j][i]);
             }
         }
-        //console.log(tableaux);
+        //console.log(tabPrecalcul);
         
         
         // On initialise le tableau y avec la valeur spécifiée dans les métadonnées

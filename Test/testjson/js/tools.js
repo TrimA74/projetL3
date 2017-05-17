@@ -46,7 +46,7 @@ var MODTools = (function(){
 	    return lines.slice();
 	};
 
-	/* génère un vecteur (tableau) à partir d'une matrice (Sert lors du calcul de l'intégration */
+	/* génère un vecteur (tableau) à partir d'une matrice (Sert lors du calcul de l'intégration) */
 	self.integrationMatrice = function (matriceAIntegrer, delta){
 		var tabRetour = new Array();
 		//console.log(delta);
@@ -65,6 +65,21 @@ var MODTools = (function(){
 		//console.log(tabRetour);
 		return tabRetour;
 	};
+	
+	/* génère un vecteur (tableau) à partir de la matrice à dériver (Sert lors du calcul de la dérivée) */
+	self.DerivationMatrice = function (matriceADeriver, numLigne, delta){
+		var tabRetour = new Array();
+		//console.log(delta);
+		//console.log(matriceADeriver);
+		//console.log(numLigne);
+		
+
+		for (var i = 0; i<matriceADeriver[0].length; i++){		//Pour chaque colonne de la matrice
+			tabRetour[i] = matriceADeriver[numLigne][i]-matriceADeriver[numLigne-1][i]/delta;
+		}
+		return tabRetour;
+	};
+	
 	
 	/* Autorise les boutons/slider à afficher ou pas en fonction du cadre */
 	self.isSliderParameter = function (e,cadre,metadata) {
@@ -93,16 +108,19 @@ var MODTools = (function(){
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
 	self.getLignesFromSlider = function (parameters,cadre){
 		var tabLigne = [];    //les lignes choisies
+		
+		var paramAssociee = parameters.find(function (e) {return e.matrice == metadata.calculs["fluxLocal"].matriceADeriver;});
+		
 
 	    $.each(parameters,function (i,e){
-	        if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi) {
-	        	var ranger = $(cadre).find(".range" + e.valeur);
+			// Si on est dans le flux local, on ne doit pas prendre les paramètres du slider correspondant à la matrice à dériver
+	        if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi && !(cadre == ".fluxLocal" && e.valeur == paramAssociee.valeur)) {
+				var ranger = $(cadre).find(".range" + e.valeur);
 	            var ligne = ranger.slider('getValue');
 	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
-	            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
+				tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
 	        }
 	    });
-
 	    return tabLigne;
 	};
 
