@@ -45,7 +45,7 @@ var MODEnv = (function () {
 				while(Math.round(step*ordreDeGrandeur)/(ordreDeGrandeur) != step && ordreDeGrandeur < 1000){	//on cherche l'ordre de grandeur du pas
 					ordreDeGrandeur *= 10;	// tant step*ordreDeGrandeur n'est pas entier
 				}
-				console.log(e.valeur+" = "+ordreDeGrandeur + "pas = " + step);
+				//console.log(e.valeur+" = "+ordreDeGrandeur + "pas = " + step);
 				
 				var minReel;
 	            
@@ -79,7 +79,7 @@ var MODEnv = (function () {
 	            data-slider-value='"+((e.min+e.max)/2)+"' />";
 	            str += "</div>";
 	            str += "<div class='col-sm-1'>";
-	            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *10)/(10)+"</span>";
+	            str += "<span class='minMaxSlider'>"+ Math.round(Number(e.max) *ordreDeGrandeur)/(ordreDeGrandeur)+"</span>";
 	            str += "</div>";
 	            str += "</div>";
 	            str += "</div>";
