@@ -21,7 +21,7 @@ var mesFonctions = {
 		// On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
         var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
         for (var i=0; i<matrix[parametre.matrice].length; i++){
-            tabC[i] = i*pas;
+            tabC[i] = parametre.min + i*pas;
         }
         
         
@@ -44,7 +44,7 @@ var mesFonctions = {
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
             for(var j=0;j<nbColonnes;j++){      // On fait la somme des produits de chaque colonnes
-                if (variableChoisi.variable == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
+                if (variableChoisi.valeur == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
                     var ligne = $(cadre).find(".range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
@@ -115,7 +115,7 @@ var mesFonctions = {
 		// On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
         var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
         for (var i=0; i<matrix[parametre.matrice].length; i++){
-            tabC[i] = i*pas;
+            tabC[i] = parametre.min + i*pas;
         }
         
         
@@ -138,7 +138,7 @@ var mesFonctions = {
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
             for(var j=0;j<nbColonnes;j++){      // On fait la somme des produits de chaque colonnes
-                if (variableChoisi.variable == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
+                if (variableChoisi.valeur == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
                     var ligne = $(cadre).find(".range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
