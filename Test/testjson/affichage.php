@@ -71,7 +71,7 @@
             </div>
 			<div class="col-md-7">
 			</div>
-			<div class="col-md-12 infoSetLatex">
+			<div class="col-md-12 infoSetLatex mathjax">
 				<div class="col-md-3">
 					<h3>Set Information : </h3>
 				</div>
@@ -167,7 +167,7 @@
     <script src="js/jquery.min.js" integrity=""></script>
 
     <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG">
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured">
     </script>
     
     <!-- Latest compiled and minified JavaScript -->

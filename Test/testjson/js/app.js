@@ -12,7 +12,10 @@ $( document ).ready(function() {
     *** and then MathJax will look for unprocessed mathematics on the page and typeset it, 
     ** leaving unchanged any math that has already been typeset.  */ 
     try {
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        MathJax.Hub.Configured();
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub], function () {
+            $(".mathjax").css('visibility','visible');
+        });
     }
     catch (e) { // ne rien faire si erreur, pas grave 
     }
