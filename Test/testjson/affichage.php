@@ -174,7 +174,7 @@
           displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
           processEscapes: true
         },
-        "HTML-CSS": { availableFonts: ["TeX"], scale : 70 }
+        "SVG": { availableFonts: ["TeX"], scale : 70 }
       });
     </script>
     <script type="text/javascript" async
