@@ -12,7 +12,26 @@ $( document ).ready(function() {
     *** and then MathJax will look for unprocessed mathematics on the page and typeset it, 
     ** leaving unchanged any math that has already been typeset.  */ 
     try {
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        MathJax.Hub.Configured();
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub], function () {
+            $(".mathjax").css('visibility','visible');
+        });
+            if(screen.with > 800) {
+           MathJax.Hub.Config({
+            "HTML-CSS": { scale: 70}
+            });  
+        } else {
+             MathJax.Hub.Config({
+                "HTML-CSS": { scale: 60}
+            });
+        }
+
+        MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+            console.info(message);
+        });
+        MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+            console.info(message);
+        });
     }
     catch (e) { // ne rien faire si erreur, pas grave 
     }
@@ -21,31 +40,6 @@ $( document ).ready(function() {
         window.location.href='index.php';
                 
     });
-
-	/** Test MathJax responsive **/
-	/*window.MathJax = {
-		 menuSettings: {
-			autocollapse: true
-		 }
-	};
-	
-	script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.async = true;
-	script.onload = function() {
-	  // remote script has loaded
-	};
-	script.src = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=MML_CHTML-full';
-	document.getElementsByTagName('head')[0].appendChild(script);
-	var box = document.getElementById('box');
-	var rng = document.getElementById('rngWidth');
-	var note = document.getElementById('rngValue');
-	rng.onchange = function() {
-	  box.style.width = this.value + 'px';
-	  MathJax.Extension["auto-collapse"].resizeHandler()
-	  note.innerHTML = this.value + 'px';
-	}*/
-	/************************/
 	
 	
     $.ajax({
@@ -133,7 +127,7 @@ $( document ).ready(function() {
 
 /*  */
 function updateSlider(elem,parameters,cadre) {
-    console.log(elem);
+    //console.log(elem);
     var val = $(cadre).find("#range"+elem).slider('getValue');
 
     // on redessine la courbe 
@@ -196,17 +190,27 @@ function changeParams(parametre,val,cadre){
 
 /* Fonction qui se déclanche sur l'événement onChange du selecteur de dataset */
 function majApresSet(set,cadre){
+    $("#latexSetInfo").css('visibility','hidden');
     setCourant = set;
     var parameters = metadata.set[setCourant].parameters;
 
     /* Latex Set Info*/ 
     var client = new XMLHttpRequest();
-    client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/"+metadata.set[setCourant].descriptionLatex );
-    client.onreadystatechange = function() {
-      document.getElementById("latexSetInfo").innerHTML = "<p style=\"font-size:200%;\"> " + client.responseText + "</p>";
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-    };
-    client.send();
+    if(metadata.set[setCourant].descriptionLatex != ""){
+        client.open('GET', "data/"+ MODTools.$_GET("cat") +"/"+ set +"/"+metadata.set[setCourant].descriptionLatex );
+        client.onreadystatechange = function() {
+          document.getElementById("latexSetInfo").innerHTML = " \
+          <p style=\"font-size:200%;\"> " + client.responseText + " \
+          </p>";
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub], function () {
+            $("#latexSetInfo").css('visibility','visible');  
+          });
+        };
+        client.send();
+    } else {
+        document.getElementByClassName("infoSetLatex")[0].style.display = "none";
+    }
+    
 
     //cree canvas pour le mur
     if(metadata.wall.displayWall)

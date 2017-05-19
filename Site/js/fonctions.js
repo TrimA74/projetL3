@@ -11,15 +11,17 @@ var mesFonctions = {
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
         var varProduit = metadata.calculs.fluxGlobal.paramPourIntegration;                        // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
         var parameters = metadata.set[setCourant].parameters;
+		//console.log(tableaux);
 
-        // On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
+		// On récupère le paramètre associé à varProduit dans les métadonnées
         var parametre = parameters.find(function (e) {
             return e.valeur == varProduit;
         });
 
+		// On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
         var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
         for (var i=0; i<matrix[parametre.matrice].length; i++){
-            tabC[i] = i*pas;
+            tabC[i] = parametre.min + i*pas;
         }
         
         
@@ -42,7 +44,7 @@ var mesFonctions = {
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
             for(var j=0;j<nbColonnes;j++){      // On fait la somme des produits de chaque colonnes
-                if (variableChoisi.variable == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
+                if (variableChoisi.valeur == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
                     tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
                 }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
                     var ligne = $(cadre).find(".range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
@@ -92,6 +94,65 @@ var mesFonctions = {
     },
 
 
+	/* Retourne le tableau des ordonnées généré à partir de la matrice d'abscisse et des lignes fixées dans les autres matrices  */
+    CalculDerive : function (matriceAbscisse, tableaux, cadre) {
+        //A la différence du calcul précédent, on ajoute un facteur C à chaque somme.
+        //Si l'utilisateur fixe le paramètre c, alors C = c(i fixé). Si l'utilisateur ne fixe pas le paramètre c, alors C = vecteur c.
+        var tabOrdonee = new Array();                   // Tableau contenant le résultat (toutes les ordonnées calculées)
+        var tabC = new Array();                         // Tableau contenant les valeurs du slider c
+        var tabPrecalcul = new Array();
+        var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
+        var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
+        var varProduit = metadata.calculs.fluxLocal.paramPourDerivation;                        // Nom du parametre à ajouter au produit (ex dans hydrique: "c")
+        var parameters = metadata.set[setCourant].parameters;
+		//console.log(tableaux);
+
+        // On récupère le paramètre associé à varProduit dans les métadonnées
+        var parametre = parameters.find(function (e) {
+            return e.valeur == varProduit;
+        });
+		
+		// On initialise tabC (valeurs possibles du slider c) avec ce que nous donnent les métadonnées (min et max)
+        var pas = (parametre.max - parametre.min)/(matrix[parametre.matrice].length-1);    // (valMax-valMin) / nbVal<- nb de lignes de la matrice associé au parametre varProduit (ex: matrice H si varProduit = c)
+        for (var i=0; i<matrix[parametre.matrice].length; i++){
+            tabC[i] = parametre.min + i*pas;
+        }
+        
+        
+        // On précalcule la multiplication des lignes des matrices fixés
+        tabPrecalcul = tableaux[0];             // Pour éviter de recalculer plusieurs fois la même chose, on stocke dans un tableau le résultat des produits des lignes déjà fixées
+        for(var j=1; j<tableaux.length; j++)    // Pour chaque ligne à précalculer
+        {
+            for(var i=0;i<nbColonnes;i++){
+                tabPrecalcul[i] *= Number(tableaux[j][i]);
+            }
+        }
+        //console.log(tabPrecalcul);
+        
+        
+        // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
+        for(var i=0;i<nbLignes;i++){
+            tabOrdonee[i] = Number(variableChoisi.valInit);
+        }
+        
+        // Calcul
+        for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
+            for(var j=0;j<nbColonnes;j++){      // On fait la somme des produits de chaque colonnes
+                if (variableChoisi.valeur == varProduit){       // Si l'utilisateur à choisi le paramètre varProduit
+                    tabOrdonee[i] += Number(matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * Number(tabC[i]); 
+                }else{                                          // Si l'utilisateur fixe le paramètre varProduit avec le slider
+                    var ligne = $(cadre).find(".range" + varProduit).slider('getValue');    // Récupération de la valeur du slider varProduit
+					ligne = Math.round((ligne-parametre.min)/ $(cadre).find(".range" + varProduit).slider('getAttribute').step);	//Récupération de l'indice de cette valeur
+                    tabOrdonee[i] += Number((matriceAbscisse[i][j]) * Number(tabPrecalcul[j]) * tabC[ligne]); 
+                }
+            }
+        }   
+		//console.log(tabOrdonee);
+		
+        return tabOrdonee;
+    },
+	
+	
 
     majCanvasThermique : function(cadre){
         
@@ -109,7 +170,7 @@ var mesFonctions = {
 
         //pour avoir les max et min de la largeur dans la fonction du canvas
         var dataLargeur = parameters.find(function (e) {
-            return e.valeur == 'L';
+            return e.valeur == metadata.wall.parameter;
         });        
         //trouver la largeur
         var largeur;
@@ -271,15 +332,10 @@ var mesFonctions = {
             MODMur.creeCanvas();
         }
         
-
-        //pour avoir les max et min de la largeur dans la fonction du canvas
-        var dataDiffusivite;
-        $.each(parameters,function (i,e){
-            if(e.valeur=='c'){
-                dataDiffusivite = e ;
-            }
-        });
-        
+        //pour avoir les max et min de la largeur dans la fonction du canvas        
+        var dataDiffusivite = parameters.find(function (e) {
+            return e.valeur == metadata.wall.parameter;
+        });        
         //trouver la largeur
         var diffusivite;
         if(variableChoisi==dataDiffusivite) //si la variableChoisi est celle de la largeur , on prend la moyenne

@@ -1,4 +1,8 @@
+/**************** LES DEUX PAGES ********************/
 
+footer{
+    min-height:40px;
+}
 
 /* **************** PAGE INDEX : ************** */
 
@@ -87,6 +91,7 @@ margin-top: 3%; margin-bottom: 3%;
         margin-top: 1%; margin-bottom: 2%; margin-right: 35%; margin-left: 35%;
         padding: 2%;
     }
+
 }
 
 /* Titre corespondant a l'un des 3 type de calcule (flux, pression ..) */
@@ -173,6 +178,7 @@ margin-top: 3%; margin-bottom: 3%;
 
 .mathjax {
 	overflow: auto;
+	visibility: hidden;
 }
 
 
