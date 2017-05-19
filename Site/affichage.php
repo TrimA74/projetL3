@@ -152,9 +152,6 @@
                         }
                         ?> 
                     </div>
-                    <div class="col-md-6">
-                        <?php include('footer.php'); ?>
-                    </div>
 					
 				</div>
 				<div><!--bouton retour -->
@@ -168,9 +165,20 @@
 		</footer>
         
     <script src="js/jquery.min.js" integrity=""></script>
-
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "SVG": { availableFonts: ["TeX"], scale : 70 }
+      });
+    </script>
     <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG">
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured">
     </script>
     
     <!-- Latest compiled and minified JavaScript -->

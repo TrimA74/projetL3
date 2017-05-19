@@ -46,7 +46,7 @@ var MODTools = (function(){
 	    return lines.slice();
 	};
 
-	/* génère un vecteur (tableau) à partir d'une matrice (Sert lors du calcul de l'intégration */
+	/* génère un vecteur (tableau) à partir d'une matrice (Sert lors du calcul de l'intégration) */
 	self.integrationMatrice = function (matriceAIntegrer, delta){
 		var tabRetour = new Array();
 		//console.log(delta);
@@ -65,32 +65,75 @@ var MODTools = (function(){
 		//console.log(tabRetour);
 		return tabRetour;
 	};
+	
+	/* génère un vecteur (tableau) à partir de la matrice à dériver (Sert lors du calcul de la dérivée) */
+	self.DerivationMatrice = function (matriceADeriver, numLigne, delta){
+		var tabRetour = new Array();
+		//console.log(delta);
+		//console.log(matriceADeriver);
+		//console.log(numLigne);
+		
+
+		for (var i = 0; i<matriceADeriver[0].length; i++){		//Pour chaque colonne de la matrice
+			tabRetour[i] = matriceADeriver[numLigne][i]-matriceADeriver[numLigne-1][i]/delta;
+		}
+		return tabRetour;
+	};
+	
+	
+	/* Autorise les boutons/slider à afficher ou pas en fonction du cadre */
 	self.isSliderParameter = function (e,cadre,metadata) {
 		if(!e.fichier) { return false; }
-		if( cadre==".tensoriel" || (cadre==".fluxGlobal" 
+		if( cadre==".fluxLocal" || cadre==".tensoriel" || ( cadre==".fluxGlobal"
 			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer )){
 			return true;
 		} else { return false; }
-	} 
+	}
+
+	self.isButtonParameter = function (e,cadre,metadata) {
+		if(!e.fichier) { return false; }
+		if( cadre==".tensoriel" || ( cadre==".fluxGlobal" 
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceAIntegrer )
+			|| ( cadre==".fluxLocal" 
+			&& e.matrice != metadata.calculs[cadre.replace('.','')].matriceADeriver )
+			){
+			return true;
+		} else { return false; }
+	}
+
+
+
+	
+	
 	/* On met les lignes spécifiées (lignes fixées dans une matrice donnée) par les sliders dans tabLigne */
 	self.getLignesFromSlider = function (parameters,cadre){
-		var tabLigne = [];    //les lignes choisies
+		var tabLigne = [];    //les lignes choisies		
 
 	    $.each(parameters,function (i,e){
-	        if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi) {
-	        	var ranger = $(cadre).find(".range" + e.valeur);
-	            var ligne = ranger.slider('getValue');
-	            ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
-	            tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
-	        }
-	    });
-
+			// Si on est dans le flux local, on ne doit pas prendre les paramètres du slider correspondant à la matrice à dériver
+			if(cadre == ".fluxLocal"){
+				var paramAssociee = parameters.find(function (e) {return e.matrice == metadata.calculs["fluxLocal"].matriceADeriver;});
+				if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi && e.valeur != paramAssociee.valeur) {
+					var ranger = $(cadre).find(".range" + e.valeur);
+					var ligne = ranger.slider('getValue');
+					ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
+					tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
+				}
+			}else{
+				if(self.isSliderParameter(e,cadre,metadata) && e!=variableChoisi){
+					var ranger = $(cadre).find(".range" + e.valeur);
+					var ligne = ranger.slider('getValue');
+					ligne = Math.round((ligne-e.min)/ ranger.slider('getAttribute').step);
+					tabLigne.push(JSON.parse(JSON.stringify(matrix[e.matrice][ligne])));
+				}
+			}
+		});
 	    return tabLigne;
-	};
+	}
 
 	/* On initialise les abscisses en fonction des métadonnées (On calcule la valeur d'abscisse associé au numéro de la valeur calculée) */
 	self.initTabx = function (variableChoisi) {
-		 var tabX = new Array();
+		var tabX = new Array();
 	    var minX = variableChoisi.min;
 	    var maxX = variableChoisi.max;
 
