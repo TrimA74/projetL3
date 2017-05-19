@@ -16,6 +16,22 @@ $( document ).ready(function() {
         MathJax.Hub.Queue(["Typeset",MathJax.Hub], function () {
             $(".mathjax").css('visibility','visible');
         });
+            if(screen.with > 800) {
+           MathJax.Hub.Config({
+            "HTML-CSS": { scale: 70}
+            });  
+        } else {
+             MathJax.Hub.Config({
+                "HTML-CSS": { scale: 60}
+            });
+        }
+
+        MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+            console.info(message);
+        });
+        MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+            console.info(message);
+        });
     }
     catch (e) { // ne rien faire si erreur, pas grave 
     }
@@ -24,22 +40,7 @@ $( document ).ready(function() {
         window.location.href='index.php';
                 
     });
-    if(screen.with > 800) {
-       MathJax.Hub.Config({
-        "HTML-CSS": { scale: 70}
-        });  
-    } else {
-         MathJax.Hub.Config({
-            "HTML-CSS": { scale: 60}
-        });
-    }
 
-    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
-        console.info(message);
-    });
-    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
-        console.info(message);
-});
    
 
 	/** Test MathJax responsive **/
@@ -216,6 +217,7 @@ function changeParams(parametre,val,cadre){
 
 /* Fonction qui se déclanche sur l'événement onChange du selecteur de dataset */
 function majApresSet(set,cadre){
+    $("#latexSetInfo").css('visibility','hidden');
     setCourant = set;
     var parameters = metadata.set[setCourant].parameters;
 
@@ -227,7 +229,9 @@ function majApresSet(set,cadre){
           document.getElementById("latexSetInfo").innerHTML = " \
           <p style=\"font-size:200%;\"> " + client.responseText + " \
           </p>";
-          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub], function () {
+            $("#latexSetInfo").css('visibility','visible');  
+          });
         };
         client.send();
     } else {
