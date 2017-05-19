@@ -36,11 +36,6 @@ var mesFonctions = {
         //console.log(tableaux);
         
         
-        // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
-        for(var i=0;i<nbLignes;i++){
-            tabOrdonee[i] = Number(variableChoisi.valInit);
-        }
-        
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y
             for(var j=0;j<nbColonnes;j++){      // On fait la somme des produits de chaque colonnes
@@ -78,8 +73,11 @@ var mesFonctions = {
         
         
         // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
+		var paramOrdonnee = metadata.parameters.find(function (e){
+			return e.fichier == 0;	// On cherche le parametre qui va en abcsisse
+		});
         for(var i=0;i<nbLignes;i++){
-            tabOrdonee[i] = Number(variableChoisi.valInit);
+            tabOrdonee[i] = Number(paramOrdonnee.valInit);
         }
         
         // Calcul
@@ -129,11 +127,6 @@ var mesFonctions = {
         }
         //console.log(tabPrecalcul);
         
-        
-        // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
-        for(var i=0;i<nbLignes;i++){
-            tabOrdonee[i] = Number(variableChoisi.valInit);
-        }
         
         // Calcul
         for(var i=0;i<nbLignes;i++){            // Pour chaque valeur de y

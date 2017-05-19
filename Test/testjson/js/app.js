@@ -224,7 +224,9 @@ function majApresSet(set,cadre){
     Méthode when utlisé pour attendre que chaque requête AJAX passé en paramètre soient terminées
     */ 
     $.when.apply( $ , MODTools.getMatrixDeferred(parameters,set) ).done(function () {
+		console.log(MODTools.calculTailleGagnee());
         $.each(metadata.calculs,function (i,e){
+			console.log (matrix);
             MODEnv.creationCadreCalcul("." + i,parameters);
             MODGraph.createDefaultGraph("."+i); 
         });
