@@ -115,6 +115,10 @@ var MODEnv = (function () {
 	        .append("<div id='graph-"+cadre.replace('.','')+"' class='graph'></div>");
 
 	    cadreDiv.find(".nomGraph").text("Please select variable to put on abscissa");
+
+
+	    var tabTaille = MODTools.calculTailleGagnee();
+	    $("#tailleGagner").html("Stockage classique : "+ MODTools.FileConvertSize(tabTaille[1]) + " </br> Stockage avec modèle réduit: " + MODTools.FileConvertSize(tabTaille[0]));
 	}
 
 	self.updateCadre = function (cadre,parameters,variableCalcul,variableChoisi){

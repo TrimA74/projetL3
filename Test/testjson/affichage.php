@@ -75,7 +75,9 @@
 				<div class="col-md-3">
 					<h3>Set Information : </h3>
 				</div>
-			<div class="col-md-7 mathjax" id="latexSetInfo"></div>
+                <div class="col-md-7 mathjax" id="latexSetInfo"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-7" id="tailleGagner"></div>
 			</div>
         </div>
                 <?php foreach ($json->calculs as $key => $value) { ?>
