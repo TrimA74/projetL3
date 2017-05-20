@@ -8,6 +8,11 @@ var metadata;
 
 /* MAIN */ 
 $( document ).ready(function() {
+    
+    //mettre le header jusqu'en bas de page
+    var height = $("body").height() - $("#sansFooter").height();
+    $("footer").css("min-height", height);
+    
     /* the preprocessors (if any were loaded) to run over the page again, 
     *** and then MathJax will look for unprocessed mathematics on the page and typeset it, 
     ** leaving unchanged any math that has already been typeset.  */ 

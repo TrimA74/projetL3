@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 
-<html style="width=100%;">
+<html">
 <head>
 	 <meta charset="UTF-8">
 	  <meta name="description" content="Free Web tutorials">
@@ -34,6 +34,7 @@
 
 	<body class="body">
         
+        <div id="sansFooter">
         <div class="fondHeader">
 		<header  class="container fondHeader">
 			<div class="col-md-12 centerTitle">
@@ -157,7 +158,7 @@
         </div> <!-- end conteneur traitement -->
 
         </div> <!--end font blanc-->
-
+        </div> <!-- end sansFooter -->
         <footer class="container-fluid footerPage">
         	<div class="container">
 				<div>
