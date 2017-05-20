@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
 
-        <script type="text/x-mathjax-config">
+        <script type="text/x-mathjax-config" src="config.js">
           MathJax.Hub.Config({
             extensions: ["tex2jax.js"],
             jax: ["input/TeX", "output/HTML-CSS"],
@@ -24,8 +24,8 @@
             "SVG": { availableFonts: ["TeX"], scale : 70 }
           });
         </script>
-        <script type="text/javascript" async
-            src="http://os-vps418.infomaniak.ch/vth/MathJax/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured&<?php echo substr( md5(rand()), 0, 7)?>">
+        <script type="text/javascript"
+            src="http://os-vps418.infomaniak.ch/vth/MathJax/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured">
         </script>
 
 		<title>Parametric model in Building Physics</title>
