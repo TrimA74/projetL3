@@ -12,6 +12,22 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
 
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            "SVG": { availableFonts: ["TeX"], scale : 70 }
+          });
+        </script>
+        <script type="text/javascript" async
+            src="http://os-vps418.infomaniak.ch/vth/MathJax/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured&<?php echo substr( md5(rand()), 0, 7)?>">
+        </script>
+
 		<title>Parametric model in Building Physics</title>
 
 	</head>
@@ -167,21 +183,6 @@
 		</footer>
         
     <script src="js/jquery.min.js" integrity=""></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true
-        },
-        "SVG": { availableFonts: ["TeX"], scale : 70 }
-      });
-    </script>
-    <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured">
-    </script>
     
     <!-- Latest compiled and minified JavaScript -->
     <script src="js/bootstrap.min.js"></script>
