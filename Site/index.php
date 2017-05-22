@@ -20,42 +20,44 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 
 	<body class="body">
 
-		<div class="fondHeader">
-		<header class="container">
+        <div id="sansFooter">
+            <div class="fondHeader">
+            <header class="container">
 
-			<div class="grandCadre">
-				<h1 class="text-center"><strong><?php echo $json->siteTitle ?></strong></h1>
-			</div>
+                <div class="grandCadre">
+                    <h1 class="text-center"><strong><?php echo $json->siteTitle ?></strong></h1>
+                </div>
 
-		</header>
-		</div>
+            </header>
+            </div>
 
-        <div class="zonePrincipale">
-		<div class="container">
-			<div class="row">
+            <div class="zonePrincipale">
+            <div class="container">
+                <div class="row">
 
-				<div class="col-md-1">
-				</div>
+                    <div class="col-md-1">
+                    </div>
 
-				<div class="col-md-10">
-				<?php
-				foreach ($json->categories as $key => $value) {
-					?>
-					<div class="titreCategorie">
-						<h2 class="text-center"><a href="affichage.php?cat=<?php echo $value->lien; ?>"><strong><?php echo $value->title; ?></strong></a><h2/>
-					</div>
-					<div>
-						<div class="texteEncadrer">
-						<strong>Description : </strong><br/> 
-	                    <?php echo $value->description ?>
-	                    </div> 
-	                </div>
-				<?php } ?>
-				</div>
+                    <div class="col-md-10">
+                    <?php
+                    foreach ($json->categories as $key => $value) {
+                        ?>
+                        <div class="titreCategorie">
+                            <h2 class="text-center"><a href="affichage.php?cat=<?php echo $value->lien; ?>"><strong><?php echo $value->title; ?></strong></a><h2/>
+                        </div>
+                        <div>
+                            <div class="texteEncadrer">
+                            <strong>Description : </strong><br/> 
+                            <?php echo $value->description ?>
+                            </div> 
+                        </div>
+                    <?php } ?>
+                    </div>
 
-			</div>
-        </div>
-        </div> <!-- end zone principale -->
+                </div>
+            </div>
+            </div> <!-- end zone principale -->
+        </div> <!-- end sansFooter -->
 		<footer class="container-fluid footerIndex">
 			<div class="container">
 				<div class="row">	
@@ -63,6 +65,13 @@ $json = json_decode(file_get_contents("metadata.json"),false);
 			</div>
 		</footer>
 		
+        <script src="js/jquery.min.js" integrity=""></script>
+        <script>
+            $( document ).ready(function() {
+                var height = $("body").height() - $("#sansFooter").height();
+                $("footer").css("min-height", height);
+            });
+        </script>
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 

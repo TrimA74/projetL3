@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 
-<html style="width=100%;">
+<html">
 <head>
 	 <meta charset="UTF-8">
 	  <meta name="description" content="Free Web tutorials">
@@ -12,12 +12,29 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
 
+        <script type="text/x-mathjax-config" src="config.js">
+          MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            "SVG": { availableFonts: ["TeX"], scale : 70 }
+          });
+        </script>
+        <script type="text/javascript"
+            src="http://os-vps418.infomaniak.ch/vth/MathJax/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured">
+        </script>
+
 		<title>Parametric model in Building Physics</title>
 
 	</head>
 
 	<body class="body">
         
+        <div id="sansFooter">
         <div class="fondHeader">
 		<header  class="container fondHeader">
 			<div class="col-md-12 centerTitle">
@@ -75,7 +92,9 @@
 				<div class="col-md-3">
 					<h3>Set Information : </h3>
 				</div>
-			<div class="col-md-7 mathjax" id="latexSetInfo"></div>
+                <div class="col-md-7 mathjax" id="latexSetInfo"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-7" id="tailleGagner"></div>
 			</div>
         </div>
                 <?php foreach ($json->calculs as $key => $value) { ?>
@@ -139,7 +158,7 @@
         </div> <!-- end conteneur traitement -->
 
         </div> <!--end font blanc-->
-
+        </div> <!-- end sansFooter -->
         <footer class="container-fluid footerPage">
         	<div class="container">
 				<div>
@@ -165,21 +184,6 @@
 		</footer>
         
     <script src="js/jquery.min.js" integrity=""></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true
-        },
-        "SVG": { availableFonts: ["TeX"], scale : 70 }
-      });
-    </script>
-    <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG&delayStartupUntil=configured">
-    </script>
     
     <!-- Latest compiled and minified JavaScript -->
     <script src="js/bootstrap.min.js"></script>

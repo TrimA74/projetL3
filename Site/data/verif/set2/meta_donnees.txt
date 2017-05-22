@@ -1,0 +1,6 @@
+Variables 	 Fichiers 	 Nom 	 unité 	 val. initiale 	 min 	 max 	 matrix 
+u 	0	 field 	 [-] 	0.000000e+00	-1.000000e+00	1.000000e+00	 NaN 
+x 	1	 space 	 [-] 	NaN	0.000000e+00	1.000000e+00	 F
+t 	1	 time 	 [-] 	NaN	0.000000e+00	1.000000e+00	 G 
+k 	1	 diffusivity 	 [-] 	NaN	1.000000e-01	5.000000e-01	 H
+L 	1	 wall length 	 [-] 	NaN	1.000000e+00	1.400000e+00	 I

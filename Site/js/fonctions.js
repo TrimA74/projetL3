@@ -34,11 +34,10 @@ var mesFonctions = {
             }
         }
         //console.log(tableaux);
-        
-        
+
         // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
         for(var i=0;i<nbLignes;i++){
-            tabOrdonee[i] = Number(variableChoisi.valInit);
+            tabOrdonee[i] = Number(0);
         }
         
         // Calcul
@@ -66,6 +65,7 @@ var mesFonctions = {
         var nbColonnes = matriceAbscisse[0].length;     // Théoriquement le même dans toutes les matrices
         var nbLignes = matriceAbscisse.length;          // Nombre de valeurs calculables
         
+        var parameters = metadata.set[setCourant].parameters;
         tabPrecalcul = tableaux[0];     // Pour éviter de recalculer plusieurs fois la même chose, on stocke dans un tableau le résultat des produits des lignes déjà fixées
 
         // On précalcule la multiplication des lignes des matrices fixés
@@ -78,8 +78,13 @@ var mesFonctions = {
         
         
         // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
+		var paramOrdonnee = parameters.find(function (e){
+			return e.fichier == 0;	// On cherche le parametre qui va en abcsisse
+		});
+
+
         for(var i=0;i<nbLignes;i++){
-            tabOrdonee[i] = Number(variableChoisi.valInit);
+            tabOrdonee[i] = Number(paramOrdonnee.valInit);
         }
         
         // Calcul
@@ -129,10 +134,9 @@ var mesFonctions = {
         }
         //console.log(tabPrecalcul);
         
-        
         // On initialise le tableau y avec la valeur spécifiée dans les métadonnées
         for(var i=0;i<nbLignes;i++){
-            tabOrdonee[i] = Number(variableChoisi.valInit);
+            tabOrdonee[i] = Number(0);
         }
         
         // Calcul

@@ -145,6 +145,36 @@ var MODTools = (function(){
 
 	    return tabX;
 	};
+	
+	self.calculTailleGagnee = function () {
+		var tailleThOpti = 0;
+		var tailleThPasOpti = 1;
+		var tabResult = new Array();	//on stoque les resultats dans un tableau
+		
+		for (var prop in matrix){
+			tailleThOpti += matrix[prop].length * matrix[prop][0].length;	
+		}
+		tailleThOpti = tailleThOpti * 4;	// 4->taille d'un float en octet
+		tabResult[0] = tailleThOpti;
+		
+		
+		for (var prop in matrix){	//on mutiplie toutes les lignes des matrices entre elles
+			tailleThPasOpti *= matrix[prop].length;
+		}
+		tailleThPasOpti = tailleThPasOpti * 4; // 4->taille d'un float en octet
+		tabResult[1] = tailleThPasOpti;
+		
+		
+		return tabResult
+	};
+
+	self.FileConvertSize = function (aSize){
+		aSize = Math.abs(parseInt(aSize, 10));
+		var def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];
+		for(var i=0; i<def.length; i++){
+			if(aSize<def[i][0]) return (aSize/def[i-1][0]).toFixed(2)+' '+def[i-1][1];
+		}
+	}
 
 	self.getMatrixDeferred = function (parameters,set) {
 	    var deferreds = [];
@@ -173,6 +203,7 @@ var MODTools = (function(){
 	            }));
 	        }
 	    });
+		console.log(matrix);
 	    return deferreds;
 
 	}

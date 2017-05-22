@@ -118,7 +118,7 @@ var MODEnv = (function () {
 
 
 	    var tabTaille = MODTools.calculTailleGagnee();
-	    $("#tailleGagner").html("Stockage classique : "+ MODTools.FileConvertSize(tabTaille[1]) + " </br> Stockage avec modèle réduit: " + MODTools.FileConvertSize(tabTaille[0]));
+	    $("#tailleGagner").html("Classic storage : "+ MODTools.FileConvertSize(tabTaille[1]) + " </br> Storage with model reduction: " + MODTools.FileConvertSize(tabTaille[0]));
 	}
 
 	self.updateCadre = function (cadre,parameters,variableCalcul,variableChoisi){
